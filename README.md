@@ -41,4 +41,4 @@ Jacob Kubik: jckubik@vt.edu
 Rohit Rane: rohitrane@vt.edu
 
 ## Project status
-Project has just started for the implementation of desired features. 
+In Progress: Project has just started for the implementation of desired features. 
