@@ -11,7 +11,15 @@ These functionalities can also be availed by a unregistered user, however, to a 
 
 ## Usage
 
+For a new user, the uasge of simply straight forward:
 
+1) Create an account
+
+2) Login to the app
+
+3) Provide the details of different credit/loyalty cards held
+
+From this point app is ready to provide user with personalized recommendations. User can deals/coupons from popular stores on his homepage. He/She can search for coupons or card recommendations by entering a store name manually or enabling the geolocation. In the latter case, the app itself finds the store name if there is actually an store at the geolocation of user.
 
 ## Roadmap (To be filled as project progresses)
 
