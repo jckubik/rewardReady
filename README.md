@@ -11,7 +11,7 @@ These functionalities can also be availed by a unregistered user, however, to a 
 
 ## Usage
 
-For a new user, the uasge of simply straight forward:
+For a new user, the uasge of RewardReady is straightforward:
 
 1) Create an account
 
