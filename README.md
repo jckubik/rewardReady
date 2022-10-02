@@ -1,9 +1,5 @@
 # RewardReady
 
-
-## Name
-RewardReady
-
 ## Description
 The RewardReady, a WebApp, works by having the registered users store information regarding the name and type of different credit or loyalty cards they currently own. From this point, the app can be used by the user to maximize his rewards/additional savings when trying to purchase a product from a merchant. A user can either manually enter the product name/category and merchant name or use the app to automatically detect the merchant based on his/her current geolocation. Based on the entered data, the app provides the user with information regarding the best card option to make the purchase from his/her bouquet of cards and other online deals/coupons available for the product/merchant (in general). The app also has an additional feature to recommend a new credit card user can apply for based on his previous searches to maximize his/her savings.  
 
