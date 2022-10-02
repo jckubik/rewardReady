@@ -15,15 +15,20 @@ These functionalities can also be availed by a unregistered user, however, to a 
 
 ## Roadmap (To be filled as project progresses)
 
+                                                 
+
 ## Authors and acknowledgment
 Anurag Saroha: sanurag@vt.edu
+
 Ayush Sahay: sahayayush987@vt.edu
+
 Diego Espinoza: despi17@vt.edu
+
 Jackson Prillaman: jackp96@vt.edu
+
 Jacob Kubik: jckubik@vt.edu
+
 Rohit Rane: rohitrane@vt.edu
 
-## Project status - optional
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
-
-If project status not filled in by time readme is done, then just delete
+## Project status
+Project has just started for the implementation of desired features. 
