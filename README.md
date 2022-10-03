@@ -5,6 +5,16 @@ The RewardReady, a WebApp, works by having the registered users store informatio
 
 These functionalities can also be availed by a unregistered user, however, to a limited extent. Recommendations provided by app for unregistered user are generic and not personalized (based on cards he/she holds).
 
+## Frameworks
+
+Design: Whimsical & Figma
+
+Front End: React.js
+
+Back End: Express.js
+
+Database: MySQL
+
 ## Usage
 
 For a new user, the uasge of RewardReady is straightforward:
@@ -17,7 +27,7 @@ For a new user, the uasge of RewardReady is straightforward:
 
 From this point onward, the app is ready to provide user with personalized recommendations. User can deals/coupons from popular stores on his homepage. He/She can search for coupons or card recommendations by entering a store name manually or enabling the geolocation. In the latter case, the app itself finds the store name if there is actually an store at the geolocation of user.
 
-An unregistered user can simply use the app to find deals and rewards by providing a store name or his/her current geolocation, without going through the logging in step. But as the app doesn't have information related to cards held by user in this case, the recommendations will be generic in nature (best card overall, disregard to whether user holds it or not).                                               
+An unregistered user can simply use the app to find deals and rewards by providing a store name or his/her current geolocation, without going through the logging in step. But as the app doesn't have information related to cards held by user in this case, the recommendations will be generic in nature (best card overall, disregard to whether user holds it or not).                                              
 
 ## Authors and acknowledgment
 Anurag Saroha: sanurag@vt.edu
