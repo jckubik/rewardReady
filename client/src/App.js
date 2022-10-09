@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import { useEffect, useState } from 'react';
 import './App.css';
+import LocateMe from './Components/LocateMe';
 
 function App() {
 
@@ -22,9 +23,10 @@ function App() {
 
   return (
     <div className="App">
-          <p>
+          <LocateMe></LocateMe>
+          {/* <p>
             { apiResponse }
-          </p>
+          </p> */}
     </div>
   );
 }
