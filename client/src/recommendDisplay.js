@@ -1,7 +1,10 @@
 import api from '/client/src/utils/api';
+import { useState } from 'react';
 
 const RecommendDisplay = () => {
 
+    const [recommendation, setRecommendation] = useState();
+    
     // May need to change depending on how checking for logged in user works
     if (!localStorage.getItem('token')) {
         return (
@@ -10,6 +13,7 @@ const RecommendDisplay = () => {
             </div>
         );
     } else {
+        
         var userID, store;
         function getUserID() {
             //TBD
@@ -21,7 +25,7 @@ const RecommendDisplay = () => {
             return store;
         }
 
-        var recommendation = api.getCardRecommendationsForUser(getUserID(), getStore());
+        setRecommendation(api.getCardRecommendationsForUser(getUserID(), getStore()));
         
         return (
             <div>
