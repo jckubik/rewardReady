@@ -5,7 +5,7 @@ module.exports = app => {
 
     router.get('/auth', authJwt.verifyToken, (req, res) => {
         res.json({success: true});
-    })
+    });
 
     app.use('/api/test', router);
 };
