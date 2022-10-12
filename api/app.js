@@ -2,10 +2,13 @@
 const express = require('express');
 const cors = require('cors')
 const path = require('path');
-const cookieParser = require('cookie-parser');
+const cookieSession = require('cookie-session');
 const logger = require('morgan');
 
 const app = express();
+
+const cookieConfig = require('./config/cookie.config');
+const db = require('./models');
 
 // // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
@@ -15,15 +18,24 @@ app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
-app.use(cookieParser());
+app.use(
+    cookieSession({
+        name: 'rewardready-session',
+        secret: cookieConfig.secret,
+        httpOnly: true,
+        sameSite: 'strict'
+    })
+);
 app.use(express.static(path.join(__dirname, 'public')));
 
-const db = require('./models');
 db.sequelize.sync()
     .then(() => console.log('Synced database'))
     .catch(err => console.log('Failed to sync database: ', err.message));
 
 require('./routes/user.routes')(app);
+require('./routes/test.routes')(app); // TODO - remove
+
+// TODO - ensure all error codes are right
 
 // // catch 404 and forward to error handler
 // app.use(function (req, res, next) {
