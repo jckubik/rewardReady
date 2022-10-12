@@ -50,4 +50,66 @@ exports.logout = async (req, res) => {
     } catch (err) {
         this.next(err);
     }
-}
+};
+
+exports.delete = async (req, res, next) => {
+    const { userId, email } = req.body;
+
+    try {
+        // find the proper user to delete
+        const user = await User.findAll({
+            where: {
+                id: userId,
+            }
+        }).then(() => { user.length > 0 ? user[0] : null });
+    
+        if (user) {
+            // Delete the user instance if found
+            user.destroy();
+            res.status(200).send({ message: `User with username: ${email} has been deleted successfully.` });
+        } else {
+            res.status(404).send({ message: 'User requested does not exist.' });
+        }
+    } catch (error) {
+        res.status(400).send({ message: 'Unexpected error while trying to delete user.' })
+    }
+};
+
+// Update password should probably be serparate with the validation needed?
+exports.updateInfo  = async (req, res, next) => {
+    const { userId, firstName, lastName, phoneNumber, email } = req.body;
+
+    // Error if full information not sent
+    if (!userId || !firstName || !lastName || !phoneNumber || !email) {
+        res.status(400).send({ message: 'Content cannot be empty.' });
+        return;
+    }
+
+    try {
+        // find the proper user to update
+        const user = await User.findAll({
+            where: {
+                id: userId,
+            }
+        }).then(() => { user.length > 0 ? user[0] : null });
+    
+        if (user) {
+            // Set the data
+            user.set({
+                firstName,
+                lastName,
+                phoneNumber,
+                email,
+            })
+    
+            // Save the data to the database
+            await user.save();
+            res.status(200).send({ message: 'User updated successfully.' });
+            next();
+        } else {
+            res.status(404).send({ message: 'User requested does not exist.' });
+        }
+    } catch(error) {
+        res.status(400).send({ message: 'Unexpected error while trying to update user.' })
+    }
+};

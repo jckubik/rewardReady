@@ -11,6 +11,8 @@ module.exports = app => {
     );
     router.post('/login', users.login);
     router.post('/logout', users.logout);
+    router.post('/update', users.updateInfo);
+    router.post('/delete', users.delete);
 
     app.use('/api/user', router);
 };
