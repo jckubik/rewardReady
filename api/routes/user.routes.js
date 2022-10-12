@@ -1,16 +1,16 @@
+const router = require('express').Router();
+
+const userController = require('../controllers/user.controller');
+const verifyRegistry = require('../middleware/verifyRegistry');
+
 module.exports = app => {
-    const router = require('express').Router();
-
-    const users = require('../controllers/user.controller');
-    const verifyRegistry = require('../middleware/verifyRegistry');
-
     router.post(
         '/register',
         [verifyRegistry.checkDuplicates, verifyRegistry.checkValidity],
-        users.register
+        userController.register
     );
-    router.post('/login', users.login);
-    router.post('/logout', users.logout);
+    router.post('/login', userController.login);
+    router.post('/logout', userController.logout);
 
     app.use('/api/user', router);
 };

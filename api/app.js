@@ -33,7 +33,7 @@ db.sequelize.sync()
     .catch(err => console.log('Failed to sync database: ', err.message));
 
 require('./routes/user.routes')(app);
-require('./routes/test.routes')(app); // TODO - remove
+require('./routes/wallet.routes')(app);
 
 // TODO - ensure all error codes are right
 
