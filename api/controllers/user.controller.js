@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 const authConfig = require('../config/auth.config');
 const db = require('../models');
 const User = db.users;
+const Wallet = db.wallets;
 const Op = db.Sequelize.Op;
 
 exports.register = async (req, res) => {
@@ -20,6 +21,13 @@ exports.register = async (req, res) => {
             };
         })
         .then(user => User.create(user))
+        .then(data => {
+            return {
+                userId: data.id,
+                items: {}
+            }
+        })
+        .then(wallet => Wallet.create(wallet))
         .then(() => res.end())
         .catch(() => res.status(500).send({message: 'Unexpected error'}));
 };
