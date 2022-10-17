@@ -34,11 +34,12 @@ exports.register = async (req, res) => {
 
 exports.login = async (req, res) => {
     const body = req.body;
-    User.findAll({where: {email: {[Op.eq]: body.email}}})
-        .then(users => users.length > 0 ? users[0].get({plain: true}) : null)
+    User.findOne({where: {email: {[Op.eq]: body.email}}})
+        .then(user => user ? user.get({plain: true}) : null)
         .then(user => [user, user ? bcrypt.compareSync(body.password, user.password) : null])
         .then(authentication => {
-            if (authentication[1]) {
+            const valid = authentication[1];
+            if (valid) {
                 const user = authentication[0]
                 delete user.password;
                 const token = jwt.sign(user, authConfig.secret, {expiresIn: 86400});
