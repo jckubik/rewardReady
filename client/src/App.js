@@ -4,8 +4,8 @@ import { useEffect, useState } from "react";
 import "./App.css";
 // import LocateMe from "./Components/LocateMe";
 import Home from "./pages/Home";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
+import Header from "./Components/Header";
+import Footer from "./Components/Footer";
 
 function App() {
   const [apiResponse, setApiResponse] = useState();
