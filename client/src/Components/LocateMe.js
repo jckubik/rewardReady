@@ -4,25 +4,49 @@ import '../css/LocateMe.css';
 const LocateMe = () => {
 
   // State may need to be lifted up to whereever location is being used
-  const [userLocationText, setUserLocationText] = useState();
+  const [storeName, setStoreName] = useState();
+  const [userCity, setUserCity] = useState();
+  const [userState, setUserState] = useState();
 
   return (
     <div className="location-container">
       <div className="form-container">
         <form id="user-location">
-          <div>
-            <label htmlFor="user-location">
-              Location
-            </label>
-          </div>
+          <label htmlFor="store-name">
+            Store Name
+          </label>
           <input 
             type="text" 
-            value={userLocationText}
-            name="user-location" 
-            id="user-location" 
-            placeholder="Address"
+            value={storeName}
+            name="store-name" 
+            id="store-name" 
+            placeholder="Store"
             required 
-            onChange={(event) => setUserLocationText(event.target.value)}
+            onChange={(event) => setStoreName(event.target.value)}
+          />
+          <label htmlFor="user-city">
+            City
+          </label>
+          <input 
+            type="text" 
+            value={userCity}
+            name="user-city" 
+            id="user-city" 
+            placeholder="City"
+            required 
+            onChange={(event) => setUserCity(event.target.value)}
+          />
+          <label htmlFor="user-state">
+            State
+          </label>
+          <input 
+            type="text" 
+            value={userState}
+            name="user-state" 
+            id="user-state" 
+            placeholder="Store"
+            required 
+            onChange={(event) => setUserState(event.target.value)}
           />
           <input type="submit" value="Enter" />
         </form>
