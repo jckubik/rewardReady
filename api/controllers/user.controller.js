@@ -53,7 +53,8 @@ exports.logout = async (req, res) => {
 };
 
 exports.delete = async (req, res, next) => {
-    const { userId, email } = req.body;
+    const { userId } = req.userId;
+    const { email } = req.body;
 
     try {
         // find the proper user to delete
@@ -77,7 +78,8 @@ exports.delete = async (req, res, next) => {
 
 // Update password should probably be serparate with the validation needed?
 exports.updateInfo  = async (req, res, next) => {
-    const { userId, firstName, lastName, phoneNumber, email } = req.body;
+    const { userId } = req.userId;
+    const { firstName, lastName, phoneNumber, email } = req.body;
 
     // Error if full information not sent
     if (!userId || !firstName || !lastName || !phoneNumber || !email) {

@@ -1,18 +1,19 @@
 module.exports = app => {
     const router = require('express').Router();
 
-    const users = require('../controllers/user.controller');
+    const userController = require('../controllers/user.controller');
     const verifyRegistry = require('../middleware/verifyRegistry');
+    const authJwt = require('../middleware/authJwt');
 
     router.post(
         '/register',
         [verifyRegistry.checkDuplicates, verifyRegistry.checkValidity],
-        users.register
+        userController.register
     );
-    router.post('/login', users.login);
-    router.post('/logout', users.logout);
-    router.post('/update', users.updateInfo);
-    router.post('/delete', users.delete);
+    router.post('/login', userController.login);
+    router.post('/logout', userController.logout);
+    router.post('/update', authJwt.verifyToken, userController.updateInfo);
+    router.post('/delete', authJwt.verifyToken, userController.delete);
 
     app.use('/api/user', router);
 };
