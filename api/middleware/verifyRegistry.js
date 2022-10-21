@@ -1,4 +1,4 @@
-const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
+const {phone} = require('phone');
 const emailValidator = require("email-validator");
 
 const db = require('../models');
@@ -25,16 +25,18 @@ exports.checkValidity = async (req, res, next) => {
         return;
     }
 
-    if (!body.password.match('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$')) {
+    const re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
+    if (!re.test(body.password)) {
         res.status(400).send({message: 'Invalid password'});
         return;
     }
 
-    const phoneNumber = body.phoneNumber;
-    if (phoneNumber && !phoneUtil.isValidNumber(phoneNumber)) {
+    const phoneInfo = phone(body.phoneNumber);
+    if (!phoneInfo.isValid) {
         res.status(400).send({message: 'Phone number is invalid'});
         return;
     }
 
+    body.phoneNumber = phoneInfo.phoneNumber;
     next();
 }

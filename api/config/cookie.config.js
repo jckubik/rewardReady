@@ -1,3 +1,3 @@
 module.exports = {
-    secret: "rewardready-secret-key"
+    secret: 'rewardready-secret-key'
 };

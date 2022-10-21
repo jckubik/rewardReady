@@ -1,10 +1,10 @@
-module.exports = app => {
-    const router = require('express').Router();
+const router = require('express').Router();
 
     const userController = require('../controllers/user.controller');
     const verifyRegistry = require('../middleware/verifyRegistry');
     const authJwt = require('../middleware/authJwt');
 
+module.exports = app => {
     router.post(
         '/register',
         [verifyRegistry.checkDuplicates, verifyRegistry.checkValidity],
