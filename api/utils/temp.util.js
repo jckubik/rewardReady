@@ -1,7 +1,7 @@
-// TODO - this is extremely dirty and needs to be removed, but how?
 const apiConfig = require("../config/api.config");
 const axios = require("axios");
 
+// TODO - this is extremely dirty and needs to be removed, but how?
 exports.getCardById = async (cardId) => {
     let cardInfo = null;
     let pageNum = 1;
@@ -19,7 +19,8 @@ exports.getCardById = async (cardId) => {
         };
         let data;
         try {
-            data = (await axios.request(options)).data;
+            const res = await axios.request(options);
+            data = res.data;
         } catch (err) {
             break;
         }

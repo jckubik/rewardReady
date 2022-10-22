@@ -44,10 +44,41 @@ exports.recommendCard = async (req, res) => {
         .then(wallet => Promise.all(wallet.items.cards.map(cardId => tempUtil.getCardById(cardId))))
         .then(cards => cards.filter(card => card !== null))
         .then(cards => {
-            // TODO - recommendation engine
-            console.log(cards);
-            res.end();
+            const topCards = cards.sort((cardA, cardB) => {
+                const recommendCategory = req.body.recommendCategory;
+                const earningsA = cardA.earnings
+                    .filter(earning => earning.category === recommendCategory)
+                    .sort((earningA, earningB) => earningB.points - earningA.points);
+                cardA.earnings = earningsA;
+                const earningsB = cardB.earnings
+                    .filter(earning => earning.category === recommendCategory)
+                    .sort((earningA, earningB) => earningB.points - earningA.points);
+                cardB.earnings = earningsB;
+                let topA = null;
+                if (earningsA.length > 0) {
+                    topA = earningsA[0];
+                }
+                let topB = null;
+                if (earningsB.length > 0) {
+                    topB = earningsB[0];
+                }
 
+                if (topA !== null && topB !== null) {
+                    return topB.points - topA.points;
+                } else if (topA !== null) {
+                    return -1;
+                } else if (topB !== null) {
+                    return 1;
+                }
+
+                return 0;
+            });
+
+            if (cards.length > 0) {
+                res.json(topCards[0]);
+            } else {
+                res.end();
+            }
         })
         .catch(() => res.status(500).send({message: 'Unexpected error'}));
 };
