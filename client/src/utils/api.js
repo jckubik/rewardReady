@@ -25,9 +25,9 @@ async function execute(method, resource, data) {
     }
 }
 
-async function getCardRecommendationsForUser(userid, store) {
+async function getCardRecommendationsForUser(store) {
     // need to change method to lowercase poss, change resource to valid
-    return await execute('GET', '/---', {id:userid, store:store});
+    return await execute('GET', '/localhost:9000/--', {store:store});
 }
 
 export default {getCardRecommendationsForUser}

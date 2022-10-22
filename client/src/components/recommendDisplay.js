@@ -14,18 +14,14 @@ const RecommendDisplay = () => {
         );
     } else {
         
-        var userID, store;
-        function getUserID() {
-            //TBD
-            return userID;
-        }
+        var store;
 
         function getStore() {
-            //TBD
+            //TBD needs state from locateme - should move it up from locateme to app with call in header as well
             return store;
         }
 
-        setRecommendation(api.getCardRecommendationsForUser(getUserID(), getStore()));
+        setRecommendation(api.getCardRecommendationsForUser(getStore()));
         
         return (
             <div>
