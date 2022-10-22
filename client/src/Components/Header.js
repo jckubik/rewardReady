@@ -6,6 +6,10 @@ export default class Header extends React.Component {
     this.state = {};
   }
   render() {
-    return <div>{/* Create header component */}header component</div>;
+    return (
+      <div className="text-3xl w-100 h-32 bg-light-gray">
+        {/* Create header component */}header component
+      </div>
+    );
   }
 }
