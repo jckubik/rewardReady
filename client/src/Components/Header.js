@@ -35,7 +35,7 @@ export default class Header extends React.Component {
                 Ready
               </span>
             </div>
-            <div className="flex-0">
+            <div className="flex-0 flex items-center">
               <div className="relative">
                 <input
                   type="search"
@@ -47,13 +47,13 @@ export default class Header extends React.Component {
                 </button>
               </div>
             </div>
-            <div className="flex-1 text-left">
-              <span className="inline-block align-middle pl-3">
+            <div className="flex-1 text-left flex items-center">
+              <a href="/" className="pl-3">
                 <FontAwesomeIcon icon={solid("map-location")} />
-              </span>
-              <span className="pl-2 inline-block align-middle text-amazon font-semibold font-sm font-inter">
-                <a className="inline-block align-middle">Enter Location</a>
-              </span>
+                <span className="pl-2 font-sm text-amazon font-semibold">
+                  Enter Location
+                </span>
+              </a>
             </div>
           </div>
         </div>
