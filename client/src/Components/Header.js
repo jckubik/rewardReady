@@ -34,7 +34,7 @@ export default class Header extends React.Component {
               <div className="relative">
                 <input
                   type="search"
-                  className="h-9 rounded-xl font-inter text-sm pl-2 pr-8 w-72"
+                  className="h-9 rounded-xl font-inter text-sm pl-2 pr-10 w-72"
                   placeholder="Search for deals, coupons, and merchants"
                 />
                 <button className="absolute right-3 bottom-2">
