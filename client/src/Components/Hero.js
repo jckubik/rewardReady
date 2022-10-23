@@ -7,7 +7,7 @@ export default class Hero extends React.Component {
         <div className="absolute bg-brunswick-green h-5 w-full"></div>
         <div className="w-full px-4 py-10">
           <div className="font-inter text-4xl font-extrabold">
-            <p className="text-left text-oxford-blue ">MAXIMIZE REWARDS.</p>
+            <p className="text-left text-oxford-blue">MAXIMIZE REWARDS.</p>
             <p className="text-left text-shamrock-green">
               FIND DEALS & COUPONS.
             </p>

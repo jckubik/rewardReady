@@ -6,6 +6,7 @@ export default class ShowcaseItem extends React.Component {
       <div>
         <img
           className="object-cover w-60 h-36"
+          alt={this.props.item.title}
           src={require("../assets/shoes.jpg")}
         />
         <div className="pt-4">

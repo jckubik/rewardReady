@@ -1,6 +1,6 @@
 import React from "react";
-import { Routes, Route, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+// import { useEffect, useState } from "react";
 import "./App.css";
 // import LocateMe from "./Components/LocateMe";
 import Home from "./pages/Home";
@@ -11,7 +11,7 @@ import AddCard from "./components/AddCard";
 // import "./styles/output.css";
 
 function App() {
-  const [apiResponse, setApiResponse] = useState();
+  // const [apiResponse, setApiResponse] = useState();
 
   // function callAPI() {
   //   fetch("http://localhost:9000/testAPI", {
@@ -30,7 +30,7 @@ function App() {
     <div className="App">
       <Header />
       <Routes>
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={<Home />} />
       </Routes>
       <AddCard />
       <Footer />

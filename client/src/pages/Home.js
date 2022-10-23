@@ -32,7 +32,7 @@ const Home = () => {
         items={items}
         backgroundColor="honeydew"
       />
-      <Showcase title="Popular Coupons" items={items} />
+      <Showcase title="Popular Coupons" items={items} backgroundColor="white" />
     </div>
   );
 };
