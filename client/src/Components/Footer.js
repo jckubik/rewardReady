@@ -24,19 +24,19 @@ export default class Footer extends React.Component {
           <div className="flex-1 flex justify-end gap-x-3">
             <a href="/">
               <FontAwesomeIcon
-                className="h-9 text-amazon"
+                className="h-9 text-brunswick-green"
                 icon={brands("twitter-square")}
               />
             </a>
             <a href="/">
               <FontAwesomeIcon
-                className="h-9 text-amazon"
+                className="h-9 text-brunswick-green"
                 icon={brands("facebook-square")}
               />
             </a>
             <a href="/">
               <FontAwesomeIcon
-                className="h-9 text-amazon"
+                className="h-9 text-brunswick-green"
                 icon={brands("instagram-square")}
               />
             </a>
