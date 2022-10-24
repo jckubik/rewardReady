@@ -32,7 +32,7 @@ const AddCard = () => {
       body: JSON.stringify(cardToInsert),
     };
     
-    await fetch(`http://localhost:9000/api/wallet/insert`, options)
+    await fetch(`http://localhost:9000/api/wallet/items/cards/insert`, options)
       .then(response => console.log(response))
       .catch(err => console.error(err));
 
