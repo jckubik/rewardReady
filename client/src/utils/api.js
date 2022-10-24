@@ -30,4 +30,7 @@ async function getCardRecommendationsForUser(store) {
     return await execute('GET', '/localhost:9000/--', {store:store});
 }
 
+const ccStackSecret = 'bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf';
+
 export default {getCardRecommendationsForUser}
+export { ccStackSecret }
