@@ -19,6 +19,7 @@ db.sequelize = sequelize;
 User = db.users = require('./user.model')(sequelize, Sequelize);
 Wallet = db.wallets = require('./wallet.model')(sequelize, Sequelize);
 
+User.hasOne(Wallet);
 Wallet.belongsTo(User);
 
 module.exports = db;
