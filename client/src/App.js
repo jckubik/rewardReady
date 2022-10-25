@@ -4,8 +4,6 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 // import LocateMe from "./Components/LocateMe";
 import Home from "./pages/Home";
-import Header from "./Components/Header";
-import Footer from "./Components/Footer";
 import Setting from "./pages/Setting";
 import Personal from "./pages/Setting/Personal";
 import Cards from "./pages/Setting/Cards";
