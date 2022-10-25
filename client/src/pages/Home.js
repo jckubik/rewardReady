@@ -5,7 +5,6 @@ import Showcase from "../components/Showcase";
 import { useState } from "react";
 
 const Home = () => {
-  
   return (
     <div className="w-full">
       <Hero />
@@ -14,7 +13,11 @@ const Home = () => {
         type={"deal"}
         backgroundColor="honeydew"
       />
-      <Showcase title="Popular Coupons" type={"coupon"} backgroundColor="white" />
+      <Showcase
+        title="Popular Coupons"
+        type={"coupon"}
+        backgroundColor="white"
+      />
     </div>
   );
 };

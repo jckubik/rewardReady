@@ -1,4 +1,5 @@
 import React from "react";
+import SubHeader from "../../components/SubHeader";
 
 const CardItem = ({ text }) => {
     return (
@@ -20,6 +21,7 @@ const Cards = () => {
     ];
     return (
         <div>
+            <SubHeader active="card" />
             <div>
                 <h2>Add a Card</h2>
                 <span>+</span>
