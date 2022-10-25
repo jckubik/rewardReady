@@ -1,13 +1,11 @@
 import { Outlet } from "react-router";
-import SubHeader from "../../components/SubHeader";
 
 const Setting = () => {
-  return (
-    <>
-      <SubHeader />
-      <Outlet />
-    </>
-  );
+    return (
+        <>
+            <Outlet />
+        </>
+    );
 };
 
 export default Setting;
