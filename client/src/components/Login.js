@@ -4,9 +4,14 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { PORT } from "../constants";
 import session from "../context/user";
+<<<<<<< HEAD
 import api from "../utils/api";
 
 const Login = ({ setPopupDisplay, setPopupVisibility }) => {
+=======
+
+const Login = ({ setPopupDisplay }) => {
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
   const email_r = useRef();
   const password_r = useRef();
 
@@ -14,6 +19,7 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
 
   const { setUser } = useContext(session);
 
+<<<<<<< HEAD
   const handleSubmit = async (e) => {
     e.preventDefault();
     const email = email_r.current.value;
@@ -28,6 +34,39 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
       console.log(err);
       setError("Incorrect Email/password");
       return;
+=======
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const email = email_r.current.value;
+    const password = password_r.current.value;
+    try {
+      fetch(`http://localhost:${PORT}/api/user/login`, {
+        body: JSON.stringify({
+          email: email,
+          password: password,
+        }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        method: "POST",
+      })
+        .then((res) => {
+          if (res.status === 200) {
+            // setVisible(false);
+            console.log(res);
+          } else {
+            setError("Incorrect Email/password");
+            return;
+          }
+          return res.json();
+        })
+        .then((data) => {
+          console.log(data);
+          setUser(data);
+        });
+    } catch (e) {
+      console.error(e.message);
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
     }
   };
 
@@ -44,16 +83,28 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
           className="w-full rounded-sm py-2"
           name="email"
           ref={email_r}
+<<<<<<< HEAD
           icon={<FontAwesomeIcon icon={solid("envelope")} />}
         />
+=======
+        >
+          <FontAwesomeIcon icon={solid("envelope")} />
+        </Input>
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
         <Input
           placeholder="Enter Password"
           type="password"
           className="w-full rounded-sm py-2"
           name="password"
           ref={password_r}
+<<<<<<< HEAD
           icon={<FontAwesomeIcon icon={solid("key")} />}
         />
+=======
+        >
+          <FontAwesomeIcon icon={solid("key")} />
+        </Input>
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
       </form>
       <button className="cta-btn" onClick={handleSubmit}>
         Login

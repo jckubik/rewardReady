@@ -1,8 +1,12 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
+<<<<<<< HEAD
 // import Setting from "./pages/Setting";
 import Personal from "./pages/Personal";
 import Cards from "./pages/Cards";
@@ -26,20 +30,32 @@ import FindCoupon from './components/FindCoupon';
 import RecommendDisplay from './components/RecommendDisplay';
 import LocateMe from './components/LocateMe';
 >>>>>>> 941c318 (Fixed frontend for card recommendation)
+=======
+import Setting from "./pages/Setting";
+import Personal from "./pages/Setting/Personal";
+import Cards from "./pages/Setting/Cards";
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+// import AddCard from "./components/AddCard";
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
 
 import session from "./context/user";
 
 function App() {
+<<<<<<< HEAD
   // const [apiResponse, setApiResponse] = useState();
   const [store, setStore] = useState({data:""});
 
   const changeState = (storeData) => {
     setStore(storeData);
   };
+=======
+  const [user, setUser] = useState(null);
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
 
   const changeState = (storeData) => {
-    setStore(storeData)
-  }
+    setStore(storeData);
+  };
 
   return (
     <session.Provider
@@ -52,6 +68,7 @@ function App() {
         <Header />
         <Routes>
           <Route index element={<Home />} />
+<<<<<<< HEAD
           <Route path="personal" element={<Personal />} />
           <Route path="cards" element={<Cards />} />
 <<<<<<< HEAD
@@ -70,6 +87,17 @@ function App() {
       <Footer />
     </div>
 >>>>>>> 941c318 (Fixed frontend for card recommendation)
+=======
+          <Route path="setting" element={<Setting />}>
+            <Route path="personal" element={<Personal />} />
+            <Route path="cards" element={<Cards />} />
+          </Route>
+        </Routes>
+        {/* <AddCard /> */}
+        <Footer />
+      </div>
+    </session.Provider>
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
   );
 }
 

@@ -26,7 +26,11 @@ const Header = () => {
             {user ? (
               <div>
                 <span
+<<<<<<< HEAD
                   className="body pl-1 inline-block align-middle cursor-pointer"
+=======
+                  className="font-inter text-sm pl-1 inline-block align-middle cursor-pointer"
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
                   onClick={() => setShowDropdown(!showDropdown)}
                 >
                   {user.user.firstName}
@@ -42,13 +46,21 @@ const Header = () => {
                   >
                     <div class="py-1" role="none">
                       <Link
+<<<<<<< HEAD
                         to="/personal"
+=======
+                        to="/setting/personal"
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
                         class="text-gray-700 block px-4 py-2 text-sm"
                       >
                         Personal
                       </Link>
                       <Link
+<<<<<<< HEAD
                         to="/cards"
+=======
+                        to="/setting/cards"
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
                         class="text-gray-700 block px-4 py-2 text-sm"
                       >
                         Card Info
@@ -66,7 +78,11 @@ const Header = () => {
               </div>
             ) : (
               <span
+<<<<<<< HEAD
                 className="body pl-1 inline-block align-middle cursor-pointer"
+=======
+                className="font-inter text-sm pl-1 inline-block align-middle cursor-pointer"
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
                 onClick={() => setShowLoginRegister(true)}
               >
                 Sign in or Register
