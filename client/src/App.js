@@ -1,15 +1,15 @@
-import React from "react";
-import { Routes, Route } from "react-router-dom";
+import React from 'react';
+import { Routes, Route } from 'react-router-dom';
 // import { useEffect, useState } from "react";
-import "./App.css";
+import './App.css';
 // import LocateMe from "./Components/LocateMe";
-import Home from "./pages/Home";
-import Setting from "./pages/Setting";
-import Personal from "./pages/Setting/Personal";
-import Cards from "./pages/Setting/Cards";
-import Header from "./components/Header";
-import Footer from "./components/Footer";
-import AddCard from "./components/AddCard";
+import Home from './pages/Home';
+import Setting from './pages/Setting';
+import Personal from './pages/Setting/Personal';
+import Cards from './pages/Setting/Cards';
+import Header from './components/Header';
+import Footer from './components/Footer';
+import AddCard from './components/AddCard';
 
 // import "./styles/output.css";
 
