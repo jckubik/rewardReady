@@ -7,6 +7,18 @@
   .cta-btn {
     @apply bg-steel-blue py-4 px-5 rounded-md font-inter font-bold text-white text-base;
   }
+
+  .primary-btn {
+    @apply bg-steel-blue p-2.5 rounded-lg font-inter font-bold text-white text-base;
+  }
+
+  .secondary-btn {
+    @apply bg-white p-2 rounded-lg font-inter font-bold text-steel-blue text-base border-4 border-steel-blue;
+  }
+
+  .tertiary-btn {
+    @apply bg-steel-blue p-2 rounded-lg font-inter font-bold uppercase text-sm text-white;
+  }
 }; 
 
 
