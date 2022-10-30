@@ -86,4 +86,8 @@ Card.belongsToMany(Wallet, {
 //     .then(() => console.log("test"))
 //     .catch(err => console.log(err))
 
+// Store.create({name: "Amazon", category: 7})
+//     .then(() => console.log("Temporary for testing"))
+//     .catch(() => console.log("Error"));
+
 module.exports = db;
