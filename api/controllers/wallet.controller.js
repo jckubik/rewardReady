@@ -82,3 +82,22 @@ exports.recommendCard = async (req, res) => {
         })
         .catch(() => res.status(500).send({message: 'Unexpected error'}));
 };
+
+exports.fetchHistory = async (req, res) => {
+    Wallet.findOne({where: {userId: {[Op.eq]: req.userId}}})
+        .then(wallet => res.send(wallet.history))
+        .catch(() => res.status(500).send({message: 'Unexpected error'}));
+}
+
+exports.insertHistory = async (req, res) => {
+    const body = req.body;
+    const userId = req.userId;
+    Wallet.findOne({where: {userId: {[Op.eq]: userId}}})
+        .then(wallet => {
+            const updatedHistory = wallet.history;
+            updatedHistory.push({cardId: body.cardId, amount: body.amount});
+            return Wallet.update({history: updatedHistory}, {where: {userId: {[Op.eq]: userId}}});
+        })
+        .then(() => res.end())
+        .catch(() => res.status(500).send({message: 'Unexpected error'}));
+}

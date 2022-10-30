@@ -24,7 +24,8 @@ exports.register = async (req, res) => {
         .then(data => {
             return {
                 userId: data.id,
-                items: {cards: []}
+                items: {cards: []},
+                history: []
             }
         })
         .then(wallet => Wallet.create(wallet))
