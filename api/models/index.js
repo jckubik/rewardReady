@@ -1,16 +1,16 @@
-const dbConfig = require('../config/db.config');
+const dbConfig = require("../config/db.config");
 
-const Sequelize = require('sequelize');
+const Sequelize = require("sequelize");
 const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
-    host: dbConfig.HOST,
-    dialect: dbConfig.dialect,
-    operatorsAliases: false,
-    pool: {
-        max: dbConfig.pool.max,
-        min: dbConfig.pool.min,
-        acquire: dbConfig.pool.acquire,
-        idle: dbConfig.pool.idle
-    }
+  host: dbConfig.HOST,
+  dialect: dbConfig.dialect,
+  operatorsAliases: false,
+  pool: {
+    max: dbConfig.pool.max,
+    min: dbConfig.pool.min,
+    acquire: dbConfig.pool.acquire,
+    idle: dbConfig.pool.idle,
+  },
 });
 
 const db = {};
@@ -27,5 +27,9 @@ User.hasOne(Wallet);
 Wallet.belongsTo(User);
 User.hasOne(History);
 History.belongsTo(User);
+
+// Store.create({name: "Amazon", category: 7})
+//     .then(() => console.log("Temporary for testing"))
+//     .catch(() => console.log("Error"));
 
 module.exports = db;
