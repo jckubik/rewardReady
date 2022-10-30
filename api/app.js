@@ -1,42 +1,43 @@
 // const createError = require('http-errors');
-const express = require('express');
-const cors = require('cors')
-const path = require('path');
-const cookieSession = require('cookie-session');
-const logger = require('morgan');
+const express = require("express");
+const cors = require("cors");
+const path = require("path");
+const cookieSession = require("cookie-session");
+const logger = require("morgan");
 
 const app = express();
 
-const cookieConfig = require('./config/cookie.config');
-const db = require('./models');
+const cookieConfig = require("./config/cookie.config");
+const db = require("./models");
 
 // // view engine setup
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
 
-app.use(cors())
-app.use(logger('dev'));
+app.use(cors());
+app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({extended: false}));
+app.use(express.urlencoded({ extended: false }));
 app.use(
-    cookieSession({
-        name: 'rewardready-session',
-        secret: cookieConfig.secret,
-        httpOnly: true,
-        sameSite: 'strict'
-    })
+  cookieSession({
+    name: "rewardready-session",
+    secret: cookieConfig.secret,
+    httpOnly: true,
+    sameSite: "strict",
+  })
 );
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(path.join(__dirname, "public")));
 
-db.sequelize.sync()
-    .then(() => console.log('Synced database'))
-    .catch(err => console.log('Failed to sync database: ', err.message));
+db.sequelize
+  .sync()
+  .then(() => console.log("Synced database"))
+  .catch((err) => console.log("Failed to sync database: ", err.message));
 
-require('./routes/user.routes')(app);
-require('./routes/wallet.routes')(app);
-require('./routes/store.routes')(app);
-require('./routes/coupon.routes')(app);
-require('./routes/deal.routes')(app);
+require("./routes/user.routes")(app);
+require("./routes/wallet.routes")(app);
+require("./routes/store.routes")(app);
+require("./routes/coupon.routes")(app);
+require("./routes/deal.routes")(app);
 // TODO - ensure all error codes are right
 
 // // catch 404 and forward to error handler

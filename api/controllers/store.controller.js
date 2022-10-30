@@ -1,34 +1,34 @@
-const { stores } = require('../models/store.model');
+const { stores } = require("../models/store.model");
 // const { categories } = require('../models/category.model');
-const db = require('../models');
+const db = require("../models");
 const Store = db.stores;
 // const Category = db.categories;
 const Op = db.Sequelize.Op;
 
 exports.fetchCategory = async (req, res) => {
-    Store.findOne({where: {name: {[Op.eq]: req.body.name}}})
-        .then(store => store ? store.get({plain: true}) : null)
-        .then(store => {
-            if (store) {
-                res.json(store);
-            } else {
-                res.status(400).send({message: 'No store found'});
-            }
-        })
-        .catch(() => res.status(500).send({message: 'Unexpected error'}));
-}
+  Store.findOne({ where: { name: { [Op.eq]: req.body.name } } })
+    .then((store) => (store ? store.get({ plain: true }) : null))
+    .then((store) => {
+      if (store) {
+        res.json(store);
+      } else {
+        res.status(400).send({ message: "No store found" });
+      }
+    })
+    .catch(() => res.status(500).send({ message: "Unexpected error" }));
+};
 
 exports.insertStore = async (req, res) => {
-    const body = req.body;
-    return Store.create({
-        name: body.name,
-        webAddress: body.webAddress,
-        logoAddress: body.logoAddress,
-        category: body.category
-    })
+  const body = req.body;
+  return Store.create({
+    name: body.name,
+    webAddress: body.webAddress,
+    logoAddress: body.logoAddress,
+    category: body.category,
+  })
     .then(() => res.end())
-    .catch(() => res.status(500).send({message: 'Unexpected error'}));
-}
+    .catch(() => res.status(500).send({ message: "Unexpected error" }));
+};
 
 // exports.associateCategory = async (req, res) => {
 //     const body = req.body;
