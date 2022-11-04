@@ -6,6 +6,7 @@ const db = require("../models");
 const User = db.users;
 const Wallet = db.wallets;
 const Op = db.Sequelize.Op;
+const tempUtil = require('../utils/temp.util');
 
 exports.register = async (req, res) => {
   const { body } = req;
