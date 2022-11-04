@@ -40,6 +40,7 @@ require('./routes/coupon.routes')(app);
 require('./routes/deal.routes')(app);
 require('./routes/search.routes')(app);
 require('./routes/history.routes')(app);
+require("./routes/category.routes")(app);
 // TODO - ensure all error codes are right
 
 // // catch 404 and forward to error handler

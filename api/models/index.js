@@ -22,14 +22,42 @@ Store = db.stores = require('./store.model')(sequelize, Sequelize);
 Coupon = db.coupons = require('./coupon.model')(sequelize, Sequelize);
 Deal = db.deals = require('./deal.model')(sequelize, Sequelize);
 History = db.history = require('./history.model')(sequelize, Sequelize);
+Category = db.categories = require("./category.model")(sequelize, Sequelize);
 
 User.hasOne(Wallet);
 Wallet.belongsTo(User);
 User.hasOne(History);
 History.belongsTo(User);
+Store.hasMany(Category);
+Category.belongsToMany(Store, {
+  through: "store_categories",
+  as: "stores",
+  foreignKey: "store_id",
+});
 
-// Store.create({name: "Amazon", category: 7})
+// These lines below are temporary for testing
+// They demonstrate how:
+// 1. A Store is created
+// 2. Two Categories are made that associate to a Store
+
+// Store.create({
+//     name: "Amazon",
+//     webAddress: "TEMP",
+//     logoAddress: "TEMP"
+// })
 //     .then(() => console.log("Temporary for testing"))
-//     .catch(() => console.log("Error"));
+//     .catch(err => console.log(err));
+// Category.create({
+//     categoryId: 7,
+//     storeId: 1
+// })
+//     .then(() => console.log("Temporary for testing"))
+//     .catch(err => console.log(err));
+// Category.create({
+//     categoryId: 14,
+//     storeId: 1
+// })
+//     .then(() => console.log("Temporary for testing"))
+//     .catch(err => console.log(err));
 
 module.exports = db;
