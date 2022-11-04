@@ -1,6 +1,6 @@
 import React from "react";
-import ShowcaseItem from "./ShowcaseItem";
-export default class Showcase extends React.Component {
+import CouponItem from "./ShowcaseItem";
+export default class CouponShowcase extends React.Component {
   render() {
     let backgroundColor = "bg-" + this.props.backgroundColor;
     return (
@@ -10,9 +10,7 @@ export default class Showcase extends React.Component {
             {this.props.title}
           </span>
           <div className="flex px-8 pt-10 justify-between">
-            {this.props.items.map((item, index) => (
-              <ShowcaseItem key={index} item={item} />
-            ))}
+            <CouponItem />
           </div>
         </div>
       </div>

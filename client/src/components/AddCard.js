@@ -1,18 +1,18 @@
-import { useEffect, useState } from 'react';
-import { ccStackSecret } from '../utils/api';
+import { useEffect, useState } from "react";
+import api from "../utils/api";
 
 const AddCard = () => {
   const [cardCompany, setCardCompany] = useState();
   const [cardOptions, setCardOptions] = useState([]);
-  const [cardToInsert, setCardToInsert] = useState('');
+  const [cardToInsert, setCardToInsert] = useState("");
 
   // Fetch card options from CCStack API
   async function fetchCards() {
     const options = {
-      method: 'GET',
+      method: "GET",
       headers: {
-        'X-RapidAPI-Key': ccStackSecret,
-        'X-RapidAPI-Host': 'ccstack.p.rapidapi.com',
+        "X-RapidAPI-Key": api.ccStackSecret,
+        "X-RapidAPI-Host": "ccstack.p.rapidapi.com",
       },
     };
 
@@ -28,9 +28,9 @@ const AddCard = () => {
   // Send POST request to API to insert card
   async function insertCard() {
     const options = {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(cardToInsert),
     };
@@ -95,7 +95,7 @@ const AddCard = () => {
         </select>
       </div>
       {cardOptions.length === 0 ? (
-        ''
+        ""
       ) : (
         <div className="flex-1">
           <div className="flex-1">

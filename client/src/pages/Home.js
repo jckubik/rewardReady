@@ -1,38 +1,20 @@
+import FindCoupon from "../components/FindCoupon";
+import FindDeal from "../components/FindDeal";
 import Hero from "../components/Hero";
 import Showcase from "../components/Showcase";
+import { useState } from "react";
 
 const Home = () => {
-  let items = [
-    {
-      title: "50% Off REI Shoes",
-      subtitle: "REI",
-      imgSrc: "../assets/shoes.jpg",
-    },
-    {
-      title: "50% Off REI Shoes",
-      subtitle: "REI",
-      imgSrc: "../assets/shoes.jpg",
-    },
-    {
-      title: "50% Off REI Shoes",
-      subtitle: "REI",
-      imgSrc: "../assets/shoes.jpg",
-    },
-    {
-      title: "50% Off REI Shoes",
-      subtitle: "REI",
-      imgSrc: "../assets/shoes.jpg",
-    },
-  ];
+  
   return (
     <div className="w-full">
       <Hero />
       <Showcase
         title="Popular Deals"
-        items={items}
+        type={"deal"}
         backgroundColor="honeydew"
       />
-      <Showcase title="Popular Coupons" items={items} backgroundColor="white" />
+      <Showcase title="Popular Coupons" type={"coupon"} backgroundColor="white" />
     </div>
   );
 };
