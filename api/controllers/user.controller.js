@@ -3,6 +3,9 @@ const jwt = require("jsonwebtoken");
 
 const authConfig = require("../config/auth.config");
 const db = require("../models");
+
+const authConfig = require("../config/auth.config");
+const db = require("../models");
 const User = db.users;
 const Wallet = db.wallets;
 const Op = db.Sequelize.Op;
