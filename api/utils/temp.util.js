@@ -41,3 +41,31 @@ exports.getCardById = async (cardId) => {
 
     return cardInfo;
 };
+
+exports.getCoupons = async () => {
+    let coupons = null;
+
+    while(true) {
+        const options = {
+            method: 'GET',
+            url: 'https://api.discountapi.com/v2/deals',
+            headers: {
+                'api_key': apiConfig.discountSecret
+            }
+        };
+        let data;
+        try {
+            const res = await axios.request(options);
+            data = res.data;
+        } catch (err) {
+            console.error(err);
+            break;
+        }
+
+        const results = data.results;
+        console.log(results)
+        coupons = results;
+    }
+
+    return coupons;
+}

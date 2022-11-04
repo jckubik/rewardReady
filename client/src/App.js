@@ -10,6 +10,7 @@ import Cards from './pages/Setting/Cards';
 import Header from './components/Header';
 import Footer from './components/Footer';
 import AddCard from './components/AddCard';
+import FindCoupon from './components/FindCoupon';
 
 // import "./styles/output.css";
 
@@ -41,6 +42,7 @@ function App() {
         <Route path="/" element={<Home />} />
       </Routes>
       <AddCard />
+      <FindCoupon />
       <Footer />
     </div>
   );
