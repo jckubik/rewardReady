@@ -1,12 +1,13 @@
-import React from "react";
-import ShowcaseItem from "./ShowcaseItem";
 import ShowcaseHelper from "./ShowcaseHelper";
+const Showcase = (props) => {
+  let backgroundColor = "bg-" + props.backgroundColor;
+  return (
+    <ShowcaseHelper
+      type={props.type}
+      backgroundColor={backgroundColor}
+      title={props.title}
+    />
+  );
+};
 
-export default class Showcase extends React.Component {
-  render() {
-    let backgroundColor = "bg-" + this.props.backgroundColor;
-    return (
-      <ShowcaseHelper type={this.props.type} backgroundColor={backgroundColor} title={this.props.title}/>
-    );
-  }
-}
+export default Showcase;

@@ -1,28 +1,27 @@
-import axios from 'axios';
+import axios from "axios";
 
 // should change or declare
-const [PROTOCOL, API_HOSTNAME, PORT] = "";
+const PROTOCOL = "http://";
+const API_HOSTNAME = "localhost:";
+const PORT = "9000";
 
 const client = axios.create({
-    baseURL:`${PROTOCOL}${API_HOSTNAME}${PORT}`,
-    json: true
+  baseURL: `${PROTOCOL}${API_HOSTNAME}${PORT}`,
+  json: true,
 });
 
 async function execute(method, resource, data) {
-
-    try {
-        let c = await client({
-            method,
-            url: resource,
-            data,
-            headers: {
-
-            }
-        });
-        return c.data;
-    } catch (err) {
-        return err;
-    }
+  try {
+    let c = await client({
+      method,
+      url: resource,
+      data,
+      headers: {},
+    });
+    return c.data;
+  } catch (err) {
+    return err;
+  }
 }
 
 async function getCardRecommendationsForUser(store) {
