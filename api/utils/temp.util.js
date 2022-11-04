@@ -1,5 +1,6 @@
 const apiConfig = require("../config/api.config");
 const axios = require("axios");
+const { discountSecret } = require("../config/api.config");
 
 // TODO - this is extremely dirty and needs to be removed, but how?
 exports.getCardById = async (cardId) => {
@@ -45,27 +46,27 @@ exports.getCardById = async (cardId) => {
 exports.getCoupons = async () => {
     let coupons = null;
 
-    while(true) {
+    // while(true) {
         const options = {
             method: 'GET',
-            url: 'https://api.discountapi.com/v2/deals',
-            headers: {
-                'api_key': apiConfig.discountSecret
-            }
+            url: `https://api.discountapi.com/v2/deals?api_key=${discountSecret}`,
+            // headers: {
+            // }
         };
         let data;
         try {
             const res = await axios.request(options);
             data = res.data;
+            console.log(data.deals[0])
         } catch (err) {
             console.error(err);
-            break;
+            // break;
         }
 
-        const results = data.results;
-        console.log(results)
-        coupons = results;
-    }
+        // const filteredResults = data.results.filter();
+        // console.log(filteredResults)
+        coupons = data.deals[0];
+    // }
 
     return coupons;
 }
