@@ -24,6 +24,7 @@ Deal = db.deals = require("./deal.model")(sequelize, Sequelize);
 Category = db.categories = require("./category.model")(sequelize, Sequelize);
 Card = db.cards = require("./card.model")(sequelize, Sequelize);
 History = db.history = require('./history.model')(sequelize, Sequelize);
+Category = db.categories = require("./category.model")(sequelize, Sequelize);
 
 User.hasOne(Wallet);
 Wallet.belongsTo(User);
@@ -86,8 +87,29 @@ Card.belongsToMany(Wallet, {
 //     .then(() => console.log("test"))
 //     .catch(err => console.log(err))
 
-// Store.create({name: "Amazon", category: 7})
+// These lines below are temporary for testing
+// They demonstrate how:
+// 1. A Store is created
+// 2. Two Categories are made that associate to a Store
+
+// Store.create({
+//     name: "Amazon",
+//     webAddress: "TEMP",
+//     logoAddress: "TEMP"
+// })
 //     .then(() => console.log("Temporary for testing"))
-//     .catch(() => console.log("Error"));
+//     .catch(err => console.log(err));
+// Category.create({
+//     categoryId: 7,
+//     storeId: 1
+// })
+//     .then(() => console.log("Temporary for testing"))
+//     .catch(err => console.log(err));
+// Category.create({
+//     categoryId: 14,
+//     storeId: 1
+// })
+//     .then(() => console.log("Temporary for testing"))
+//     .catch(err => console.log(err));
 
 module.exports = db;
