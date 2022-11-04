@@ -6,6 +6,7 @@ const db = require('../models');
 const User = db.users;
 const Wallet = db.wallets;
 const Op = db.Sequelize.Op;
+const tempUtil = require('../utils/temp.util');
 
 exports.register = async (req, res) => {
     const body = req.body;
@@ -122,5 +123,17 @@ exports.updateInfo  = async (req, res, next) => {
         }
     } catch(error) {
         res.status(400).send({ message: 'Unexpected error while trying to update user.' })
+    }
+};
+
+// This is a test for getting coupons in the backend
+exports.getCoupons = async (req, res) => {
+    try {
+        console.log("test");
+        const items = tempUtil.getCoupons()
+        console.log(items);
+        return items[0];
+    } catch(err) {
+        console.log(err);
     }
 };
