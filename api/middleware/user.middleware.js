@@ -1,22 +1,23 @@
-const {phone} = require('phone');
-const emailValidator = require("email-validator");
-const jwt = require("jsonwebtoken");
+const { phone } = require('phone');
+const emailValidator = require('email-validator');
+const jwt = require('jsonwebtoken');
 
-const config = require("../config/auth.config.js");
+const config = require('../config/auth.config.js');
 const db = require('../models');
+
 const User = db.users;
-const Op = db.Sequelize.Op;
+const { Op } = db.Sequelize;
 
 exports.verifyToken = (req, res, next) => {
-    let token = req.session.token;
+    const { token } = req.session;
     if (!token) {
-        res.status(403).send({message: 'No token provided'});
+        res.status(403).send({ message: 'No token provided' });
         return;
     }
 
     jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
-            res.status(401).send({message: 'Unauthorized'});
+            res.status(401).send({ message: 'Unauthorized' });
             return;
         }
 
@@ -26,34 +27,34 @@ exports.verifyToken = (req, res, next) => {
 };
 
 exports.checkDuplicates = async (req, res, next) => {
-    User.findAll({where: {email: {[Op.eq]: req.body.email}}})
-        .then(users => {
+    User.findAll({ where: { email: { [Op.eq]: req.body.email } } })
+        .then((users) => {
             if (users.length > 0) {
-                res.status(400).send({message: 'User already exists'});
+                res.status(400).send({ message: 'User already exists' });
                 return;
             }
 
             next();
         })
-        .catch(() => res.status(500).send({message: 'Unexpected error'}));
+        .catch(() => res.status(500).send({ message: 'Unexpected error' }));
 };
 
 exports.checkValidity = async (req, res, next) => {
-    const body = req.body;
+    const { body } = req;
     if (!emailValidator.validate(body.email)) {
-        res.status(400).send({message: 'Email is invalid'});
+        res.status(400).send({ message: 'Email is invalid' });
         return;
     }
 
     const re = /^(?=.*\d)(?=.*[!@#$%^&*])(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
     if (!re.test(body.password)) {
-        res.status(400).send({message: 'Invalid password'});
+        res.status(400).send({ message: 'Invalid password' });
         return;
     }
 
     const phoneInfo = phone(body.phoneNumber);
     if (!phoneInfo.isValid) {
-        res.status(400).send({message: 'Phone number is invalid'});
+        res.status(400).send({ message: 'Phone number is invalid' });
         return;
     }
 
