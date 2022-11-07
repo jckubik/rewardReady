@@ -72,4 +72,33 @@ exports.getCoupons = async () => {
     // }
 
     return coupons;
+};
+
+exports.getCjCoupons = async () => {
+    let coupons = null;
+
+    const options = {
+        method: 'GET',
+        url: 'https://link-search.api.cj.com/v2/link-search',
+        headers: {
+            "Authorization": "Bearer 28sy5kdenka1jmh2hfttdx253n"
+        },
+        params: {
+            "website-id": "100733507",
+            "advertiser-ids": "joined",
+            "promotion-type": "coupon",
+            "page-number": "1",
+            "records-per-page": "50"
+        }
+    };
+    let data;
+    try {
+        const res = await axios.request(options);
+        data = res.data;
+        // console.log(data);
+    } catch (err) {
+        console.log(err);
+    }
+    coupons = data;
+    return coupons;
 }

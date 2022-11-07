@@ -10,18 +10,19 @@ const FindCoupon = () => {
     async function fetchCoupons() {
         const options = {
             method: 'GET',
-            url: "https://api.discountapi.com/v2/deals",
-            headers: {
-                'Access-Control-Allow-Origin': "https://api.discountapi.com/v2/deals",
-                key: discountSecret 
-            }
+            // url: "http:/localhost:9000/api/coupon/random",
+            // headers: {
+            //     'Access-Control-Allow-Origin': "https://api.discountapi.com/v2/deals",
+            //     key: discountSecret 
+            // }
         };
   
 
-        await fetch(`https://api.discountapi.com/v2/deals?api_key=${discountSecret}`, options)
-            .then(response => response.json)
-            .then(response => setCoupons(response.results))
-            .catch(err => console.error(err));
+        await fetch(`http://localhost:9000/api/coupon/random`, options)
+            .then((response) => response.json)
+            .then((response) => console.log(response))
+            .then((response) => setCoupons(response[0].title))
+            .catch((err) => console.error(err));
     }
 
     useEffect(() => {
