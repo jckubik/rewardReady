@@ -49,15 +49,18 @@ exports.getCoupons = async () => {
     // while(true) {
         const options = {
             method: 'GET',
-            url: `https://api.discountapi.com/v2/deals?api_key=${discountSecret}`,
-            // headers: {
-            // }
+            // url: `https://api.discountapi.com/v2/deals?api_key=${discountSecret}`,
+            url: `https://api.discountapi.com/v2/deals`,
+            // url: `https://api.discountapi.com/v2/deals/1757102?api_key=${discountSecret}`
+            headers: {
+                'api_key': discountSecret
+            }
         };
         let data;
         try {
             const res = await axios.request(options);
             data = res.data;
-            console.log(data.deals[0])
+            console.log(data.deals)
         } catch (err) {
             console.error(err);
             // break;
@@ -65,7 +68,7 @@ exports.getCoupons = async () => {
 
         // const filteredResults = data.results.filter();
         // console.log(filteredResults)
-        coupons = data.deals[0];
+        coupons = data.deals;
     // }
 
     return coupons;

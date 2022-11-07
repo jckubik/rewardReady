@@ -129,11 +129,13 @@ exports.updateInfo  = async (req, res, next) => {
 // This is a test for getting coupons in the backend
 exports.getCoupons = async (req, res) => {
     try {
-        console.log("test");
-        const items = tempUtil.getCoupons()
-        console.log(items);
-        return items[0];
+        // console.log();
+        const items = await tempUtil.getCoupons()
+        console.log(items.deal.id);
+        res.status(200).send({ message: `This is the id for the requested coupon: ${items.deal.id}`});
+        return items.deal.id;
     } catch(err) {
         console.log(err);
+        res.status(400).send({message: 'Unexpected error while grabbing coupon'})
     }
 };
