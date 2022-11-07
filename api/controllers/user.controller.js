@@ -88,7 +88,7 @@ exports.delete = async (req, res, next) => {
 // Update password should probably be serparate with the validation needed?
 exports.updateInfo = async (req, res, next) => {
     const { userId } = req.userId;
-    const { firstName, lastName, phoneNumber, email } = req.payload;
+    const { firstName, lastName, phoneNumber, email } = req.body;
 
     // Throw error if user isn't verrified
     if (!userId) {
