@@ -14,7 +14,7 @@ const RecommendDisplay = (props) => {
         );
     } else {
         
-        var store;
+        // var store;
 
         // function getStore() {
         //     //TBD needs state from locateme - should move it up from locateme to app with call in header as well
