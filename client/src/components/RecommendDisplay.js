@@ -1,7 +1,7 @@
-import api from '/client/src/utils/api';
+import api from '../utils/api';
 import { useState } from 'react';
 
-const RecommendDisplay = () => {
+const RecommendDisplay = (props) => {
 
     const [recommendation, setRecommendation] = useState();
     
@@ -16,12 +16,12 @@ const RecommendDisplay = () => {
         
         var store;
 
-        function getStore() {
-            //TBD needs state from locateme - should move it up from locateme to app with call in header as well
-            return store;
-        }
+        // function getStore() {
+        //     //TBD needs state from locateme - should move it up from locateme to app with call in header as well
+        //     return store;
+        // }
 
-        setRecommendation(api.getCardRecommendationsForUser(getStore()));
+        setRecommendation(api.getCardRecommendationsForUser(props.store));
         
         return (
             <div>

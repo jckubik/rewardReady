@@ -1,6 +1,6 @@
 import React from 'react';
 import { Routes, Route } from 'react-router-dom';
-// import { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import './App.css';
 // import LocateMe from "./Components/LocateMe";
 import Home from './pages/Home';
@@ -11,11 +11,14 @@ import Header from './components/Header';
 import Footer from './components/Footer';
 import AddCard from './components/AddCard';
 import FindCoupon from './components/FindCoupon';
+import RecommendDisplay from './components/RecommendDisplay';
+import LocateMe from './components/LocateMe';
 
 // import "./styles/output.css";
 
 function App() {
   // const [apiResponse, setApiResponse] = useState();
+  const [store, setStore] = useState({data:""});
 
   // function callAPI() {
   //   fetch("http://localhost:9000/testAPI", {
@@ -30,6 +33,10 @@ function App() {
   //   callAPI();
   // });
 
+  const changeState = (storeData) => {
+    setStore(storeData)
+  }
+
   return (
     <div className="App">
       <Header />
@@ -41,8 +48,10 @@ function App() {
         </Route>
         <Route path="/" element={<Home />} />
       </Routes>
-      <AddCard />
-      <FindCoupon />
+      <LocateMe data={store.data} changeState={changeState} />
+      {/* <AddCard /> */}
+      {/* <FindCoupon /> */}
+      <RecommendDisplay store={store.data}/>
       <Footer />
     </div>
   );
