@@ -85,11 +85,9 @@ exports.delete = async (req, res, next) => {
     if (user) {
       // Delete the user instance if found
       user.destroy();
-      res
-        .status(200)
-        .send({
-          message: `User with username: ${email} has been deleted successfully.`,
-        });
+      res.status(200).send({
+        message: `User with username: ${email} has been deleted successfully.`,
+      });
     } else {
       res.status(404).send({ message: "User requested does not exist." });
     }

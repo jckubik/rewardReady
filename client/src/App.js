@@ -65,7 +65,7 @@ function App() {
       </Routes>
       <LocateMe data={store.data} changeState={changeState} />
       {/* <AddCard /> */}
-      {/* <FindCoupon /> */}
+      <FindCoupon />
       <RecommendDisplay store={store.data}/>
       <Footer />
     </div>
