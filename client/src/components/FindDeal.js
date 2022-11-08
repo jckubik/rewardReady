@@ -1,46 +1,49 @@
 import { useEffect, useState } from 'react';
 
-const FindCoupon = (props) => {
-    const [boolCoupons, setBoolCoupons] = useState(true);
-    const [coupons, setCoupons] = useState({
-        couponId: 0,
+const FindDeal = (props) => {
+    const [boolDeals, setBoolDeals] = useState(true);
+    const [deals, setDeals] = useState({
+        dealId: 0,
         title: '',
         merchantName: '',
-        clickUrl: '',
-        couponCode: ''
+        imageUrl: '',
+        price: 0.0,
+        value: 0.0,
+        description: ""
     });
-    const [couponToVisit, setCouponToVisit] = useState("");
+    const [dealToVisit, setDealToVisit] = useState("");
 
 
-    async function fetchCoupons() {
+    async function fetchDeals() {
         const options = {
             method: 'GET',
         };
   
         try {
-            let coupon = await fetch(`http://localhost:9000/api/coupon/random`, options)
-            const couponJson = coupon.json();
-            couponJson.then((obj) => setCoupons({
-                couponId: obj["couponId"],
+            let deal = await fetch(`http://localhost:9000/api/deal/random`, options)
+            const dealJson = deal.json();
+            dealJson.then((obj) => setDeals({
+                dealId: obj["couponId"],
                 title: obj["title"],
                 merchantName: obj["merchantName"],
                 clickUrl: obj["clickUrl"],
                 couponCode: obj["couponCode"]
             }))
-            couponJson.then((obj) => props.changeCoupon({
+            dealJson.then((obj) => props.changeDeal({
                 title: obj["title"],
-                subtitle: obj["merchantName"]
+                subtitle: obj["merchantName"],
+                imageSrc: obj["imageUrl"]
             }));
-            setBoolCoupons(false);
-            return coupons;
+            setBoolDeals(false);
+            return deals;
         } catch (err) {
             console.log(err);
         }
     }
 
     async function boolFetch() {
-        if (boolCoupons) {
-            fetchCoupons();
+        if (boolDeals) {
+            fetchDeals();
         }
     }
 
@@ -52,10 +55,10 @@ const FindCoupon = (props) => {
         <div hidden>
             <div className="pt-4">
                 <p className="text-inter font-extrabold text-xl text-oxford-blue uppercase">
-                    {coupons.title}
+                    {deals.title}
                 </p>
                 <p className="text-inter font-bold text-base text-brunswick-green">
-                    {coupons.merchantName}
+                    {deals.merchantName}
                 </p>
             </div>
         </div>
@@ -86,4 +89,4 @@ const FindCoupon = (props) => {
     );
 }
 
-export default FindCoupon;
+export default FindDeal;
