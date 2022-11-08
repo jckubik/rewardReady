@@ -170,7 +170,7 @@ exports.getCjCouponsQuery = async (req) => {
             "advertiser-ids": "notjoined",
             "promotion-type": "coupon",
             "page-number": "1",
-            "records-per-page": "50",
+            "records-per-page": "100",
             "keywords": req.body.query
         }
     };

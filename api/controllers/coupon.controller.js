@@ -57,17 +57,21 @@ exports.getCjCoupons = async (req, res) => {
                         console.log(value[0]);
                         for (const item in value) {
                             // console.log(value[item]["link-id"][0]);
-                            const coupon = Coupon.findOne({ where: { couponId: value[item]["link-id"][0]}});
+                            // const coupon = Coupon.findOne({ where: { couponId: value[item]["link-id"][0]}});
                             
-                            if (coupon === null) { 
+                            // if (coupon === null) {
+                            Coupon.findOne({where: { couponId: value[item]["link-id"][0]}})
+                            .then((coupon) => {if (!coupon) {
                                 Coupon.create({
                                     couponId: value[item]["link-id"][0],
                                     title: value[item]["link-name"][0],
                                     merchantName: value[item]["advertiser-name"][0],
                                     clickUrl: value[item].clickUrl[0],
                                     couponCode: value[item]["coupon-code"][0]
-                                })
-                            }
+                                })}
+                            })
+                                
+                            // }
                         }
                     }
                 })
@@ -123,22 +127,26 @@ exports.getCjCouponsQuery = async (req, res) => {
             const jsonParsed = JSON.parse(json);
             // console.log(jsonParsed["cj-api"].links.entries(link));
             jsonParsed["cj-api"].links.forEach((item) => {
-                Object.entries(item).forEach(([key,value]) => {
+                Object.entries(item).forEach(async ([key,value]) => {
                     if (key == "link") {
                         console.log(value[0]);
                         for (const item in value) {
                             // console.log(value[item]["link-id"][0]);
-                            const coupon = Coupon.findOne({ where: { couponId: value[item]["link-id"][0]}});
-                            
-                            if (coupon === null) { 
+                            // const coupon = await Coupon.findOne({ where: { couponId: value[0]["link-id"][0]}});
+                            // coupon.then((response) => console.log(response.data))
+                            // console.log(coupon)
+
+                            // if (coupon === null) {
+                            Coupon.findOne({where: { couponId: value[item]["link-id"][0]}})
+                            .then((coupon) => {if (!coupon) {
                                 Coupon.create({
                                     couponId: value[item]["link-id"][0],
                                     title: value[item]["link-name"][0],
                                     merchantName: value[item]["advertiser-name"][0],
-                                    clickUrl: value[item].clickUrl[0],
+                                    clickUrl: value[item].destination[0],
                                     couponCode: value[item]["coupon-code"][0]
-                                })
-                            }
+                                })}
+                            })
                         }
                     }
                 })

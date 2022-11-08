@@ -14,15 +14,18 @@ exports.getDeals = async (req, res) => {
         const items = await tempUtil.getDeals();
         items.forEach((item) => {
             console.log(item);
-            return Deal.create({
-                dealId: item.deal.id,
-                title: item.deal.title,
-                description: item.deal.description,
-                price: item.deal.price,
-                value: item.deal.value,
-                imageUrl: item.deal.image_url,
-                // createdAt: items.deal.created_at,
-                merchantName: item.deal.merchant.name
+            Deal.findOne({where: { dealId: item.deal.id}})
+            .then((deal) => {if (!deal) {
+                Deal.create({
+                    dealId: item.deal.id,
+                    title: item.deal.title,
+                    description: item.deal.description,
+                    price: item.deal.price,
+                    value: item.deal.value,
+                    imageUrl: item.deal.image_url,
+                    // createdAt: items.deal.created_at,
+                    merchantName: item.deal.merchant.name
+                })}
             })
         })
         // Coupon.create(coupon)
@@ -121,16 +124,19 @@ exports.searchDealsWeb = async (req, res) => {
                     else {
                         priceRange = null;
                     }
-                    Deal.create({
-                        dealId: deal.product_id_v2,
-                        hasProductId: true,
-                        productId: deal.product_id,
-                        title: deal.product_title,
-                        description: deal.product_description,
-                        price: deal.offer.price,
-                        value: priceRange,
-                        imageUrl: deal.product_photos[0],
-                        merchantName: deal.offer.store_name
+                    Deal.findOne({where: { dealId: deal.product_id_v2}})
+                    .then((item) => {if (!item) {
+                        Deal.create({
+                            dealId: deal.product_id_v2,
+                            hasProductId: true,
+                            productId: deal.product_id,
+                            title: deal.product_title,
+                            description: deal.product_description,
+                            price: deal.offer.price,
+                            value: priceRange,
+                            imageUrl: deal.product_photos[0],
+                            merchantName: deal.offer.store_name
+                        })}
                     })
                 })
             }

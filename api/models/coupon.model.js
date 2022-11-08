@@ -9,7 +9,7 @@ module.exports = (sequelize, Sequelize) => {
         // createdAt: {type: Sequelize.DATE},
         merchantName: {type: Sequelize.STRING, allowNull: false}, //json.links.link.advertiser-name
         linkCodeHtml: {type: Sequelize.STRING}, //json.links.link.link-code-html
-        clickUrl: {type: Sequelize.STRING, allowNull: false}, // json.links.link.clickUrl
+        clickUrl: {type: Sequelize.TEXT, allowNull: false}, // json.links.link.clickUrl
         couponCode: {type: Sequelize.STRING, allowNull: false}, // json.links.link.coupon-code
     })
 }
