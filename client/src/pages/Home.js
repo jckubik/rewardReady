@@ -123,24 +123,25 @@ const Home = () => {
       imgSrc: coupon4.imgSrc
     }
   ];
-
+  
   return (
     <div className="w-full">
       <Hero />
-      <Showcase
-        title="Popular Deals"
-        items={items}
-        backgroundColor="honeydew"
-      />
+      
       <FindDeal changeDeal={changeDeal} />
       <FindDeal changeDeal={changeDeal2} />
       <FindDeal changeDeal={changeDeal3} />
       <FindDeal changeDeal={changeDeal4} />
+      <Showcase
+        title="Popular Deals"
+        items={items} type={"deal"}
+        backgroundColor="honeydew"
+      />
       <FindCoupon changeCoupon={changeCoupon} />
       <FindCoupon changeCoupon={changeCoupon2} />
       <FindCoupon changeCoupon={changeCoupon3} />
       <FindCoupon changeCoupon={changeCoupon4} />
-      <Showcase title="Popular Coupons" items={items2} backgroundColor="white" />
+      <Showcase title="Popular Coupons" items={items2} type={"coupon"} backgroundColor="white" />
     </div>
   );
 };
