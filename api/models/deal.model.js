@@ -8,6 +8,7 @@ module.exports = (sequelize, Sequelize) => {
         price: {type: Sequelize.STRING, allowNull: false},
         value: {type: Sequelize.STRING},
         imageUrl: {type: Sequelize.STRING},
+        clickUrl: {type: Sequelize.TEXT, allowNull: false},
         merchantName: {type: Sequelize.STRING, allowNull: false}, //json.links.link.advertiser-name
     })
 }

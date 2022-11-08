@@ -23,6 +23,7 @@ exports.getDeals = async (req, res) => {
                     price: item.deal.price,
                     value: item.deal.value,
                     imageUrl: item.deal.image_url,
+                    clickUrl: item.deal.url,
                     // createdAt: items.deal.created_at,
                     merchantName: item.deal.merchant.name
                 })}
@@ -135,6 +136,7 @@ exports.searchDealsWeb = async (req, res) => {
                             price: deal.offer.price,
                             value: priceRange,
                             imageUrl: deal.product_photos[0],
+                            clickUrl: deal.offer.offer_page_url,
                             merchantName: deal.offer.store_name
                         })}
                     })
