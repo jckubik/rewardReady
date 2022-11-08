@@ -32,8 +32,9 @@ const FindDeal = (props) => {
             dealJson.then((obj) => props.changeDeal({
                 title: obj["title"],
                 subtitle: obj["merchantName"],
-                imageSrc: obj["imageUrl"]
+                imgSrc: obj["imageUrl"]
             }));
+            dealJson.then((obj) => console.log(obj["imageUrl"]))
             setBoolDeals(false);
             return deals;
         } catch (err) {
@@ -53,6 +54,11 @@ const FindDeal = (props) => {
 
     return (
         <div hidden>
+            <img
+            className="object-cover w-60 h-36"
+            alt={this.props.item.title}
+            src={this.props.item.imgSrc}
+            />
             <div className="pt-4">
                 <p className="text-inter font-extrabold text-xl text-oxford-blue uppercase">
                     {deals.title}
