@@ -106,3 +106,38 @@ exports.getRandomDeal = async (req, res) => {
         .then(() => res.status(200).json(data))
         .catch(() => res.status(500).send({ message: 'Unexpected error'}));
 }
+
+exports.searchDealsWeb = async (req, res) => {
+    try {
+        const items = await tempUtil.searchDealsWeb(req);
+
+        Object.entries(items).forEach(([key, value]) => {
+            if (key === "data") {
+                Object.entries(value).forEach(([k2, deal]) => {
+                    let priceRange;
+                    if (deal.typical_price_range != null) {
+                        priceRange = deal.typical_price_range[1];
+                    }
+                    else {
+                        priceRange = null;
+                    }
+                    Deal.create({
+                        dealId: deal.product_id_v2,
+                        hasProductId: true,
+                        productId: deal.product_id,
+                        title: deal.product_title,
+                        description: deal.product_description,
+                        price: deal.offer.price,
+                        value: priceRange,
+                        imageUrl: deal.product_photos[0],
+                        merchantName: deal.offer.store_name
+                    })
+                })
+            }
+        })
+        res.status(200).send({ message: `Deals added successfully`});
+    } catch(err) {
+        console.log(err);
+        res.status(400).send({message: 'Unexpected error while grabbing deal'});
+    }
+};
