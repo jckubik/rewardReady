@@ -131,3 +131,27 @@ exports.getCjDeals = async () => {
     deals = data;
     return deals;
 }
+
+exports.searchDealsWeb = async (req) => {
+    // console.log(req.body)
+    // let body = req.body;
+    let data;
+    const options = {
+        method: 'GET',
+        url: 'https://real-time-product-search.p.rapidapi.com/search',
+        params: {q: req.body.query, country: 'us', language: 'en', on_sale: 'true'},
+        headers: {
+            'X-RapidAPI-Key': 'bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf',
+            'X-RapidAPI-Host': 'real-time-product-search.p.rapidapi.com'
+        }
+    };
+
+    await axios.request(options).then(function (response) {
+        // console.log(response.data);
+        data = response.data;
+    }).catch(function (error) {
+        console.error(error);
+    });
+
+    return data;
+}
