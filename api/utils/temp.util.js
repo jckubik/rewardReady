@@ -167,7 +167,7 @@ exports.getCjCouponsQuery = async (req) => {
         },
         params: {
             "website-id": "100733507",
-            "advertiser-ids": "joined",
+            "advertiser-ids": "notjoined",
             "promotion-type": "coupon",
             "page-number": "1",
             "records-per-page": "50",
