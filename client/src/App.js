@@ -48,10 +48,10 @@ function App() {
         </Route>
         <Route path="/" element={<Home />} />
       </Routes>
-      <LocateMe data={store.data} changeState={changeState} />
+      {/* <LocateMe data={store.data} changeState={changeState} /> */}
       {/* <AddCard /> */}
-      <FindCoupon />
-      <RecommendDisplay store={store.data}/>
+      {/* <FindCoupon /> */}
+      {/* <RecommendDisplay store={store.data}/> */}
       <Footer />
     </div>
   );
