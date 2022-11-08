@@ -96,9 +96,13 @@ exports.getRandomCoupon = async (req, res) => {
             }
             // data = coupons[0];
             const json = JSON.stringify(couponArray);
-            console.log(json);
-            return json;
+            // console.log(json);
+            // return json;
+            data = coupons[0].get();
+            console.log(data);
+            // res.json(data);
+            return data;
         })
-        .then(() => res.status(200).send({ message: 'Coupon grabbed'}))
+        .then(() => res.status(200).json(data))
         .catch(() => res.status(500).send({ message: 'Unexpected error'}));
 }
