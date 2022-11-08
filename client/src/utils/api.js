@@ -27,15 +27,10 @@ async function execute(method, resource, data) {
 
 
 async function getCardRecommendationsForUser(store) {
-<<<<<<< HEAD
   // need to change method to lowercase poss, change resource to valid
   return await execute("GET", "/api/wallet/recommend/card", {
     store: store,
   });
-=======
-    // need to change method to lowercase poss, change resource to valid
-    return await execute('GET', '/localhost:9000/api/wallet/recommend/card', {store:store});
->>>>>>> 941c318 (Fixed frontend for card recommendation)
 }
 
 async function getRandomCoupon() {
