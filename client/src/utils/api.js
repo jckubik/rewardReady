@@ -30,9 +30,14 @@ async function getCardRecommendationsForUser(store) {
     return await execute('GET', '/localhost:9000/api/wallet/recommend/card', {store:store});
 }
 
+async function getRandomCoupon() {
+    return await execute('GET', '/localhost:9000/api/coupon/random', "");
+}
+
 const ccStackSecret = 'bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf';
 const discountSecret = 'YxhRTxQe';
 
 export default {getCardRecommendationsForUser}
+export {getRandomCoupon}
 export { ccStackSecret }
 export { discountSecret }

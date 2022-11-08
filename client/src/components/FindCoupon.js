@@ -1,9 +1,16 @@
 import { useEffect, useState } from 'react';
+import { getRandomCoupon } from '../utils/api';
 import { discountSecret } from '../utils/api';
 
 const FindCoupon = () => {
     const [boolCoupons, setBoolCoupons] = useState();
-    const [coupons, setCoupons] = useState([]);
+    const [coupons, setCoupons] = useState({
+        couponId: 0,
+        title: '',
+        merchantName: '',
+        clickUrl: '',
+        couponCode: ''
+    });
     const [couponToVisit, setCouponToVisit] = useState("");
 
 
@@ -17,12 +24,27 @@ const FindCoupon = () => {
             // }
         };
   
-
-        await fetch(`http://localhost:9000/api/coupon/random`, options)
-            .then((response) => response.json)
-            .then((response) => console.log(response))
-            .then((response) => setCoupons(response[0].title))
-            .catch((err) => console.error(err));
+        try {
+            let coupon = await fetch(`http://localhost:9000/api/coupon/random`, options)
+            // .then((response) => response)
+            // .then((response) => response.json())
+            // .then((response) => console.log(response.value))
+            // .then((response) => setCoupons(response.data.title))
+            // .catch((err) => console.error(err));
+        // return getRandomCoupon();
+            const couponJson = coupon.json();
+            couponJson.then((obj) => setCoupons({
+                couponId: obj["couponId"],
+                title: obj["title"],
+                merchantName: obj["merchantName"],
+                clickUrl: obj["clickUrl"],
+                couponCode: obj["couponCode"]
+            }));
+            setBoolCoupons(false);
+            return coupons;
+        } catch (err) {
+            console.log(err);
+        }
     }
 
     useEffect(() => {
@@ -49,18 +71,9 @@ const FindCoupon = () => {
             <div className='flex-1'>
                 <div className='flex-1'>
                     <label htmlFor='coupons'>These coupons are available</label>
-                    <select 
-                        name="coupons" 
-                        id="coupons" 
-                        onChange={(event) => setCouponToVisit(coupons[event.target.value])}
-                    >
-                    <option value="empty">Select</option>
-                    {
-                        coupons.map((coupon, index) => (
-                        <option value={index} key={coupon.id}>{ coupon.title }</option>
-                        ))
-                    }
-                    </select>
+                    <div className='flex-1'>
+                        <h1><a href={coupons.clickUrl}>{coupons.title} is available from {coupons.merchantName}</a></h1>    
+                    </div>
                 </div>
             </div>
             }
