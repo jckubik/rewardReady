@@ -88,11 +88,11 @@ const FindDeal = () => {
 =======
     return (
         <div hidden>
-            <img
+            {/* <img
             className="object-cover w-60 h-36"
             alt={this.props.item.title}
             src={this.props.item.imgSrc}
-            />
+            /> */}
             <div className="pt-4">
                 <p className="text-inter font-extrabold text-xl text-oxford-blue uppercase">
                     {deals.title}
