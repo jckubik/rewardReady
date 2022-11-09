@@ -12,7 +12,6 @@ const ShowcaseHelper = (props) => {
       elems.push(FindCoupon());
     }
   }
-  console.log(elems);
   return (
     <div className="w-full">
       <div className={`w-full px-4 py-14 ${props.backgroundColor}`}>
