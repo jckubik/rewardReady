@@ -7,6 +7,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 <<<<<<< HEAD
+<<<<<<< HEAD
 // import Setting from "./pages/Setting";
 import Personal from "./pages/Personal";
 import Cards from "./pages/Cards";
@@ -34,6 +35,11 @@ import LocateMe from './components/LocateMe';
 import Setting from "./pages/Setting";
 import Personal from "./pages/Setting/Personal";
 import Cards from "./pages/Setting/Cards";
+=======
+// import Setting from "./pages/Setting";
+import Personal from "./pages/Personal";
+import Cards from "./pages/Cards";
+>>>>>>> f090e48 (144-frontend: Refactored code)
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 // import AddCard from "./components/AddCard";
@@ -69,6 +75,7 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
 <<<<<<< HEAD
+<<<<<<< HEAD
           <Route path="personal" element={<Personal />} />
           <Route path="cards" element={<Cards />} />
 <<<<<<< HEAD
@@ -92,6 +99,11 @@ function App() {
             <Route path="personal" element={<Personal />} />
             <Route path="cards" element={<Cards />} />
           </Route>
+=======
+          {/* <Route path="personal" element={<Setting />} /> */}
+          <Route path="personal" element={<Personal />} />
+          <Route path="cards" element={<Cards />} />
+>>>>>>> f090e48 (144-frontend: Refactored code)
         </Routes>
         {/* <AddCard /> */}
         <Footer />

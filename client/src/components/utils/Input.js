@@ -2,6 +2,9 @@ import React, { forwardRef } from "react";
 
 const Input = forwardRef(
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> f090e48 (144-frontend: Refactored code)
   (
     {
       placeholder = "",
@@ -32,6 +35,7 @@ const Input = forwardRef(
       </div>
     );
   }
+<<<<<<< HEAD
 =======
     (
         {
@@ -64,6 +68,8 @@ const Input = forwardRef(
         );
     }
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+>>>>>>> f090e48 (144-frontend: Refactored code)
 );
 
 export default Input;

@@ -84,6 +84,7 @@ const Login = ({ setPopupDisplay }) => {
           name="email"
           ref={email_r}
 <<<<<<< HEAD
+<<<<<<< HEAD
           icon={<FontAwesomeIcon icon={solid("envelope")} />}
         />
 =======
@@ -91,12 +92,17 @@ const Login = ({ setPopupDisplay }) => {
           <FontAwesomeIcon icon={solid("envelope")} />
         </Input>
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+          icon={<FontAwesomeIcon icon={solid("envelope")} />}
+        />
+>>>>>>> f090e48 (144-frontend: Refactored code)
         <Input
           placeholder="Enter Password"
           type="password"
           className="w-full rounded-sm py-2"
           name="password"
           ref={password_r}
+<<<<<<< HEAD
 <<<<<<< HEAD
           icon={<FontAwesomeIcon icon={solid("key")} />}
         />
@@ -105,6 +111,10 @@ const Login = ({ setPopupDisplay }) => {
           <FontAwesomeIcon icon={solid("key")} />
         </Input>
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+          icon={<FontAwesomeIcon icon={solid("key")} />}
+        />
+>>>>>>> f090e48 (144-frontend: Refactored code)
       </form>
       <button className="cta-btn" onClick={handleSubmit}>
         Login

@@ -27,10 +27,14 @@ const Header = () => {
               <div>
                 <span
 <<<<<<< HEAD
+<<<<<<< HEAD
                   className="body pl-1 inline-block align-middle cursor-pointer"
 =======
                   className="font-inter text-sm pl-1 inline-block align-middle cursor-pointer"
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+                  className="body pl-1 inline-block align-middle cursor-pointer"
+>>>>>>> f090e48 (144-frontend: Refactored code)
                   onClick={() => setShowDropdown(!showDropdown)}
                 >
                   {user.user.firstName}
@@ -47,20 +51,28 @@ const Header = () => {
                     <div class="py-1" role="none">
                       <Link
 <<<<<<< HEAD
+<<<<<<< HEAD
                         to="/personal"
 =======
                         to="/setting/personal"
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+                        to="/personal"
+>>>>>>> f090e48 (144-frontend: Refactored code)
                         class="text-gray-700 block px-4 py-2 text-sm"
                       >
                         Personal
                       </Link>
                       <Link
 <<<<<<< HEAD
+<<<<<<< HEAD
                         to="/cards"
 =======
                         to="/setting/cards"
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+                        to="/cards"
+>>>>>>> f090e48 (144-frontend: Refactored code)
                         class="text-gray-700 block px-4 py-2 text-sm"
                       >
                         Card Info
@@ -79,10 +91,14 @@ const Header = () => {
             ) : (
               <span
 <<<<<<< HEAD
+<<<<<<< HEAD
                 className="body pl-1 inline-block align-middle cursor-pointer"
 =======
                 className="font-inter text-sm pl-1 inline-block align-middle cursor-pointer"
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+                className="body pl-1 inline-block align-middle cursor-pointer"
+>>>>>>> f090e48 (144-frontend: Refactored code)
                 onClick={() => setShowLoginRegister(true)}
               >
                 Sign in or Register

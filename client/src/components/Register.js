@@ -86,18 +86,6 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
             name="firstName"
             ref={firstName_r}
 <<<<<<< HEAD
-            icon={<FontAwesomeIcon icon={regular("circle-user")} />}
-          />
-=======
-          >
-            <FontAwesomeIcon icon={regular("circle-user")} />
-          </Input>
->>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
-          <Input
-            placeholder="Enter Last Name"
-            className="w-full rounded-sm py-2"
-            name="lastName"
-            ref={lastName_r}
 <<<<<<< HEAD
             icon={<FontAwesomeIcon icon={regular("circle-user")} />}
           />
@@ -106,6 +94,28 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
             <FontAwesomeIcon icon={regular("circle-user")} />
           </Input>
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+            icon={<FontAwesomeIcon icon={regular("circle-user")} />}
+          />
+>>>>>>> f090e48 (144-frontend: Refactored code)
+          <Input
+            placeholder="Enter Last Name"
+            className="w-full rounded-sm py-2"
+            name="lastName"
+            ref={lastName_r}
+<<<<<<< HEAD
+<<<<<<< HEAD
+            icon={<FontAwesomeIcon icon={regular("circle-user")} />}
+          />
+=======
+          >
+            <FontAwesomeIcon icon={regular("circle-user")} />
+          </Input>
+>>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+            icon={<FontAwesomeIcon icon={regular("circle-user")} />}
+          />
+>>>>>>> f090e48 (144-frontend: Refactored code)
         </div>
         <Input
           placeholder="Enter Email"
@@ -114,6 +124,7 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
           name="email"
           ref={email_r}
 <<<<<<< HEAD
+<<<<<<< HEAD
           icon={<FontAwesomeIcon icon={solid("envelope")} />}
         />
 =======
@@ -121,11 +132,16 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
           <FontAwesomeIcon icon={solid("envelope")} />
         </Input>
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+          icon={<FontAwesomeIcon icon={solid("envelope")} />}
+        />
+>>>>>>> f090e48 (144-frontend: Refactored code)
         <Input
           placeholder="Enter Phone Number"
           className="w-full rounded-sm py-2"
           name="number"
           ref={phone_r}
+<<<<<<< HEAD
 <<<<<<< HEAD
           icon={<FontAwesomeIcon icon={solid("phone")} />}
         />
@@ -134,12 +150,17 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
           <FontAwesomeIcon icon={solid("phone")} />
         </Input>
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+          icon={<FontAwesomeIcon icon={solid("phone")} />}
+        />
+>>>>>>> f090e48 (144-frontend: Refactored code)
         <Input
           placeholder="Enter Password"
           type="password"
           className="w-full rounded-sm py-2"
           name="password"
           ref={password_r}
+<<<<<<< HEAD
 <<<<<<< HEAD
           icon={<FontAwesomeIcon icon={solid("key")} />}
         />
@@ -148,12 +169,17 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
           <FontAwesomeIcon icon={solid("key")} />
         </Input>
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+          icon={<FontAwesomeIcon icon={solid("key")} />}
+        />
+>>>>>>> f090e48 (144-frontend: Refactored code)
         <Input
           placeholder="Confirm Password"
           type="password"
           className="w-full rounded-sm py-2"
           name="confirm_password"
           ref={confirmPassword_r}
+<<<<<<< HEAD
 <<<<<<< HEAD
           icon={<FontAwesomeIcon icon={solid("key")} />}
         />
@@ -168,24 +194,39 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
       <div className="flex flex-col gap-4">
         <button className="cta-btn" onClick={handleSubmit}>
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+          icon={<FontAwesomeIcon icon={solid("key")} />}
+        />
+      </form>
+      <div className="flex flex-col gap-4">
+        <button className="cta-btn w-full" onClick={handleSubmit}>
+>>>>>>> f090e48 (144-frontend: Refactored code)
           Create Account
         </button>
         <div className="flex gap-4">
           <button
 <<<<<<< HEAD
+<<<<<<< HEAD
             className="cta-btn w-1/2"
 =======
             className="cta-btn w-full"
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+            className="cta-btn w-1/2"
+>>>>>>> f090e48 (144-frontend: Refactored code)
             onClick={() => setPopupVisibility(false)}
           >
             Cancel
           </button>
 <<<<<<< HEAD
+<<<<<<< HEAD
           <button className="cta-btn w-1/2">Enter As Guest</button>
 =======
           <button className="cta-btn w-full">Enter As Guest</button>
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+          <button className="cta-btn w-1/2">Enter As Guest</button>
+>>>>>>> f090e48 (144-frontend: Refactored code)
         </div>
       </div>
       <div
