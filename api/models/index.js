@@ -21,8 +21,11 @@ Wallet = db.wallets = require('./wallet.model')(sequelize, Sequelize);
 Store = db.stores = require('./store.model')(sequelize, Sequelize);
 Coupon = db.coupons = require('./coupon.model')(sequelize, Sequelize);
 Deal = db.deals = require('./deal.model')(sequelize, Sequelize);
+History = db.history = require('./history.model')(sequelize, Sequelize);
 
 User.hasOne(Wallet);
 Wallet.belongsTo(User);
+User.hasOne(History);
+History.belongsTo(User);
 
 module.exports = db;

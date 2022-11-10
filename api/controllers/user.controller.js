@@ -27,6 +27,10 @@ exports.register = async (req, res) => {
       items: { cards: [] },
     }))
     .then((wallet) => Wallet.create(wallet))
+    .then((data) => ({
+      userId: data.userId,
+      logs: []
+    }))
     .then(() => res.end())
     .catch(() => res.status(500).send({ message: "Unexpected error" }));
 };
