@@ -10,6 +10,7 @@ const Op = db.Sequelize.Op;
 const tempUtil = require("../utils/temp.util");
 
 exports.register = async (req, res) => {
+
   const { body } = req;
   bcrypt
     .genSalt(10)
@@ -23,8 +24,11 @@ exports.register = async (req, res) => {
     }))
     .then((user) => User.create(user))
     .then((data) => ({
-      userId: data.id,
-      items: { cards: [] },
+      return {
+        userId: data.id,
+        items: { cards: [] },
+        history: []
+      }
     }))
     .then((wallet) => Wallet.create(wallet))
     .then(() => res.end())

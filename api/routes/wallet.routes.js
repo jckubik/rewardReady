@@ -18,6 +18,8 @@ module.exports = app => {
         walletController.removeCard
     );
     router.get('/recommend/card', userMiddleware.verifyToken, walletController.recommendCard);
+    router.get('/history',  userMiddleware.verifyToken, walletController.fetchHistory);
+    router.post('/history/insert', userMiddleware.verifyToken, walletController.insertHistory);
 
     app.use('/api/wallet', router);
 };
