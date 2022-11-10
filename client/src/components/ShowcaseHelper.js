@@ -15,9 +15,7 @@ const ShowcaseHelper = (props) => {
   return (
     <div className="w-full">
       <div className={`w-full px-4 py-14 ${props.backgroundColor}`}>
-        <span className="font-inter font-black text-3xl uppercase">
-          {props.title}
-        </span>
+        <span className="heading-1 uppercase">{props.title}</span>
         <div className="flex px-8 pt-10 justify-between">
           {elems.map((item, index) => (
             <ShowcaseItem

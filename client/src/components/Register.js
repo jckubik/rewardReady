@@ -73,17 +73,15 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
             className="w-full rounded-sm py-2"
             name="firstName"
             ref={firstName_r}
-          >
-            <FontAwesomeIcon icon={regular("circle-user")} />
-          </Input>
+            icon={<FontAwesomeIcon icon={regular("circle-user")} />}
+          />
           <Input
             placeholder="Enter Last Name"
             className="w-full rounded-sm py-2"
             name="lastName"
             ref={lastName_r}
-          >
-            <FontAwesomeIcon icon={regular("circle-user")} />
-          </Input>
+            icon={<FontAwesomeIcon icon={regular("circle-user")} />}
+          />
         </div>
         <Input
           placeholder="Enter Email"
@@ -91,48 +89,44 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
           className="w-full rounded-sm py-2"
           name="email"
           ref={email_r}
-        >
-          <FontAwesomeIcon icon={solid("envelope")} />
-        </Input>
+          icon={<FontAwesomeIcon icon={solid("envelope")} />}
+        />
         <Input
           placeholder="Enter Phone Number"
           className="w-full rounded-sm py-2"
           name="number"
           ref={phone_r}
-        >
-          <FontAwesomeIcon icon={solid("phone")} />
-        </Input>
+          icon={<FontAwesomeIcon icon={solid("phone")} />}
+        />
         <Input
           placeholder="Enter Password"
           type="password"
           className="w-full rounded-sm py-2"
           name="password"
           ref={password_r}
-        >
-          <FontAwesomeIcon icon={solid("key")} />
-        </Input>
+          icon={<FontAwesomeIcon icon={solid("key")} />}
+        />
         <Input
           placeholder="Confirm Password"
           type="password"
           className="w-full rounded-sm py-2"
           name="confirm_password"
           ref={confirmPassword_r}
-        >
-          <FontAwesomeIcon icon={solid("key")} />
-        </Input>
+          icon={<FontAwesomeIcon icon={solid("key")} />}
+        />
       </form>
       <div className="flex flex-col gap-4">
-        <button className="cta-btn" onClick={handleSubmit}>
+        <button className="cta-btn w-full" onClick={handleSubmit}>
           Create Account
         </button>
         <div className="flex gap-4">
           <button
-            className="cta-btn w-full"
+            className="cta-btn w-1/2"
             onClick={() => setPopupVisibility(false)}
           >
             Cancel
           </button>
-          <button className="cta-btn w-full">Enter As Guest</button>
+          <button className="cta-btn w-1/2">Enter As Guest</button>
         </div>
       </div>
       <div

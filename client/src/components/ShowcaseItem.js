@@ -9,10 +9,10 @@ const ShowcaseItem = (props) => {
         />
       ) : null}
       <div className="pt-4">
-        <p className="text-inter font-extrabold text-xl text-oxford-blue uppercase">
+        <p className="heading-2 text-oxford-blue uppercase">
           {props.item.title}
         </p>
-        <p className="text-inter font-bold text-base text-brunswick-green">
+        <p className="subheading-1 text-brunswick-green">
           {props.item.subtitle}
         </p>
       </div>

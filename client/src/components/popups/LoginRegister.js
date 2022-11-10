@@ -6,7 +6,7 @@ const LoginRegister = ({ show, setShow }) => {
   const [popupDisplay, setPopupDisplay] = useState("login");
   return show ? (
     <div
-      className="w-screen h-screen fixed bg-[#0000009d] top-0 z-50 grid place-items-center font-inter"
+      className="w-screen h-screen fixed bg-[#0000009d] top-0 z-50 grid place-items-center"
       onClick={() => {
         setShow(false);
         setPopupDisplay("login");

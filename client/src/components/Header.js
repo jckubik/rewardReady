@@ -26,7 +26,7 @@ const Header = () => {
             {user ? (
               <div>
                 <span
-                  className="font-inter text-sm pl-1 inline-block align-middle cursor-pointer"
+                  className="body pl-1 inline-block align-middle cursor-pointer"
                   onClick={() => setShowDropdown(!showDropdown)}
                 >
                   {user.user.firstName}
@@ -42,13 +42,13 @@ const Header = () => {
                   >
                     <div class="py-1" role="none">
                       <Link
-                        to="/setting/personal"
+                        to="/personal"
                         class="text-gray-700 block px-4 py-2 text-sm"
                       >
                         Personal
                       </Link>
                       <Link
-                        to="/setting/cards"
+                        to="/cards"
                         class="text-gray-700 block px-4 py-2 text-sm"
                       >
                         Card Info
@@ -66,7 +66,7 @@ const Header = () => {
               </div>
             ) : (
               <span
-                className="font-inter text-sm pl-1 inline-block align-middle cursor-pointer"
+                className="body pl-1 inline-block align-middle cursor-pointer"
                 onClick={() => setShowLoginRegister(true)}
               >
                 Sign in or Register
@@ -86,7 +86,7 @@ const Header = () => {
               <div className="relative">
                 <input
                   type="search"
-                  className="h-9 rounded-xl font-inter text-sm pl-2 pr-10 w-72"
+                  className="h-9 rounded-xl body pl-2 pr-10 w-72"
                   placeholder="Search for deals, coupons, and merchants"
                 />
                 <button className="absolute right-3 bottom-2">
