@@ -4,16 +4,6 @@ import { useEffect } from "react";
 
 export default class Hero extends React.Component {
   render() {
-    async function createUser() {
-      let data = {
-        email: "email@email.com",
-        password: "1234",
-        firstName: "test",
-        lastName: "test",
-        phoneNumber: "123456789",
-      };
-      console.log(await api.createUser(data));
-    }
     return (
       <div className="w-full relative">
         <div className="absolute bg-brunswick-green h-5 w-full"></div>
@@ -52,7 +42,7 @@ export default class Hero extends React.Component {
             />
           </div>
           <div className="flex justify-center items-center pt-12">
-            <button type="button" className="cta-btn" onClick={createUser}>
+            <button type="button" className="cta-btn">
               SAVE NOW
             </button>
           </div>
