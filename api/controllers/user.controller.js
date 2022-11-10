@@ -1,5 +1,6 @@
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const { sendPasswordResetEmail } = require("../middleware/courier");
 
 const authConfig = require("../config/auth.config");
 const db = require("../models");
@@ -9,7 +10,9 @@ const db = require("../models");
 const User = db.users;
 const Wallet = db.wallets;
 const Op = db.Sequelize.Op;
-const tempUtil = require('../utils/temp.util');
+const tempUtil = require("../utils/temp.util");
+
+const clientLink = "http://localhost:9000/";
 
 exports.register = async (req, res) => {
   const { body } = req;
@@ -32,7 +35,7 @@ exports.register = async (req, res) => {
     .then((wallet) => Wallet.create(wallet))
     .then((data) => ({
       userId: data.userId,
-      logs: []
+      logs: [],
     }))
     .then(() =>
       res.status(200).send({ message: "Successfully registered user" })
@@ -149,6 +152,7 @@ exports.updateInfo = async (req, res, next) => {
   }
 };
 
+// Update user password
 exports.updatePassword = async (req, res, next) => {
   const { userId } = req;
   const { newPassword } = req.body;
@@ -175,20 +179,19 @@ exports.updatePassword = async (req, res, next) => {
     if (user) {
       // Salt and hash the password
 
-      const hash = bcrypt
+      bcrypt
         .genSalt(10)
         .then((salt) => bcrypt.hash(newPassword, salt))
         .then((hash) => ({
           password: hash,
-        }));
+        }))
+        .then((pw) => user.set(pw));
 
-      hash.then((pw) => user.set(pw));
       // Save the data to the database
-      hash.then(() => user.save());
+      await user.save();
 
       // Send confirmation email
-      // await sendPasswordResetEmail(user.email, user.firstName);
-      // console.log(user);
+      await sendPasswordResetEmail(user.email, user.firstName);
 
       res
         .status(200)
@@ -200,6 +203,51 @@ exports.updatePassword = async (req, res, next) => {
     } else {
       res.status(404).send({ message: "User requested does not exist." });
     }
+  } catch (error) {
+    console.log(error);
+    res
+      .status(400)
+      .send({
+        message: `Unexpected error while trying to update the user password. - ${error}`,
+      });
+  }
+};
+
+exports.requestPasswordReset = async (req, res, next) => {
+  const { email } = req.body;
+
+  try {
+    const user = await User.findOne({
+      where: {
+        email,
+      },
+    });
+
+    // Check to see if a user with request email exists
+    if (!user) {
+      res
+        .status(404)
+        .send({ message: "User with the given email does not exist." });
+      next();
+    }
+
+    // Generate resetToken
+    const resetToken = jwt.sign(user, authConfig.secret, {
+      expiresIn: "1800s",
+    });
+
+    // Generate needed email variables
+    const resetLink = `${clientLink}/passwordReset?token=${resetToken}&id=${user._id}`;
+    const expirationDate = Date().now() + 1800000;
+
+    // Send reset email to user
+    await sendPasswordResetEmail(
+      email,
+      user.firstName,
+      resetLink,
+      expirationDate
+    );
+    return resetLink;
   } catch (error) {
     console.log(error);
     res

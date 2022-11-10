@@ -61,3 +61,34 @@ exports.checkValidity = async (req, res, next) => {
   body.phoneNumber = phoneInfo.phoneNumber;
   next();
 };
+
+exports.verifyEmail = async (req, res, next) => {
+    const { email } = req.body;
+
+    // Error if full information not sent
+    if (!email) {
+        res.status(400).send({ message: 'Content cannot be empty.' });
+        return;
+    }
+
+    try {
+        // find the proper user to validate
+        const user = await User.findOne({
+            where: {
+                email,
+            },
+        });
+
+        if (user) {
+            // If user isn't empty, email correct, send true
+            res.status(200).send({ message: 'Entered email is correct.', correctEmail: true });
+            next();
+        } else {
+            // Else, email is incorrect, send false
+            res.status(200).send({ message: 'Entered email is incorrect.', correctEmail: false });
+            next();
+        }
+    } catch (error) {
+        res.status(400).send({ message: 'Unexpected error while trying to update the user password.' });
+    }
+};
