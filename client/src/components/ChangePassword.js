@@ -11,7 +11,7 @@ const ChangePassword = ({ setVisible }) => {
 
   return (
     <div
-      className="w-screen h-screen fixed bg-[#0000009d] top-0 z-50 grid place-items-center font-inter"
+      className="w-screen h-screen fixed bg-[#0000009d] top-0 z-50 grid place-items-center"
       onClick={() => setVisible(false)}
     >
       <div
@@ -28,9 +28,8 @@ const ChangePassword = ({ setVisible }) => {
               className="w-full rounded-sm py-2"
               name="password"
               ref={currentPassword_r}
-            >
-              <FontAwesomeIcon icon={solid("key")} />
-            </Input>
+              icon={<FontAwesomeIcon icon={solid("key")} />}
+            />
           </div>
           <div>
             <div className="w-full text-left">Enter New Password</div>
@@ -40,9 +39,8 @@ const ChangePassword = ({ setVisible }) => {
               className="w-full rounded-sm py-2"
               name="password"
               ref={password_r}
-            >
-              <FontAwesomeIcon icon={solid("key")} />
-            </Input>
+              icon={<FontAwesomeIcon icon={solid("key")} />}
+            />
           </div>
         </form>
         <button className="cta-btn" onClick={() => setVisible(false)}>

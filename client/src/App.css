@@ -9,16 +9,34 @@
   }
 
   .primary-btn {
-    @apply bg-steel-blue p-2.5 rounded-lg font-inter font-bold text-white text-base;
+    @apply bg-steel-blue p-2.5 rounded-lg font-inter font-medium text-white text-base;
   }
 
   .secondary-btn {
-    @apply bg-white p-2 rounded-lg font-inter font-bold text-steel-blue text-base border-4 border-steel-blue;
+    @apply bg-white p-2 rounded-lg font-inter font-medium text-steel-blue text-base border-2 border-steel-blue;
   }
 
   .tertiary-btn {
     @apply bg-steel-blue p-2 rounded-lg font-inter font-bold uppercase text-sm text-white;
   }
+
+  .body {
+    @apply font-inter text-sm font-normal;
+  }
+
+  .heading-1 {
+    @apply font-inter text-3xl font-black;
+  }
+
+  .heading-2 {
+    @apply font-inter font-extrabold text-xl;
+  }
+
+  .subheading-1 {
+    @apply font-inter font-bold text-base;
+  }
+
+
 }; 
 
 
