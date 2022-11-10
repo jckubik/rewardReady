@@ -1,16 +1,16 @@
-const jwt = require("jsonwebtoken");
-const config = require("../config/auth.config.js");
+const jwt = require('jsonwebtoken');
+const config = require('../config/auth.config.js');
 
 exports.verifyToken = (req, res, next) => {
-    let token = req.session.token;
+    const { token } = req.session;
     if (!token) {
-        res.status(403).send({message: 'No token provided'});
+        res.status(403).send({ message: 'No token provided' });
         return;
     }
 
     jwt.verify(token, config.secret, (err, decoded) => {
         if (err) {
-            return res.status(401).send({message: 'Unauthorized'});
+            return res.status(401).send({ message: 'Unauthorized' });
         }
 
         req.userId = decoded.id;

@@ -34,7 +34,9 @@ db.sequelize.sync()
 
 require('./routes/user.routes')(app);
 require('./routes/wallet.routes')(app);
-
+require('./routes/store.routes')(app);
+require('./routes/coupon.routes')(app);
+require('./routes/deal.routes')(app);
 // TODO - ensure all error codes are right
 
 // // catch 404 and forward to error handler

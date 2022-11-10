@@ -1,10 +1,10 @@
 import { useState } from 'react';
 import '../css/LocateMe.css';
 
-const LocateMe = () => {
+const LocateMe = (props) => {
 
   // State may need to be lifted up to whereever location is being used
-  const [storeName, setStoreName] = useState();
+  // const [storeName, setStoreName] = useState();
   const [userCity, setUserCity] = useState();
   const [userState, setUserState] = useState();
 
@@ -17,12 +17,12 @@ const LocateMe = () => {
           </label>
           <input 
             type="text" 
-            value={storeName}
+            value={props.data}
             name="store-name" 
             id="store-name" 
             placeholder="Store"
             required 
-            onChange={(event) => setStoreName(event.target.value)}
+            onChange={(event) => props.changeState(event.target.value)}
           />
           <label htmlFor="user-city">
             City
