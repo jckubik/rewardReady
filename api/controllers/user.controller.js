@@ -32,9 +32,7 @@ exports.register = async (req, res) => {
       userId: data.userId,
       logs: []
     }))
-    .then(() =>
-      res.status(200).send({ message: "Successfully registered user" })
-    )
+    .then(() => res.status(200).send({ message: "Successfully registered user" }))
     .catch(() => res.status(500).send({ message: "Unexpected error" }));
 };
 

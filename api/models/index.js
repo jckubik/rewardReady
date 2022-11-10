@@ -25,6 +25,7 @@ Deal = db.deals = require('./deal.model')(sequelize, Sequelize);
 History = db.history = require('./history.model')(sequelize, Sequelize);
 Category = db.categories = require("./category.model")(sequelize, Sequelize);
 Card = db.cards = require("./card.model")(sequelize, Sequelize);
+History = db.history = require('./history.model')(sequelize, Sequelize);
 
 User.hasOne(Wallet);
 Wallet.belongsTo(User);
