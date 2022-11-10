@@ -23,9 +23,12 @@ Coupon = db.coupons = require("./coupon.model")(sequelize, Sequelize);
 Deal = db.deals = require("./deal.model")(sequelize, Sequelize);
 Category = db.categories = require("./category.model")(sequelize, Sequelize);
 Card = db.cards = require("./card.model")(sequelize, Sequelize);
+History = db.history = require('./history.model')(sequelize, Sequelize);
 
 User.hasOne(Wallet);
 Wallet.belongsTo(User);
+User.hasOne(History);
+History.belongsTo(User);
 // this was changed from what it was before
 Store.hasMany(Category);
 Category.belongsToMany(Store, {

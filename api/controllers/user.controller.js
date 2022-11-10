@@ -30,6 +30,10 @@ exports.register = async (req, res) => {
       history: [],
     }))
     .then((wallet) => Wallet.create(wallet))
+    .then((data) => ({
+      userId: data.userId,
+      logs: []
+    }))
     .then(() =>
       res.status(200).send({ message: "Successfully registered user" })
     )
