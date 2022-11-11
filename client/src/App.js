@@ -29,11 +29,9 @@ function App() {
         <Header />
         <Routes>
           <Route index element={<Home />} />
-          {/* <Route path="personal" element={<Setting />} /> */}
           <Route path="personal" element={<Personal />} />
           <Route path="cards" element={<Cards />} />
         </Routes>
-        {/* <AddCard /> */}
         <Footer />
       </div>
     </session.Provider>
