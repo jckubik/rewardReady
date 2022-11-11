@@ -111,4 +111,21 @@ Card.belongsToMany(Wallet, {
 //     .then(() => console.log("Temporary for testing"))
 //     .catch(err => console.log(err));
 
+// Card.create({
+//   content: {},
+//   walletId: 1,
+//   cardId: "5e690b260b077d5830cadc48"
+// }
+// )
+//     .then(() => console.log("test"))
+//     .catch(err => console.log(err))
+// Card.create({
+//       content: {},
+//       walletId: 1,
+//       cardId: "5e690b260b077d5830cadc21"
+//     }
+// )
+//     .then(() => console.log("test"))
+//     .catch(err => console.log(err))
+
 module.exports = db;
