@@ -24,5 +24,8 @@ Deal = db.deals = require('./deal.model')(sequelize, Sequelize);
 
 User.hasOne(Wallet);
 Wallet.belongsTo(User);
+// this was changed from what it was before
+Store.hasMany(Category);
+Category.belongsToMany(Store, { through: "store_categories", as: "stores", foreignKey: "store_id" });
 
 module.exports = db;
