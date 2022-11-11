@@ -76,6 +76,7 @@ function App() {
           <Route index element={<Home />} />
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
           <Route path="personal" element={<Personal />} />
           <Route path="cards" element={<Cards />} />
 <<<<<<< HEAD
@@ -101,11 +102,12 @@ function App() {
           </Route>
 =======
           {/* <Route path="personal" element={<Setting />} /> */}
+=======
+>>>>>>> 9d84b8e (Fixed routes)
           <Route path="personal" element={<Personal />} />
           <Route path="cards" element={<Cards />} />
 >>>>>>> f090e48 (144-frontend: Refactored code)
         </Routes>
-        {/* <AddCard /> */}
         <Footer />
       </div>
     </session.Provider>

@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 
 const SubHeader = ({ active }) => {
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9d84b8e (Fixed routes)
   return (
     <div class="w-full border-2 flex items-center">
       <Link
@@ -23,6 +26,7 @@ const SubHeader = ({ active }) => {
       </Link>
     </div>
   );
+<<<<<<< HEAD
 =======
     return (
         <div class="w-full border-2 flex items-center">
@@ -47,6 +51,8 @@ const SubHeader = ({ active }) => {
         </div>
     );
 >>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
+=======
+>>>>>>> 9d84b8e (Fixed routes)
 };
 
 export default SubHeader;
