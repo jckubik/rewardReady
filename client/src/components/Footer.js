@@ -7,7 +7,7 @@ export default class Footer extends React.Component {
       <div className="w-full h-28 bg-light-gray">
         <div className="mx-2 h-full flex items-center">
           <div className="flex-1 flex">
-            <span className="font-inter text-sm">ⓒ 2022 RewardReady</span>
+            <span className="body">ⓒ 2022 RewardReady</span>
           </div>
           <div className="flex-1 gap-x-3 flex justify-center">
             <a href="/" className="font-sm text-brunswick-green font-semibold">

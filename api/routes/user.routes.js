@@ -15,7 +15,7 @@ module.exports = (app) => {
   router.post("/update", userMiddleware.verifyToken, userController.updateInfo);
   router.post("/delete", userMiddleware.verifyToken, userController.delete);
   // temp for testing coupons
-  router.get("/coupons", userController.getCoupons);
+  // router.get("/coupons", userController.getCoupons);
 
   app.use("/api/user", router);
 };
