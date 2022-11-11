@@ -24,6 +24,7 @@ Coupon = db.coupons = require('./coupon.model')(sequelize, Sequelize);
 Deal = db.deals = require('./deal.model')(sequelize, Sequelize);
 History = db.history = require('./history.model')(sequelize, Sequelize);
 Category = db.categories = require("./category.model")(sequelize, Sequelize);
+Card = db.cards = require("./card.model")(sequelize, Sequelize);
 
 User.hasOne(Wallet);
 Wallet.belongsTo(User);
@@ -34,6 +35,13 @@ Category.belongsToMany(Store, {
   through: "store_categories",
   as: "stores",
   foreignKey: "store_id",
+});
+
+Wallet.hasMany(Card);
+Card.belongsToMany(Wallet, {
+  through: "wallet_cards",
+  as: "wallets",
+  foreignKey: "wallet_id",
 });
 
 // These lines below are temporary for testing
@@ -60,5 +68,22 @@ Category.belongsToMany(Store, {
 // })
 //     .then(() => console.log("Temporary for testing"))
 //     .catch(err => console.log(err));
+
+// Card.create({
+//   content: {},
+//   walletId: 1,
+//   cardId: "5e690b260b077d5830cadc48"
+// }
+// )
+//     .then(() => console.log("test"))
+//     .catch(err => console.log(err))
+// Card.create({
+//       content: {},
+//       walletId: 1,
+//       cardId: "5e690b260b077d5830cadc21"
+//     }
+// )
+//     .then(() => console.log("test"))
+//     .catch(err => console.log(err))
 
 module.exports = db;
