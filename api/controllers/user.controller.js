@@ -69,18 +69,16 @@ exports.logout = async (req, res) => {
 };
 
 exports.delete = async (req, res, next) => {
-  const { userId } = req.userId;
+  const userId = req.userId;
   const { email } = req.body;
 
   try {
     // find the proper user to delete
-    const user = await User.findAll({
+    const user = await User.findOne({
       where: {
         id: userId,
       },
-    }).then(() => {
-      user.length > 0 ? user[0] : null;
-    });
+    })
 
     if (user) {
       // Delete the user instance if found
@@ -100,36 +98,36 @@ exports.delete = async (req, res, next) => {
 
 // Update password should probably be serparate with the validation needed?
 exports.updateInfo = async (req, res, next) => {
-  const { userId } = req.userId;
+  const userId = req.userId;
   const { firstName, lastName, phoneNumber, email } = req.body;
 
   // Throw error if user isn't verrified
-  if (!userId) {
+  if (userId === null) {
     res.status(400).send({ message: "User cannot be verified." });
     return;
   }
 
   // Error if full information not sent
-  if (!firstName || !lastName || !phoneNumber || !email) {
+  if (firstName === null || lastName === null || phoneNumber === null || email === null) {
     res.status(400).send({ message: "Content cannot be empty." });
     return;
   }
 
   try {
     // find the proper user to update
-    const user = await User.findAll({
+    const user = await User.findOne({
       where: {
         id: userId,
       },
-    }).then(() => (user.length > 0 ? user[0] : null));
+    })
 
     if (user) {
       // Set the data
       user.set({
-        firstName,
-        lastName,
-        phoneNumber,
-        email,
+        firstName: firstName,
+        lastName: lastName,
+        phoneNumber: phoneNumber,
+        email: email,
       });
 
       // Save the data to the database
