@@ -110,13 +110,18 @@ exports.updateInfo = async (req, res, next) => {
   const userId = req.userId;
   const { firstName, lastName, phoneNumber, email } = req.body;
 
+  // Throw error if user isn't verrified
+  if (userId == null) {
+    res.status(400).send({ message: "User cannot be verified." });
+    return;
+  }
+
   // Error if full information not sent
   if (
-    userId === null ||
-    firstName === null ||
-    lastName === null ||
-    phoneNumber === null ||
-    email === null
+    firstName == null ||
+    lastName == null ||
+    phoneNumber == null ||
+    email == null
   ) {
     res.status(400).send({ message: "Content cannot be empty." });
     return;
@@ -179,37 +184,34 @@ exports.updatePassword = async (req, res, next) => {
     if (user) {
       // Salt and hash the password
 
-      bcrypt
+      const hash = bcrypt
         .genSalt(10)
         .then((salt) => bcrypt.hash(newPassword, salt))
         .then((hash) => ({
           password: hash,
-        }))
-        .then((pw) => user.set(pw));
+        }));
 
+      hash.then((pw) => user.set(pw));
       // Save the data to the database
-      await user.save();
+      hash.then(() => user.save());
 
       // Send confirmation email
       await sendPasswordResetEmail(user.email, user.firstName);
+      console.log(user);
 
-      res
-        .status(200)
-        .send({
-          message: "User password updated successfully.",
-          password: user.password,
-        });
+      res.status(200).send({
+        message: "User password updated successfully.",
+        password: user.password,
+      });
       next();
     } else {
       res.status(404).send({ message: "User requested does not exist." });
     }
   } catch (error) {
     console.log(error);
-    res
-      .status(400)
-      .send({
-        message: `Unexpected error while trying to update the user password. - ${error}`,
-      });
+    res.status(400).send({
+      message: `Unexpected error while trying to update the user password. - ${error}`,
+    });
   }
 };
 
@@ -250,10 +252,8 @@ exports.requestPasswordReset = async (req, res, next) => {
     return resetLink;
   } catch (error) {
     console.log(error);
-    res
-      .status(400)
-      .send({
-        message: `Unexpected error while trying to update the user password. - ${error}`,
-      });
+    res.status(400).send({
+      message: `Unexpected error while trying to update the user password. - ${error}`,
+    });
   }
 };
