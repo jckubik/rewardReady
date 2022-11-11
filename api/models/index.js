@@ -19,6 +19,7 @@ db.sequelize = sequelize;
 User = db.users = require('./user.model')(sequelize, Sequelize);
 Wallet = db.wallets = require('./wallet.model')(sequelize, Sequelize);
 Store = db.stores = require('./store.model')(sequelize, Sequelize);
+Category = db.categories = require('./category.model')(sequelize, Sequelize);
 Coupon = db.coupons = require('./coupon.model')(sequelize, Sequelize);
 Deal = db.deals = require('./deal.model')(sequelize, Sequelize);
 History = db.history = require('./history.model')(sequelize, Sequelize);
