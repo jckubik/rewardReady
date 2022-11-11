@@ -216,17 +216,35 @@ exports.updatePassword = async (req, res, next) => {
 };
 
 exports.requestPasswordReset = async (req, res, next) => {
-  const { email } = req.body;
+  const email = req.body.email;
+  const { userId } = req;
 
   try {
+    let resetToken;
+    let userForToken;
+    let userTemp;
     const user = await User.findOne({
       where: {
-        email,
+        email: email,
       },
-    });
+    })
+      // .then((user) => (user ? user.get({ plain: true }) : null))
+      .then((user) => (userTemp = user))
+      // .then((user) => console.log(user))
+      .then((authentication) => {
+        const valid = authentication[1];
+        if (valid) {
+          userForToken = authentication[0];
+          resetToken = jwt.sign(userTemp, authConfig.secret, {
+            expiresIn: "1800s",
+          });
+        }
+      });
+
+    // console.log(userForToken);
 
     // Check to see if a user with request email exists
-    if (!user) {
+    if (userTemp === null) {
       res
         .status(404)
         .send({ message: "User with the given email does not exist." });
@@ -234,26 +252,31 @@ exports.requestPasswordReset = async (req, res, next) => {
     }
 
     // Generate resetToken
-    const resetToken = jwt.sign(user, authConfig.secret, {
-      expiresIn: "1800s",
-    });
-
+    // const resetToken = jwt.sign(user, authConfig.secret, { expiresIn: '1800s' });
+    // console.log(typeof resetToken);
     // Generate needed email variables
-    const resetLink = `${clientLink}/passwordReset?token=${resetToken}&id=${user._id}`;
-    const expirationDate = Date().now() + 1800000;
-
+    const resetLink = `${clientLink}/passwordReset?token=${resetToken}&id=${userTemp.id}`;
+    const expirationDate = Date.now() + 1800000;
+    // console.log(typeof resetLink);
     // Send reset email to user
+    console.log(userTemp);
     await sendPasswordResetEmail(
       email,
-      user.firstName,
+      userTemp.firstName,
       resetLink,
       expirationDate
     );
-    return resetLink;
+
+    res
+      .status(200)
+      .send({ message: `Password reset email sent. Reset link: ${resetLink}` });
+    // return resetLink;
   } catch (error) {
     console.log(error);
-    res.status(400).send({
-      message: `Unexpected error while trying to update the user password. - ${error}`,
-    });
+    res
+      .status(400)
+      .send({
+        message: `Unexpected error while trying to update the user password. - ${error}`,
+      });
   }
 };
