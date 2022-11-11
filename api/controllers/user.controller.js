@@ -3,11 +3,9 @@ const jwt = require("jsonwebtoken");
 
 const authConfig = require("../config/auth.config");
 const db = require("../models");
-
 const User = db.users;
 const Wallet = db.wallets;
 const Op = db.Sequelize.Op;
-const tempUtil = require("../utils/temp.util");
 
 exports.register = async (req, res) => {
   const { body } = req;
@@ -37,7 +35,7 @@ exports.register = async (req, res) => {
 };
 
 exports.login = async (req, res) => {
-  const { body } = req;
+  const body = req.body;
   User.findOne({ where: { email: { [Op.eq]: body.email } } })
     .then((user) => (user ? user.get({ plain: true }) : null))
     .then((user) => [
@@ -83,9 +81,11 @@ exports.delete = async (req, res, next) => {
     if (user) {
       // Delete the user instance if found
       user.destroy();
-      res.status(200).send({
-        message: `User with username: ${email} has been deleted successfully.`,
-      });
+      res
+        .status(200)
+        .send({
+          message: `User with username: ${email} has been deleted successfully.`,
+        });
     } else {
       res.status(404).send({ message: "User requested does not exist." });
     }
@@ -101,14 +101,9 @@ exports.updateInfo = async (req, res, next) => {
   const userId = req.userId;
   const { firstName, lastName, phoneNumber, email } = req.body;
 
-  // Throw error if user isn't verrified
-  if (userId === null) {
-    res.status(400).send({ message: "User cannot be verified." });
-    return;
-  }
-
   // Error if full information not sent
   if (
+    userId === null ||
     firstName === null ||
     lastName === null ||
     phoneNumber === null ||
@@ -127,18 +122,14 @@ exports.updateInfo = async (req, res, next) => {
     });
 
     if (user) {
-      // Set the data
       user.set({
         firstName: firstName,
         lastName: lastName,
         phoneNumber: phoneNumber,
         email: email,
       });
-
-      // Save the data to the database
-      await user.save();
+      user.save();
       res.status(200).send({ message: "User updated successfully." });
-      next();
     } else {
       res.status(404).send({ message: "User requested does not exist." });
     }
@@ -146,5 +137,66 @@ exports.updateInfo = async (req, res, next) => {
     res
       .status(400)
       .send({ message: "Unexpected error while trying to update user." });
+  }
+};
+
+exports.updatePassword = async (req, res, next) => {
+  const { userId } = req;
+  const { newPassword } = req.body;
+
+  if (!userId) {
+    res.status(400).send({ message: "UserId not found." });
+    return;
+  }
+
+  // Error if full information not sent
+  if (newPassword === null || newPassword === "") {
+    res.status(400).send({ message: "newPassword cannot be empty." });
+    return;
+  }
+
+  try {
+    // find the proper user to update
+    const user = await User.findOne({
+      where: {
+        id: userId,
+      },
+    });
+
+    if (user) {
+      // Salt and hash the password
+
+      const hash = bcrypt
+        .genSalt(10)
+        .then((salt) => bcrypt.hash(newPassword, salt))
+        .then((hash) => ({
+          password: hash,
+        }));
+
+      hash.then((pw) => user.set(pw));
+      // Save the data to the database
+      hash.then(() => user.save());
+
+      // Send confirmation email
+      // await sendPasswordResetEmail(user.email, user.firstName);
+      // console.log(user);
+
+      res
+        .status(200)
+        .send({
+          message: "User password updated successfully.",
+          password: user.password,
+        });
+      next();
+    } else {
+      res.status(404).send({ message: "User requested does not exist." });
+    }
+  } catch (error) {
+    console.log(error);
+    res
+      .status(400)
+      .send({
+        message: `Unexpected error while trying to update the user password. - ${error}`,
+      });
   }
 };

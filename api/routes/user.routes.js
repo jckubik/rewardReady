@@ -12,6 +12,7 @@ module.exports = (app) => {
   router.post("/login", userController.login);
   router.post("/logout", userController.logout);
   router.post("/update", userMiddleware.verifyToken, userController.updateInfo);
+  router.post("/update/password", userMiddleware.verifyToken, userController.updatePassword);
   router.post("/delete", userMiddleware.verifyToken, userController.delete);
   // temp for testing coupons
   // router.get("/coupons", userController.getCoupons);

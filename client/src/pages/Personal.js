@@ -6,16 +6,19 @@ import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import session from "../context/user";
 import ChangePassword from "../components/ChangePassword";
+import DeleteAccount from "../components/DeleteAccount";
 
 const Personal = () => {
+
+  const { user } = useContext(session);
+  let navigate = useNavigate();
+  
   const deleteAccount = () => {
     api.deleteUser();
   };
 
-  const { user } = useContext(session);
-  let navigate = useNavigate();
-
   const [showChangePassword, setShowChangePassword] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
 
   useEffect(() => {
     if (!user) {
@@ -56,6 +59,7 @@ const Personal = () => {
           session: user.token,
         },
         method: "POST",
+        credentials: "include",
       })
         .then((res) => {
           if (res.status === 200) {
@@ -77,6 +81,9 @@ const Personal = () => {
     <>
       {showChangePassword && (
         <ChangePassword setVisible={setShowChangePassword} />
+      )}
+      {showDeleteModal && (
+        <DeleteAccount setVisible={setShowDeleteModal} />
       )}
       <div>
         <SubHeader active="personal" />
@@ -117,7 +124,10 @@ const Personal = () => {
           <div className="w-full flex justify-between mt-5">
             <button
               className="secondary-btn text-red-500 border-red-500"
-              onClick={deleteAccount}
+              onClick={(e) => {
+                e.preventDefault();
+                setShowDeleteModal(true);
+            }}
             >
               Delete Account
             </button>
