@@ -43,9 +43,12 @@ exports.recommendCard = async (req, res) => {
     Wallet.findOne({where: {userId: {[Op.eq]: req.userId}}})
         .then(wallet => Promise.all(wallet.items.cards.map(cardId => tempUtil.getCardById(cardId))))
         .then(cards => cards.filter(card => card !== null))
-        .then(cards => {
+        .then(cards => [cards, Store.findOne({where: {name: {[Op.eq]: req.body.name}}})])
+        .then(info => {
+            const cards = info[0];
+            const store = info[1];
             const topCards = cards.sort((cardA, cardB) => {
-                const recommendCategory = req.body.recommendCategory;
+                const recommendCategory = store.category;
                 const earningsA = cardA.earnings
                     .filter(earning => earning.category === recommendCategory)
                     .sort((earningA, earningB) => earningB.points - earningA.points);
