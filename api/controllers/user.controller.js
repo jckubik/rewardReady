@@ -10,7 +10,6 @@ const Op = db.Sequelize.Op;
 const tempUtil = require("../utils/temp.util");
 
 exports.register = async (req, res) => {
-
   const { body } = req;
   bcrypt
     .genSalt(10)
@@ -24,13 +23,17 @@ exports.register = async (req, res) => {
     }))
     .then((user) => User.create(user))
     .then((data) => ({
-        userId: data.id,
-        items: { cards: [] },
-        history: []
+      userId: data.id,
+      items: { cards: [] },
+      history: [],
     }))
     .then((wallet) => Wallet.create(wallet))
-    .then(() => res.end())
-    .catch(() => res.status(500).send({ message: "Unexpected error" }));
+    .then(() =>
+      res.status(200).send({ message: "Successfully registered user" })
+    )
+    .catch((err) =>
+      res.status(500).send({ message: `Unexpected error: ${err}` })
+    );
 };
 
 exports.login = async (req, res) => {
@@ -75,7 +78,7 @@ exports.delete = async (req, res, next) => {
       where: {
         id: userId,
       },
-    })
+    });
 
     if (user) {
       // Delete the user instance if found
@@ -105,7 +108,12 @@ exports.updateInfo = async (req, res, next) => {
   }
 
   // Error if full information not sent
-  if (firstName === null || lastName === null || phoneNumber === null || email === null) {
+  if (
+    firstName === null ||
+    lastName === null ||
+    phoneNumber === null ||
+    email === null
+  ) {
     res.status(400).send({ message: "Content cannot be empty." });
     return;
   }
@@ -116,7 +124,7 @@ exports.updateInfo = async (req, res, next) => {
       where: {
         id: userId,
       },
-    })
+    });
 
     if (user) {
       // Set the data

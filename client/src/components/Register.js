@@ -26,19 +26,6 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
       return;
     }
     try {
-      // fetch(`http://localhost:${PORT}/api/user/register`, {
-      //   body: JSON.stringify({
-      //     firstName: firstName,
-      //     lastName: lastName,
-      //     phoneNumber: phone || null,
-      //     email: email,
-      //     password: password,
-      //   }),
-      //   headers: {
-      //     "Content-Type": "application/json",
-      //   },
-      //   method: "POST",
-      // })
       let data = {
         firstName: firstName,
         lastName: lastName,
@@ -46,7 +33,7 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
         email: email,
         password: password,
       };
-      api.createUser(data).then((res) => {
+      api.register(data).then((res) => {
         if (res.status === 200) {
           alert("Account created successfully");
           setPopupVisibility(false);
