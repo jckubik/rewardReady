@@ -23,16 +23,18 @@ exports.register = async (req, res) => {
     }))
     .then((user) => User.create(user))
     .then((data) => ({
-        userId: data.id,
-        items: { cards: [] },
-        history: []
+      userId: data.id,
+      items: { cards: [] },
+      history: [],
     }))
     .then((wallet) => Wallet.create(wallet))
     .then((data) => ({
       userId: data.userId,
       logs: []
     }))
-    .then(() => res.end())
+    .then(() =>
+      res.status(200).send({ message: "Successfully registered user" })
+    )
     .catch(() => res.status(500).send({ message: "Unexpected error" }));
 };
 
@@ -78,7 +80,7 @@ exports.delete = async (req, res, next) => {
       where: {
         id: userId,
       },
-    })
+    });
 
     if (user) {
       // Delete the user instance if found
@@ -108,7 +110,12 @@ exports.updateInfo = async (req, res, next) => {
   }
 
   // Error if full information not sent
-  if (firstName === null || lastName === null || phoneNumber === null || email === null) {
+  if (
+    firstName === null ||
+    lastName === null ||
+    phoneNumber === null ||
+    email === null
+  ) {
     res.status(400).send({ message: "Content cannot be empty." });
     return;
   }
@@ -119,7 +126,7 @@ exports.updateInfo = async (req, res, next) => {
       where: {
         id: userId,
       },
-    })
+    });
 
     if (user) {
       // Set the data

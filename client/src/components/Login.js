@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { PORT } from "../constants";
 import session from "../context/user";
+import api from "../utils/api";
 
 const Login = ({ setPopupDisplay }) => {
   const email_r = useRef();
@@ -13,37 +14,19 @@ const Login = ({ setPopupDisplay }) => {
 
   const { setUser } = useContext(session);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const email = email_r.current.value;
     const password = password_r.current.value;
+
     try {
-      fetch(`http://localhost:${PORT}/api/user/login`, {
-        body: JSON.stringify({
-          email: email,
-          password: password,
-        }),
-        headers: {
-          "Content-Type": "application/json",
-        },
-        method: "POST",
-      })
-        .then((res) => {
-          if (res.status === 200) {
-            // setVisible(false);
-            console.log(res);
-          } else {
-            setError("Incorrect Email/password");
-            return;
-          }
-          return res.json();
-        })
-        .then((data) => {
-          console.log(data);
-          setUser(data);
-        });
-    } catch (e) {
-      console.error(e.message);
+      let loginResponse = await api.login({ email, password });
+      console.log(loginResponse);
+      setUser(loginResponse);
+    } catch (err) {
+      console.log(err);
+      setError("Incorrect Email/password");
+      return;
     }
   };
 

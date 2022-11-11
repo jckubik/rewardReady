@@ -37,11 +37,23 @@ async function getRandomDeal() {
     return await execute('GET', '/localhost:9000/api/deal/random', "");
 }
 
-const ccStackSecret = 'bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf';
-const discountSecret = 'YxhRTxQe';
+async function login(data) {
+  return await execute("POST", "/api/user/login", data);
+}
 
-export default {getCardRecommendationsForUser}
-export {getRandomCoupon}
-export {getRandomDeal}
-export { ccStackSecret }
-export { discountSecret }
+async function register(data) {
+  return await execute("POST", "/api/user/register", data);
+}
+
+const ccStackSecret = "bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf";
+const discountSecret = "YxhRTxQe";
+
+export default {
+  getCardRecommendationsForUser,
+  getRandomCoupon,
+  getRandomDeal,
+  login,
+  register,
+  ccStackSecret,
+  discountSecret,
+};
