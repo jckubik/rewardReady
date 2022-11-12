@@ -8,6 +8,7 @@ const PORT = "9000";
 const client = axios.create({
   baseURL: `${PROTOCOL}${API_HOSTNAME}${PORT}`,
   json: true,
+  withCredentials: true,
 });
 
 async function execute(method, resource, data) {
