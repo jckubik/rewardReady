@@ -4,7 +4,7 @@ import Input from "../components/utils/Input";
 import { PORT } from "../constants";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
-import session from "../context/user";
+import session from "../context/Auth";
 import ChangePassword from "../components/ChangePassword";
 import DeleteAccount from "../components/popups/DeleteAccount";
 

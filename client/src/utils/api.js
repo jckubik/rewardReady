@@ -1,4 +1,5 @@
 import axios from "axios";
+import { getAccessToken } from "./auth";
 
 // should change or declare
 const PROTOCOL = "http://";
@@ -12,19 +13,22 @@ const client = axios.create({
 });
 
 async function execute(method, resource, data) {
+  let accessToken = getAccessToken();
+  console.log(accessToken);
   try {
     let c = await client({
       method,
       url: resource,
       data,
-      headers: {},
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
     });
     return c.data;
   } catch (err) {
     return err;
   }
 }
-
 
 async function getCardRecommendationsForUser(store) {
   // need to change method to lowercase poss, change resource to valid
@@ -45,6 +49,10 @@ async function login(data) {
   return await execute("POST", "/api/user/login", data);
 }
 
+async function logout() {
+  return await execute("POST", "/api/user/logout");
+}
+
 async function register(data) {
   return await execute("POST", "/api/user/register", data);
 }
@@ -61,6 +69,7 @@ export default {
   getRandomCoupon,
   getRandomDeal,
   login,
+  logout,
   register,
   deleteUser,
   ccStackSecret,

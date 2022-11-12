@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 const SubHeader = ({ active }) => {
   return (
-    <div class="w-full border-2 flex items-center">
+    <div className="w-full border-2 flex items-center">
       <Link
         to={"/personal"}
         className={`py-4 w-40 text-center ${

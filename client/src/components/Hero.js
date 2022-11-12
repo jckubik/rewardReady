@@ -1,6 +1,4 @@
 import React from "react";
-import api from "../utils/api";
-import { useEffect } from "react";
 
 export default class Hero extends React.Component {
   render() {

@@ -2,17 +2,18 @@ import React, { useContext, useRef, useState } from "react";
 import Input from "./utils/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { PORT } from "../constants";
-import session from "../context/user";
+
 import api from "../utils/api";
+import { useDispatch } from "react-redux";
+import { setUser } from "../reduxSlices/userSlice";
+import { setAccessToken } from "../utils/auth";
 
 const Login = ({ setPopupDisplay, setPopupVisibility }) => {
+  const dispatch = useDispatch();
   const email_r = useRef();
   const password_r = useRef();
 
   const [error, setError] = useState("");
-
-  const { setUser } = useContext(session);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -21,11 +22,14 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
 
     try {
       let loginResponse = await api.login({ email, password });
-      console.log(loginResponse);
-      setUser(loginResponse);
+      let token = loginResponse.token;
+      let user = loginResponse.user;
+      // setAccessToken(token);
+      localStorage.setItem("user", JSON.stringify(user));
+      dispatch(setUser(user));
       setPopupVisibility(false);
+      console.log(token);
     } catch (err) {
-      console.log(err);
       setError("Incorrect Email/password");
       return;
     }
@@ -62,9 +66,6 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
       <a href="/" className="text-shamrock-green underline">
         Forgot Password?
       </a>
-      {/* <button className="cta-btn" onClick={setClickRegister(true)}>
-        register
-      </button> */}
       <div
         className="text-shamrock-green underline cursor-pointer"
         onClick={() => {

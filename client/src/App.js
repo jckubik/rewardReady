@@ -6,26 +6,13 @@ import Personal from "./pages/Personal";
 import Cards from "./pages/Cards";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
-import session from "./context/user";
+// import AddCard from "./components/AddCard";
+import { store } from "./store";
+import { Provider, useDispatch } from "react-redux";
 
 function App() {
-  const [user, setUser] = useState(null);
-  // const [apiResponse, setApiResponse] = useState();
-  const [store, setStore] = useState({data:""});
-
-  const changeState = (storeData) => {
-    setStore(storeData);
-  };
-
-
   return (
-    <session.Provider
-      value={{
-        user,
-        setUser,
-      }}
-    >
+    <Provider store={store}>
       <div className="App">
         <Header />
         <Routes>
@@ -38,7 +25,7 @@ function App() {
         {/* <RecommendDisplay store={store.data}/> */}
         <Footer />
       </div>
-    </session.Provider>
+    </Provider>
   );
 }
 

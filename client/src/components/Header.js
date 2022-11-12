@@ -1,19 +1,35 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import LoginRegister from "./popups/LoginRegister";
 
 import "../css/Header.css";
-import session from "../context/user";
 import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setUser } from "../reduxSlices/userSlice";
+import {
+  getAccessToken,
+  getTokenExpirationDate,
+  isLoggedIn,
+  logout,
+} from "../utils/auth";
+import api from "../utils/api";
 
 const Header = () => {
-  const { user, setUser } = useContext(session);
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  console.log(isLoggedIn());
+  if (isLoggedIn()) {
+    // console.log(getTokenExpirationDate(getAccessToken()));
+  }
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLoginRegister, setShowLoginRegister] = useState(false);
 
   const logoutHandler = () => {
-    setUser(null);
+    api.logout();
+    dispatch(setUser(null));
+    localStorage.clear();
+    logout();
   };
   return (
     <>
@@ -29,33 +45,32 @@ const Header = () => {
                   className="body pl-1 inline-block align-middle cursor-pointer"
                   onClick={() => setShowDropdown(!showDropdown)}
                 >
-                  {user.user.firstName}
+                  {user.firstName}
                 </span>
                 {showDropdown && (
                   <div
-                    class="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
+                    className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none"
                     role="menu"
                     aria-orientation="vertical"
                     aria-labelledby="menu-button"
-                    tabindex="-1"
                     onClick={() => setShowDropdown(!showDropdown)}
                   >
-                    <div class="py-1" role="none">
+                    <div className="py-1" role="none">
                       <Link
                         to="/personal"
-                        class="text-gray-700 block px-4 py-2 text-sm"
+                        className="text-gray-700 block px-4 py-2 text-sm"
                       >
                         Personal
                       </Link>
                       <Link
                         to="/cards"
-                        class="text-gray-700 block px-4 py-2 text-sm"
+                        className="text-gray-700 block px-4 py-2 text-sm"
                       >
                         Card Info
                       </Link>
                       <div
                         to="/"
-                        class="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
+                        className="text-gray-700 block px-4 py-2 text-sm cursor-pointer"
                         onClick={logoutHandler}
                       >
                         Log out
