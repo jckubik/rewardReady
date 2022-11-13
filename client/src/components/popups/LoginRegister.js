@@ -12,7 +12,7 @@ const LoginRegister = ({ show, setShow }) => {
         setPopupDisplay("login");
       }}
     >
-      {popupDisplay === "login" && <Login setPopupDisplay={setPopupDisplay} />}
+      {popupDisplay === "login" && <Login setPopupDisplay={setPopupDisplay} setPopupVisibility={setShow}/>}
       {popupDisplay === "register" && (
         <Register
           setPopupDisplay={setPopupDisplay}

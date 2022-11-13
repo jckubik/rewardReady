@@ -34,9 +34,11 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
         password: password,
       };
       api.register(data).then((res) => {
-        if (res.status === 200) {
+        // console.log(res.status);
+        if (res.message === "Successfully registered user") {
           alert("Account created successfully");
           setPopupVisibility(false);
+          setPopupDisplay("login");
         } else {
           console.log(res);
           alert("Account creation failed");

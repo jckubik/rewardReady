@@ -25,9 +25,6 @@ async function execute(method, resource, data) {
   }
 }
 
-async function createUser(data) {
-  return await execute("POST", "/api/user/register", data);
-}
 
 async function getCardRecommendationsForUser(store) {
   // need to change method to lowercase poss, change resource to valid

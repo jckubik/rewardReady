@@ -6,7 +6,7 @@ import { PORT } from "../constants";
 import session from "../context/user";
 import api from "../utils/api";
 
-const Login = ({ setPopupDisplay }) => {
+const Login = ({ setPopupDisplay, setPopupVisibility }) => {
   const email_r = useRef();
   const password_r = useRef();
 
@@ -23,6 +23,7 @@ const Login = ({ setPopupDisplay }) => {
       let loginResponse = await api.login({ email, password });
       console.log(loginResponse);
       setUser(loginResponse);
+      setPopupVisibility(false);
     } catch (err) {
       console.log(err);
       setError("Incorrect Email/password");
