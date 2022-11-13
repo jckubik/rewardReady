@@ -49,6 +49,10 @@ async function register(data) {
   return await execute("POST", "/api/user/register", data);
 }
 
+async function deleteUser(data) {
+  return await execute("POST", "/api/user/delete", data);
+}
+
 const ccStackSecret = "bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf";
 const discountSecret = "YxhRTxQe";
 
@@ -58,6 +62,7 @@ export default {
   getRandomDeal,
   login,
   register,
+  deleteUser,
   ccStackSecret,
   discountSecret,
 };

@@ -1,39 +1,18 @@
 import React, { useContext, useRef, useState } from "react";
-import Input from "./utils/Input";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { PORT } from "../constants";
-import session from "../context/user";
+import session from "../../context/user";
+import api from "../../utils/api";
 
 const DeleteAccount = ({ setVisible }) => {
     const { user, setUser } = useContext(session);
-    const deleteHandler = (e) => {
+    const deleteHandler = async (e) => {
         e.preventDefault();
         try {
-            fetch(`http://localhost:${PORT}/api/user/delete`, {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    email: user.user.email,
-                }),
-                method: "POST",
-                credentials: "include",
-            })
-                .then((res) => {
-                    if (res.status === 200) {
-                        console.log(res);
-                        setUser(null);
-                    } else {
-                        return;
-                    }
-                    return res.json();
-                })
-                .then((data) => {
-                    console.log(data);
-                });
+            let deleteResponse = await api.deleteUser({email: user.user.email});
+            console.log(deleteResponse);
+            setUser(null);
         } catch (e) {
             console.error(e.message);
+            console.log(e)
         }
     };
 

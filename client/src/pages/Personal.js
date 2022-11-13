@@ -6,7 +6,7 @@ import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import session from "../context/user";
 import ChangePassword from "../components/ChangePassword";
-import DeleteAccount from "../components/DeleteAccount";
+import DeleteAccount from "../components/popups/DeleteAccount";
 
 const Personal = () => {
 
