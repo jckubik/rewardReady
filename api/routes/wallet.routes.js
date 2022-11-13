@@ -5,7 +5,6 @@ const userMiddleware = require("../middleware/user.middleware");
 const walletMiddleware = require("../middleware/wallet.middleware");
 
 module.exports = (app) => {
-  router.get("/items", userMiddleware.verifyToken, walletController.fetchItems);
   router.get(
     "/items/cards",
     userMiddleware.verifyToken,
