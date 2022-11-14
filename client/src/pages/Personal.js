@@ -6,31 +6,17 @@ import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
 import session from "../context/user";
 import ChangePassword from "../components/ChangePassword";
-<<<<<<< HEAD
 import DeleteAccount from "../components/popups/DeleteAccount";
 
 const Personal = () => {
-
-  const { user } = useContext(session);
-  let navigate = useNavigate();
-  
-=======
-
-const Personal = () => {
->>>>>>> f090e48 (144-frontend: Refactored code)
   const deleteAccount = () => {
     api.deleteUser();
   };
 
-<<<<<<< HEAD
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-=======
   const { user } = useContext(session);
   let navigate = useNavigate();
-
-  const [showChangePassword, setShowChangePassword] = useState(false);
->>>>>>> f090e48 (144-frontend: Refactored code)
 
   useEffect(() => {
     if (!user) {
@@ -71,10 +57,7 @@ const Personal = () => {
           session: user.token,
         },
         method: "POST",
-<<<<<<< HEAD
         credentials: "include",
-=======
->>>>>>> f090e48 (144-frontend: Refactored code)
       })
         .then((res) => {
           if (res.status === 200) {
@@ -97,12 +80,9 @@ const Personal = () => {
       {showChangePassword && (
         <ChangePassword setVisible={setShowChangePassword} />
       )}
-<<<<<<< HEAD
       {showDeleteModal && (
         <DeleteAccount setVisible={setShowDeleteModal} />
       )}
-=======
->>>>>>> f090e48 (144-frontend: Refactored code)
       <div>
         <SubHeader active="personal" />
         <form className="flex flex-col border-2 w-2/5 min-w-[400px] mx-auto my-10 gap-4 px-5 py-10 rounded-md">
@@ -142,14 +122,10 @@ const Personal = () => {
           <div className="w-full flex justify-between mt-5">
             <button
               className="secondary-btn text-red-500 border-red-500"
-<<<<<<< HEAD
               onClick={(e) => {
                 e.preventDefault();
                 setShowDeleteModal(true);
             }}
-=======
-              onClick={deleteAccount}
->>>>>>> f090e48 (144-frontend: Refactored code)
             >
               Delete Account
             </button>

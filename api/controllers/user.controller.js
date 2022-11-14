@@ -134,8 +134,11 @@ exports.updateInfo = async (req, res, next) => {
         phoneNumber: phoneNumber,
         email: email,
       });
-      user.save();
+
+      // Save the data to the database
+      await user.save();
       res.status(200).send({ message: "User updated successfully." });
+      next();
     } else {
       res.status(404).send({ message: "User requested does not exist." });
     }

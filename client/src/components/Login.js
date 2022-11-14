@@ -44,18 +44,16 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
           className="w-full rounded-sm py-2"
           name="email"
           ref={email_r}
-        >
-          <FontAwesomeIcon icon={solid("envelope")} />
-        </Input>
+          icon={<FontAwesomeIcon icon={solid("envelope")} />}
+        />
         <Input
           placeholder="Enter Password"
           type="password"
           className="w-full rounded-sm py-2"
           name="password"
           ref={password_r}
-        >
-          <FontAwesomeIcon icon={solid("key")} />
-        </Input>
+          icon={<FontAwesomeIcon icon={solid("key")} />}
+        />
       </form>
       <button className="cta-btn" onClick={handleSubmit}>
         Login

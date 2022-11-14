@@ -14,14 +14,10 @@ const db = require("./models");
 // app.set('views', path.join(__dirname, 'views'));
 // app.set('view engine', 'jade');
 
-<<<<<<< HEAD
 app.use(cors({
   origin: "http://localhost:3000",
   methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
   credentials: true,}));
-=======
-app.use(cors());
->>>>>>> f21d742 (Stores for recommendations and categories)
 app.use(logger("dev"));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -40,12 +36,11 @@ db.sequelize
   .then(() => console.log("Synced database"))
   .catch((err) => console.log("Failed to sync database: ", err.message));
 
-require("./routes/user.routes")(app);
-require("./routes/wallet.routes")(app);
-require("./routes/store.routes")(app);
-require("./routes/coupon.routes")(app);
-require("./routes/deal.routes")(app);
-require("./routes/category.routes")(app);
+require('./routes/user.routes')(app);
+require('./routes/wallet.routes')(app);
+require('./routes/store.routes')(app);
+require('./routes/coupon.routes')(app);
+require('./routes/deal.routes')(app);
 require('./routes/search.routes')(app);
 require('./routes/history.routes')(app);
 require("./routes/category.routes")(app);

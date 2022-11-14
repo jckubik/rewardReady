@@ -2,10 +2,6 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const SubHeader = ({ active }) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 9d84b8e (Fixed routes)
   return (
     <div class="w-full border-2 flex items-center">
       <Link
@@ -26,33 +22,6 @@ const SubHeader = ({ active }) => {
       </Link>
     </div>
   );
-<<<<<<< HEAD
-=======
-    return (
-        <div class="w-full border-2 flex items-center">
-            <Link
-                to={"/setting/personal"}
-                className={`py-4 w-40 text-center ${
-                    active === "personal" &&
-                    "border-[1px] border-black bg-[#00000010]"
-                }`}
-            >
-                Personal Info
-            </Link>
-            <Link
-                to={"/setting/cards"}
-                className={`py-4 w-40 text-center ${
-                    active === "card" &&
-                    "border-[1px] border-black bg-[#00000010]"
-                }`}
-            >
-                Card Information
-            </Link>
-        </div>
-    );
->>>>>>> e3c2ab1 (144: Added login, register, and account profile page)
-=======
->>>>>>> 9d84b8e (Fixed routes)
 };
 
 export default SubHeader;

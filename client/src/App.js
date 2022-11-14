@@ -10,13 +10,13 @@ import Footer from "./components/Footer";
 import session from "./context/user";
 
 function App() {
+  const [user, setUser] = useState(null);
   // const [apiResponse, setApiResponse] = useState();
   const [store, setStore] = useState({data:""});
 
   const changeState = (storeData) => {
     setStore(storeData);
   };
-  const [user, setUser] = useState(null);
 
 
   return (
