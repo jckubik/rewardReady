@@ -1,5 +1,4 @@
 import axios from "axios";
-import { getAccessToken } from "./auth";
 
 // should change or declare
 const PROTOCOL = "http://";
@@ -13,16 +12,12 @@ const client = axios.create({
 });
 
 async function execute(method, resource, data) {
-  let accessToken = getAccessToken();
-  console.log(accessToken);
   try {
     let c = await client({
       method,
       url: resource,
       data,
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+      headers: {},
     });
     return c.data;
   } catch (err) {

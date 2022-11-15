@@ -3,10 +3,8 @@ import Input from "./utils/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
-import api from "../utils/api";
 import { useDispatch } from "react-redux";
-import { setUser } from "../reduxSlices/userSlice";
-import { setAccessToken } from "../utils/auth";
+import { login } from "../reduxSlices/userSlice";
 
 const Login = ({ setPopupDisplay, setPopupVisibility }) => {
   const dispatch = useDispatch();
@@ -21,16 +19,11 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
     const password = password_r.current.value;
 
     try {
-      let loginResponse = await api.login({ email, password });
-      let token = loginResponse.token;
-      let user = loginResponse.user;
-      // setAccessToken(token);
-      localStorage.setItem("user", JSON.stringify(user));
-      dispatch(setUser(user));
+      await dispatch(login(email, password));
       setPopupVisibility(false);
-      console.log(token);
     } catch (err) {
-      setError("Incorrect Email/password");
+      console.log(err);
+      setError("Incorrect Email/Password");
       return;
     }
   };

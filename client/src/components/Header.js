@@ -6,30 +6,16 @@ import LoginRegister from "./popups/LoginRegister";
 import "../css/Header.css";
 import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setUser } from "../reduxSlices/userSlice";
-import {
-  getAccessToken,
-  getTokenExpirationDate,
-  isLoggedIn,
-  logout,
-} from "../utils/auth";
-import api from "../utils/api";
+import { logout } from "../reduxSlices/userSlice";
 
 const Header = () => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
-  console.log(isLoggedIn());
-  if (isLoggedIn()) {
-    // console.log(getTokenExpirationDate(getAccessToken()));
-  }
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLoginRegister, setShowLoginRegister] = useState(false);
 
   const logoutHandler = () => {
-    api.logout();
-    dispatch(setUser(null));
-    localStorage.clear();
-    logout();
+    dispatch(logout());
   };
   return (
     <>

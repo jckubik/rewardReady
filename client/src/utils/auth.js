@@ -1,27 +1,22 @@
-const ACCESS_TOKEN_KEY = "rewardready-session";
 import decode from "jwt-decode";
 
-export function getAccessToken() {
+const ACCESS_TOKEN_KEY = "expiration-token";
+
+export function getExpToken() {
   return getCookie(ACCESS_TOKEN_KEY);
 }
 
-function setAccessToken(accessToken) {
-  setCookie(ACCESS_TOKEN_KEY, accessToken);
+export function setExpToken(expToken) {
+  setCookie(ACCESS_TOKEN_KEY, expToken);
 }
 
 export function isLoggedIn() {
-  // const accessToken = getAccessToken();
-  // return !!accessToken && !isTokenExpired(accessToken);
-  return true;
-}
-
-export function logout() {
-  clearCookies();
+  const accessToken = getExpToken();
+  return !!accessToken && !isTokenExpired(accessToken);
 }
 
 export function isTokenExpired(token) {
   const expirationDate = getTokenExpirationDate(token);
-  console.log(expirationDate);
   return expirationDate.getTime() - Date.now() <= 0;
 }
 
@@ -34,6 +29,14 @@ export function getTokenExpirationDate(encodedToken) {
   const date = new Date(0);
   date.setUTCSeconds(token.exp);
   return date;
+}
+
+export function clearCookies() {
+  document.cookie.split(";").forEach(function (c) {
+    document.cookie = c
+      .replace(/^ +/, "")
+      .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+  });
 }
 
 function setCookie(cName, cValue, exDays) {
@@ -61,12 +64,4 @@ function getCookie(cName) {
     }
   }
   return "";
-}
-
-function clearCookies() {
-  document.cookie.split(";").forEach(function (c) {
-    document.cookie = c
-      .replace(/^ +/, "")
-      .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
-  });
 }

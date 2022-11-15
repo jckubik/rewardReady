@@ -56,7 +56,7 @@ exports.login = async (req, res) => {
       if (valid) {
         const user = authentication[0];
         delete user.password;
-        const token = jwt.sign(user, authConfig.secret, { expiresIn: 30 });
+        const token = jwt.sign(user, authConfig.secret, { expiresIn: 86400 });
         req.session.token = token;
         res.json({ token, user });
       } else {
