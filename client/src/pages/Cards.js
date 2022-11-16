@@ -1,5 +1,7 @@
 import React from "react";
 import SubHeader from "../components/SubHeader";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router";
 
 const CardItem = ({ text }) => {
   return (

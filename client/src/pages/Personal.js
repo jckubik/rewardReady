@@ -17,20 +17,11 @@ const Personal = () => {
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const user = useSelector((state) => state.user.user);
-  let navigate = useNavigate();
-
-  useEffect(() => {
-    if (!user) {
-      navigate("/", { replace: true });
-    }
-  }, [user, navigate]);
 
   const firstName_r = useRef();
   const lastName_r = useRef();
   const email_r = useRef();
   const phone_r = useRef();
-
-  console.log(user);
 
   useEffect(() => {
     if (user) {
