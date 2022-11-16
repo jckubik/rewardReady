@@ -4,7 +4,7 @@ import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import LoginRegister from "./popups/LoginRegister";
 
 import "../css/Header.css";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../reduxSlices/userSlice";
 
@@ -13,9 +13,11 @@ const Header = () => {
   const dispatch = useDispatch();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLoginRegister, setShowLoginRegister] = useState(false);
+  const navigate = useNavigate();
 
   const logoutHandler = () => {
     dispatch(logout());
+    navigate("/", { replace: true });
   };
   return (
     <>
