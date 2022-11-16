@@ -2,17 +2,16 @@ import React, { useContext, useRef, useState } from "react";
 import Input from "./utils/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { PORT } from "../constants";
-import session from "../context/user";
-import api from "../utils/api";
+
+import { useDispatch } from "react-redux";
+import { login } from "../reduxSlices/userSlice";
 
 const Login = ({ setPopupDisplay, setPopupVisibility }) => {
+  const dispatch = useDispatch();
   const email_r = useRef();
   const password_r = useRef();
 
   const [error, setError] = useState("");
-
-  const { setUser } = useContext(session);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -20,13 +19,11 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
     const password = password_r.current.value;
 
     try {
-      let loginResponse = await api.login({ email, password });
-      console.log(loginResponse);
-      setUser(loginResponse);
+      await dispatch(login(email, password));
       setPopupVisibility(false);
     } catch (err) {
       console.log(err);
-      setError("Incorrect Email/password");
+      setError("Incorrect Email/Password");
       return;
     }
   };
@@ -62,9 +59,6 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
       <a href="/" className="text-shamrock-green underline">
         Forgot Password?
       </a>
-      {/* <button className="cta-btn" onClick={setClickRegister(true)}>
-        register
-      </button> */}
       <div
         className="text-shamrock-green underline cursor-pointer"
         onClick={() => {

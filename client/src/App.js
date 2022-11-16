@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
@@ -6,39 +6,26 @@ import Personal from "./pages/Personal";
 import Cards from "./pages/Cards";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
-
-import session from "./context/user";
+import { store } from "./store";
+import { Provider } from "react-redux";
+import AuthVerify from "./components/AuthVerify";
 
 function App() {
-  const [user, setUser] = useState(null);
-  // const [apiResponse, setApiResponse] = useState();
-  const [store, setStore] = useState({data:""});
-
-  const changeState = (storeData) => {
-    setStore(storeData);
-  };
-
-
   return (
-    <session.Provider
-      value={{
-        user,
-        setUser,
-      }}
-    >
+    <Provider store={store}>
       <div className="App">
         <Header />
         <Routes>
           <Route index element={<Home />} />
           <Route path="personal" element={<Personal />} />
           <Route path="cards" element={<Cards />} />
-          <Route path="/" element={<Home />} />
         </Routes>
         {/* <LocateMe data={store.data} changeState={changeState} /> */}
         {/* <RecommendDisplay store={store.data}/> */}
         <Footer />
       </div>
-    </session.Provider>
+      <AuthVerify />
+    </Provider>
   );
 }
 

@@ -25,7 +25,6 @@ async function execute(method, resource, data) {
   }
 }
 
-
 async function getCardRecommendationsForUser(store) {
   // need to change method to lowercase poss, change resource to valid
   return await execute("GET", "/api/wallet/recommend/card", {
@@ -45,6 +44,10 @@ async function login(data) {
   return await execute("POST", "/api/user/login", data);
 }
 
+async function logout() {
+  return await execute("POST", "/api/user/logout");
+}
+
 async function register(data) {
   return await execute("POST", "/api/user/register", data);
 }
@@ -61,6 +64,7 @@ export default {
   getRandomCoupon,
   getRandomDeal,
   login,
+  logout,
   register,
   deleteUser,
   ccStackSecret,

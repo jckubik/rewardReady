@@ -4,9 +4,10 @@ import Input from "../components/utils/Input";
 import { PORT } from "../constants";
 import api from "../utils/api";
 import { useNavigate } from "react-router-dom";
-import session from "../context/user";
+import session from "../context/Auth";
 import ChangePassword from "../components/ChangePassword";
 import DeleteAccount from "../components/popups/DeleteAccount";
+import { useSelector } from "react-redux";
 
 const Personal = () => {
   const deleteAccount = () => {
@@ -15,7 +16,7 @@ const Personal = () => {
 
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
-  const { user } = useContext(session);
+  const user = useSelector((state) => state.user.user);
   let navigate = useNavigate();
 
   useEffect(() => {
@@ -33,10 +34,10 @@ const Personal = () => {
 
   useEffect(() => {
     if (user) {
-      firstName_r.current.value = user.user.firstName;
-      lastName_r.current.value = user.user.lastName;
-      email_r.current.value = user.user.email;
-      phone_r.current.value = user.user.phoneNumber;
+      firstName_r.current.value = user.firstName;
+      lastName_r.current.value = user.lastName;
+      email_r.current.value = user.email;
+      phone_r.current.value = user.phoneNumber;
     }
   }, [user]);
 
@@ -80,9 +81,7 @@ const Personal = () => {
       {showChangePassword && (
         <ChangePassword setVisible={setShowChangePassword} />
       )}
-      {showDeleteModal && (
-        <DeleteAccount setVisible={setShowDeleteModal} />
-      )}
+      {showDeleteModal && <DeleteAccount setVisible={setShowDeleteModal} />}
       <div>
         <SubHeader active="personal" />
         <form className="flex flex-col border-2 w-2/5 min-w-[400px] mx-auto my-10 gap-4 px-5 py-10 rounded-md">
@@ -125,7 +124,7 @@ const Personal = () => {
               onClick={(e) => {
                 e.preventDefault();
                 setShowDeleteModal(true);
-            }}
+              }}
             >
               Delete Account
             </button>

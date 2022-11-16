@@ -3,7 +3,7 @@ import Input from "./utils/Input";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { PORT } from "../constants";
-import session from "../context/user";
+import session from "../context/Auth";
 
 const ChangePassword = ({ setVisible }) => {
   const confirmPassword_r = useRef();

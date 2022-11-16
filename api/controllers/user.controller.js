@@ -188,12 +188,10 @@ exports.updatePassword = async (req, res, next) => {
       // Verify that the oldPassword matches the current password set for the user
       const oldPasswordAuth = bcrypt.compareSync(oldPassword, user.password);
       if (!oldPasswordAuth) {
-        res
-          .status(400)
-          .send({
-            message:
-              "Unauthorized - oldPassword for the given user does not match the password on record.",
-          });
+        res.status(400).send({
+          message:
+            "Unauthorized - oldPassword for the given user does not match the password on record.",
+        });
         return;
       }
 
@@ -209,12 +207,10 @@ exports.updatePassword = async (req, res, next) => {
       hash.then((pw) => user.set(pw));
       hash.then(() => user.save());
 
-      res
-        .status(200)
-        .send({
-          message:
-            "User password updated successfully in DB. Trying to send confirmation email now.",
-        });
+      res.status(200).send({
+        message:
+          "User password updated successfully in DB. Trying to send confirmation email now.",
+      });
 
       // Send confirmation email to user
       req.body = {
@@ -227,11 +223,9 @@ exports.updatePassword = async (req, res, next) => {
     }
   } catch (error) {
     console.log(error);
-    res
-      .status(400)
-      .send({
-        message: `Unexpected error while trying to update the user password. - ${error}`,
-      });
+    res.status(400).send({
+      message: `Unexpected error while trying to update the user password. - ${error}`,
+    });
   }
 };
 
@@ -278,11 +272,9 @@ exports.requestPasswordReset = async (req, res, next) => {
     next();
   } catch (error) {
     console.log(error);
-    res
-      .status(400)
-      .send({
-        message: `Unexpected error while trying to update the user password. - ${error}`,
-      });
+    res.status(400).send({
+      message: `Unexpected error while trying to update the user password. - ${error}`,
+    });
   }
 };
 
@@ -328,22 +320,18 @@ exports.resetPassword = async (req, res, next) => {
         email: user.email,
         firstName: user.firstName,
       };
-      res
-        .status(200)
-        .send({
-          message:
-            "User password reset successfully in DB. Trying to send confirmation email now.",
-        });
+      res.status(200).send({
+        message:
+          "User password reset successfully in DB. Trying to send confirmation email now.",
+      });
       next();
     } else {
       res.status(404).send({ message: "User requested does not exist." });
     }
   } catch (error) {
     console.log(error);
-    res
-      .status(400)
-      .send({
-        message: `Unexpected error while trying to reset the user password. - ${error}`,
-      });
+    res.status(400).send({
+      message: `Unexpected error while trying to reset the user password. - ${error}`,
+    });
   }
 };
