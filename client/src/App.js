@@ -11,10 +11,15 @@ import { Provider } from "react-redux";
 import AuthVerify from "./components/AuthVerify";
 
 function App() {
+  const [storeName, setStoreName] = useState("");
+
+  const changeState = (storeData) => {
+    setStoreName(storeData);
+  }
   return (
     <Provider store={store}>
       <div className="App">
-        <Header />
+        <Header changeState={changeState} />
         <Routes>
           <Route index element={<Home />} />
           <Route path="personal" element={<Personal />} />

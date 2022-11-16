@@ -8,14 +8,20 @@ import { Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../reduxSlices/userSlice";
 
-const Header = () => {
+const Header = (props) => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLoginRegister, setShowLoginRegister] = useState(false);
+  const [storeName, setStoreName] = useState("");
 
   const logoutHandler = () => {
     dispatch(logout());
+  };
+
+  const changeState = (storeData) => {
+    props.changeState(storeData);
+    setStoreData(storeData);
   };
   return (
     <>
@@ -101,6 +107,7 @@ const Header = () => {
                 <span className="pl-2 font-sm text-amazon font-semibold">
                   Enter Location
                 </span>
+                <LocateMe changeState={changeState}/>
               </a>
             </div>
           </div>
