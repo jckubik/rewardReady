@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import LoginRegister from "./popups/LoginRegister";
+import LocateMe from "./LocateMe"
 
 import "../css/Header.css";
 import { Link, useNavigate } from "react-router-dom";

@@ -3,6 +3,7 @@ import FindDeal from "../components/FindDeal";
 import Hero from "../components/Hero";
 import Showcase from "../components/Showcase";
 import { useState } from "react";
+import { Outlet } from "react-router";
 
 const Home = () => {
   return (
@@ -18,6 +19,7 @@ const Home = () => {
         type={"coupon"}
         backgroundColor="white"
       />
+      <Outlet />
     </div>
   );
 };
