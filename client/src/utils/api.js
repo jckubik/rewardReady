@@ -56,6 +56,18 @@ async function deleteUser(data) {
   return await execute("POST", "/api/user/delete", data);
 }
 
+async function updateInfo(data) {
+  return await execute("POST", "/api/user/update", data);
+}
+
+async function updatePassword(data) {
+  return await execute("POST", "/api/user/update/password", data);
+}
+
+async function resetPassword(data) {
+  return await execute("POST", "/api/user/update/password/reset", data);
+}
+
 const ccStackSecret = "bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf";
 const discountSecret = "YxhRTxQe";
 
@@ -67,6 +79,9 @@ export default {
   logout,
   register,
   deleteUser,
+  updateInfo,
+  updatePassword,
+  resetPassword,
   ccStackSecret,
   discountSecret,
 };
