@@ -8,6 +8,7 @@ import "../css/Header.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../reduxSlices/userSlice";
+import LocateMe from "./LocateMe";
 
 const Header = (props) => {
   const user = useSelector((state) => state.user.user);
@@ -110,7 +111,7 @@ const Header = (props) => {
                 <span className="pl-2 font-sm text-amazon font-semibold">
                   Enter Location
                 </span>
-                <LocateMe changeState={changeState}/>
+                <LocateMe changeState={changeState} />
               </a>
             </div>
           </div>

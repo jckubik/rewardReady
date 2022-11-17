@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 // import { PORT } from "../constants";
 import api from "../utils/api";
+import { useState } from "react";
 
 const Register = ({ setPopupDisplay, setPopupVisibility }) => {
   const firstName_r = useRef();
@@ -13,7 +14,9 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
   const password_r = useRef();
   const confirmPassword_r = useRef();
 
-  const handleSubmit = (e) => {
+  const [error, setError] = useState();
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const firstName = firstName_r.current.value;
     const lastName = lastName_r.current.value;
@@ -21,11 +24,11 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
     const phone = phone_r.current.value;
     const password = password_r.current.value;
     const confirmPassword = confirmPassword_r.current.value;
-    if (password !== confirmPassword) {
-      alert("Passwords do not match");
-      return;
-    }
+
     try {
+      if (password !== confirmPassword) {
+        throw new Error("Passwords do not match");
+      }
       let data = {
         firstName: firstName,
         lastName: lastName,
@@ -33,16 +36,18 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
         email: email,
         password: password,
       };
-      api.register(data).then((res) => {
-        // console.log(res.status);
-        if (res.message === "Successfully registered user") {
-          alert("Account created successfully");
-          setPopupVisibility(false);
-          setPopupDisplay("login");
+      let registerResponse = await api.register(data);
+      console.log(registerResponse);
+      if (
+        !registerResponse.message ||
+        registerResponse.message !== "Successfully registered user"
+      ) {
+        throw new Error(registerResponse.response.data.message);
       }
-    });
-    } catch (e) {
-      console.error(e.message);
+      setPopupVisibility(false);
+      alert("Account created successfully");
+    } catch (err) {
+      setError(err.message);
     }
   };
 
@@ -121,6 +126,7 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
           <button className="cta-btn w-full">Enter As Guest</button>
         </div>
       </div>
+      {error && <p className="text-red-500">{error}</p>}
       <div
         className="text-shamrock-green underline cursor-pointer"
         onClick={() => {
