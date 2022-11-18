@@ -10,7 +10,7 @@ const Wallet = db.wallets;
 const Op = db.Sequelize.Op;
 const tempUtil = require("../utils/temp.util");
 
-const clientLink = "http://localhost:3000/";
+const clientLink = "http://localhost:3000";
 
 exports.register = async (req, res) => {
   const { body } = req;
@@ -100,6 +100,41 @@ exports.delete = async (req, res, next) => {
       .status(400)
       .send({ message: "Unexpected error while trying to delete user." });
   }
+};
+
+// Gets the email from the given user from the token
+exports.getEmail = async (req, res, next) => {
+  const userId = req.userId;
+
+    // Throw error if user isn't verrified
+    if (userId == null) {
+      console.log("ID null");
+      res.status(400).send({ message: "User cannot be verified." });
+      return;
+    }
+
+    try {
+      // find the proper user to get email
+      const user = await User.findOne({
+        where: {
+          id: userId,
+        },
+      });
+
+      if (user) {
+        res.status(200).send({ message: "User found. Returning email.", email: user.email });
+        next();
+      } else {
+        console.log("User not found");
+        res.status(404).send({ message: "User requested does not exist." });
+      }
+
+    } catch (error) {
+      console.log(error);
+      res
+      .status(400)
+      .send({ message: `Unexpected error  - ${error}` });
+    }
 };
 
 // Update password should probably be serparate with the validation needed?
@@ -253,12 +288,13 @@ exports.requestPasswordReset = async (req, res, next) => {
 
     // Generate resetToken
     const resetToken = jwt.sign(user, authConfig.secret, {
-      expiresIn: "1800s",
+      expiresIn: 1800000,
     });
+    req.session.token = resetToken;
 
     // Generate needed email variables
-    const resetLink = `${clientLink}/passwordReset?token=${resetToken}&id=${user.id}`;
     const expirationDate = Date.now() + 1800000;
+    const resetLink = `${clientLink}/passwordReset?token=${resetToken}&expirationDate=${expirationDate}`;
 
     // Send reset email to user
     // await sendPasswordResetEmail(email, user.firstName, resetLink, expirationDate);

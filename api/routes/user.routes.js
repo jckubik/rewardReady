@@ -5,6 +5,7 @@ const userMiddleware = require("../middleware/user.middleware");
 const courierMiddleware = require("../middleware/courier");
 
 module.exports = (app) => {
+  router.post("/email", userMiddleware.verifyToken, userController.getEmail);
   router.post(
     "/register",
     [userMiddleware.checkDuplicates, userMiddleware.checkValidity],
@@ -27,7 +28,6 @@ module.exports = (app) => {
   );
   router.post(
     "/update/password/reset/request",
-    userMiddleware.verifyToken,
     userController.requestPasswordReset,
     courierMiddleware.sendPasswordResetEmail
   );
