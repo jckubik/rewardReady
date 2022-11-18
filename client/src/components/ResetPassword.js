@@ -1,10 +1,10 @@
 import { useState } from "react";
-import { useParams, useSearchParams } from 'react-router-dom'
-import Input from "./utils/Input";
+import { useSearchParams } from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { clearCookies, setExpToken } from "../utils/auth";
-import api from "../utils/api";
+import { resetPassword, getEmail, logout, sendResetRequest } from "../reduxSlices/userSlice";
+import { useDispatch, useSelector } from "react-redux";
+
 
 const ResetPassword = () => {
     const [newPassword, setNewPassword] = useState("");
@@ -12,9 +12,14 @@ const ResetPassword = () => {
     const [newPasswordError, setNewPasswordError] = useState(false);
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
     const [passwordMatchError, setPasswordMatchError] = useState(false);
+    const [expirationError, setExpirationError] = useState(false);
     const [resetComplete, setResetComplete] = useState(false);
-    // const { token, expirationDate } = useParams();
+    const [sentResetEmail, setSentResetEmail] = useState(false);
+    // const [userEmail, setUserEmail] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
+
+    const dispatch = useDispatch();
+    const { resetEmail } = useSelector(state => state.user);
     const token = searchParams.get("token");
     const expirationDate = searchParams.get("expirationDate");
     const currentDate = Date.now();
@@ -22,23 +27,37 @@ const ResetPassword = () => {
     // Called when user hits "Reset Password" button
     const handleSubmit = async (event) => {
       event.preventDefault();
-      console.log(expirationDate);
 
       // Do nothing if there are still errors
       if (newPasswordError || confirmPasswordError || passwordMatchError) {
         return;
       } else if (currentDate <= expirationDate) {
-        // Else set the token from the URL link
-        setExpToken(token);
         // Reset the password and clear the token
-        await api.resetPassword({ newPassword });
-        clearCookies();
+        await dispatch(resetPassword(newPassword));
         setResetComplete(true);
       } else {
-        console.log("error");
+        // Else, grab user email to send new request
+        await dispatch(getEmail());
+        // Set the email
+        // setUserEmail(resetEmail);
+        setExpirationError(true);
       }
-
+      // await api.logout();
+      await dispatch(logout());
     };
+
+    // Called when user clicks "Send New Reset Email" button
+    const handleSendReset = async (event) => {
+      event.preventDefault();
+
+      // Send email
+      await dispatch(sendResetRequest(resetEmail));
+
+      setExpirationError(false);
+      setSentResetEmail(true);
+    }
+
+
 
     // Checks that the current input is a valid password
     const isValidPassword = (password) => {
@@ -53,9 +72,26 @@ const ResetPassword = () => {
       >
         <h2 className="text-3xl font-bold">Reset Password</h2>
         { resetComplete ? 
-      <div>
-        <p>Password reset successfully!</p>
-      </div> :
+          <div>
+            <p>Password reset successfully!</p>
+          </div> : 
+
+        // Message for expired link
+        expirationError ? 
+          <div className="flex flex-col gap-5">
+            <p>Your reset link has expired.</p>
+            <button className="cta-btn" onClick={handleSendReset}>
+              Send New Reset Email
+            </button>
+          </div> :
+
+        // Message for confirming reset email sent
+        sentResetEmail ?
+          <div>
+            <p>New Password Reset Sent.</p>
+          </div> : 
+
+        // Main reset form
         (<form className="w-full flex flex-col gap-3">
           <div className="relative">
             <input

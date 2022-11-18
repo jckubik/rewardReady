@@ -1,6 +1,7 @@
 import Login from "../Login";
 import Register from "../Register";
 import { useState } from "react";
+import ForgotPassword from "../ForgotPassword";
 
 const LoginRegister = ({ show, setShow }) => {
   const [popupDisplay, setPopupDisplay] = useState("login");
@@ -19,6 +20,7 @@ const LoginRegister = ({ show, setShow }) => {
           setPopupVisibility={setShow}
         />
       )}
+      {popupDisplay === "forgotPassword" && <ForgotPassword />}
     </div>
   ) : null;
 };

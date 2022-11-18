@@ -36,6 +36,11 @@ async function getRandomCoupon() {
   return await execute("GET", "/api/coupon/random", "");
 }
 
+// Get user's email from token
+async function getEmail() {
+  return await execute("POST", "/api/user/email", "");
+}
+
 async function getRandomDeal() {
   return await execute("GET", "/api/deal/random", "");
 }
@@ -68,6 +73,10 @@ async function resetPassword(data) {
   return await execute("POST", "/api/user/update/password/reset", data);
 }
 
+async function sendResetRequest(data) {
+  return await execute("POST", "/api/user/update/password/reset/request", data);
+}
+
 const ccStackSecret = "bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf";
 const discountSecret = "YxhRTxQe";
 
@@ -75,6 +84,7 @@ export default {
   getCardRecommendationsForUser,
   getRandomCoupon,
   getRandomDeal,
+  getEmail,
   login,
   logout,
   register,
@@ -82,6 +92,7 @@ export default {
   updateInfo,
   updatePassword,
   resetPassword,
+  sendResetRequest,
   ccStackSecret,
   discountSecret,
 };

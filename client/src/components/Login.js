@@ -56,9 +56,14 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
         Login
       </button>
       {error && <p className="text-red-500">{error}</p>}
-      <a href="/" className="text-shamrock-green underline">
+      <div
+        className="text-shamrock-green underline cursor-pointer"
+        onClick={() => {
+          setPopupDisplay("forgotPassword");
+        }}
+      >
         Forgot Password?
-      </a>
+      </div>
       <div
         className="text-shamrock-green underline cursor-pointer"
         onClick={() => {
