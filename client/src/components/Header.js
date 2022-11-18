@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import LoginRegister from "./popups/LoginRegister";
-import LocateMe from "./LocateMe"
+import LocateMe from "./popups/LocateMe";
 
 import "../css/Header.css";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,7 +14,11 @@ const Header = (props) => {
   const dispatch = useDispatch();
   const [showDropdown, setShowDropdown] = useState(false);
   const [showLoginRegister, setShowLoginRegister] = useState("inactive");
-  const [storeName, setStoreName] = useState("");
+  const [showLocationUpdater, setShowLocationUpdater] = useState(false);
+  // const [storeName, setStoreName] = useState("");
+  const [cityName, setCityName] = useState("");
+  const [stateName, setStateName] = useState("");
+  const [displayLocation, setDisplayLocation] = useState(false);
   const navigate = useNavigate();
 
   const logoutHandler = () => {
@@ -22,10 +26,34 @@ const Header = (props) => {
     navigate("/", { replace: true });
   };
 
-  const changeState = (storeData) => {
-    props.changeState(storeData);
-    setStoreData(storeData);
+  // const changeStore = (storeData) => {
+  //   setStoreName(storeData);
+  //   localStorage.setItem('storeName', JSON.stringify(storeData));
+  // };
+
+  const changeCity = (cityData) => {
+    localStorage.setItem("cityName", JSON.stringify(cityData));
+    setCityName(cityData);
   };
+
+  const changeState = (stateData) => {
+    setStateName(stateData);
+    localStorage.setItem("stateName", JSON.stringify(stateData));
+  };
+
+  const changeDisplayLoc = (boolLoc) => {
+    setDisplayLocation(boolLoc);
+  };
+
+  useEffect(() => {
+    // const storeData = localStorage.getItem('storeName');
+    const cityData = localStorage.getItem("cityName");
+    const stateData = localStorage.getItem("stateName");
+    // setStoreName(JSON.parse(storeData));
+    setCityName(JSON.parse(cityData));
+    setStateName(JSON.parse(stateData));
+  }, []);
+
   return (
     <>
       <div className="w-full h-32 bg-light-gray ">
@@ -75,21 +103,19 @@ const Header = (props) => {
                 )}
               </div>
             ) : (
-              <p
-                className="body pl-1 inline-block align-middle cursor-pointer"
-              >
-                <span 
-                  className="text-shamrock-green underline" 
+              <p className="body pl-1 inline-block align-middle cursor-pointer">
+                <span
+                  className="text-shamrock-green underline"
                   onClick={() => setShowLoginRegister("login")}
                 >
                   Sign-In
-                </span> 
+                </span>
                 &nbsp;or&nbsp;
-                <span 
-                  className="text-shamrock-green underline" 
+                <span
+                  className="text-shamrock-green underline"
                   onClick={() => setShowLoginRegister("register")}
                 >
-                   Register
+                  Register
                 </span>
               </p>
             )}
@@ -116,18 +142,32 @@ const Header = (props) => {
               </div>
             </div>
             <div className="flex-1 text-left flex items-center">
-              <a href="/" className="pl-3">
+              <a
+                onClick={() => setShowLocationUpdater(true)}
+                className="pl-3 cursor-pointer"
+              >
                 <FontAwesomeIcon icon={solid("map-location")} />
                 <span className="pl-2 font-sm text-amazon font-semibold">
-                  Enter Location
+                  {cityName == "" ||
+                  cityName == undefined ||
+                  cityName == null ||
+                  (stateName == "" && displayLocation == false)
+                    ? "Enter Location"
+                    : `${cityName}, ${stateName}`}
                 </span>
-                <LocateMe changeState={changeState} />
               </a>
             </div>
           </div>
         </div>
       </div>
       <LoginRegister show={showLoginRegister} setShow={setShowLoginRegister} />
+      <LocateMe
+        changeState={changeState}
+        changeCity={changeCity}
+        show={showLocationUpdater}
+        setShow={setShowLocationUpdater}
+        changeDisplayLoc={changeDisplayLoc}
+      />
     </>
   );
 };
