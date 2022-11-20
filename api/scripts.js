@@ -1,29 +1,46 @@
 // const db = require("../models");
 // const Card = db.cards;
 const axios = require("axios");
+const apiConfig = require("./config/api.config");
+const fs = require("fs");
 
 const prompt = require("prompt-sync")();
 function populateCardsInDB() {
-  const options = {
-    method: "GET",
-    url: "https://ccstack.p.rapidapi.com/search/cards",
-    headers: {
-      "X-RapidAPI-Key": "4b363ccb81mshe2bcc27df5e7ca5p13fcf0jsnad473cc60ff1",
-      "X-RapidAPI-Host": "ccstack.p.rapidapi.com",
-    },
-  };
+  let totalPages = 145;
+  for (let i = 3; i <= totalPages; i++) {
+    const options = {
+      method: "GET",
+      url: "https://ccstack.p.rapidapi.com/search/cards",
+      params: { page: i.toString() },
+      headers: {
+        "X-RapidAPI-Key": apiConfig.ccStackSecret,
+        "X-RapidAPI-Host": "ccstack.p.rapidapi.com",
+      },
+    };
 
-  axios
-    .request(options)
-    .then(function (response) {
-      console.log(response.data);
-    })
-    .catch(function (error) {
-      console.error(error);
-    });
+    axios
+      .request(options)
+      .then(function (response) {
+        // console.log(response.data);
+        let jsonStr = JSON.stringify(response.data);
+        fs.writeFile(`./creditCardsDB/creditCards${i}.json`, jsonStr, (err) => {
+          if (err) {
+            throw err;
+          }
+        });
+      })
+      .catch(function (error) {
+        console.error(error);
+      });
+  }
 }
 
-let scriptOptions = [{ name: "", function: populateCardsInDB }];
+let scriptOptions = [
+  {
+    name: "Populate database card table with cards from rapidapi",
+    function: populateCardsInDB,
+  },
+];
 
 // -----------------------------------------------------------------------------------------
 let formattedScriptOptions = "";
