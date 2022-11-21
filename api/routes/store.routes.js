@@ -7,6 +7,10 @@ module.exports = (app) => {
   router.post("/insert", storeController.insertStore);
   router.get("/get_random", storeController.getRandomStore);
   router.get("/get_multiple_random", storeController.getRandomStores);
+  router.post(
+    "/createFromCouponsAndDeals",
+    storeController.createFromCouponsAndDeals
+  );
   // router.post("/add_category", storeController.associateCategory);
   // router.post("/attach_category", storeController.addCategory);
 
