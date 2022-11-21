@@ -294,7 +294,7 @@ exports.requestPasswordReset = async (req, res, next) => {
 
     // Generate needed email variables
     const expirationDate = Date.now() + 1800000;
-    const resetLink = `${clientLink}/passwordReset?token=${resetToken}&expirationDate=${expirationDate}`;
+    const resetLink = `${clientLink}/passwordReset?expirationDate=${expirationDate}`;
 
     // Send reset email to user
     // await sendPasswordResetEmail(email, user.firstName, resetLink, expirationDate);
