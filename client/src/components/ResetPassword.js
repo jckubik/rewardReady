@@ -22,7 +22,7 @@ const ResetPassword = () => {
     const { resetEmail } = useSelector(state => state.user);
     const expirationDate = searchParams.get("expirationDate");
     const currentDate = Date.now();
-    const tokenRegex = /"rewardready-session/;
+    const tokenRegex = /rewardready-session/;
     const cookies = document.cookie;
 
     // Called when user hits "Reset Password" button
