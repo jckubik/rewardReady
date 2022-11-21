@@ -20,9 +20,10 @@ const ResetPassword = () => {
 
     const dispatch = useDispatch();
     const { resetEmail } = useSelector(state => state.user);
-    const token = searchParams.get("token");
     const expirationDate = searchParams.get("expirationDate");
     const currentDate = Date.now();
+    const tokenRegex = /"rewardready-session/;
+    const cookies = document.cookie;
 
     // Called when user hits "Reset Password" button
     const handleSubmit = async (event) => {
@@ -31,7 +32,7 @@ const ResetPassword = () => {
       // Do nothing if there are still errors
       if (newPasswordError || confirmPasswordError || passwordMatchError) {
         return;
-      } else if (currentDate <= expirationDate) {
+      } else if (currentDate <= expirationDate && tokenRegex.test(cookies)) {
         // Reset the password and clear the token
         await dispatch(resetPassword(newPassword));
         setResetComplete(true);
