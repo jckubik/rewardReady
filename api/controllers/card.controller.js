@@ -32,6 +32,23 @@ exports.getCreditCardById = async (req, res) => {
   }
 };
 
+exports.getCreditCardById = async (req, res) => {
+  // check if credit card image url exists in
+  console.log(req);
+  try {
+    let card = Card.findOne({ where: { id: req.params.id } });
+    creditCardImageHandler(card);
+    res.status(200).send(card);
+  } catch (err) {
+    console.log(err);
+    res.status(500).send({
+      message: "Unexpected error while retrieving credit card from database",
+    });
+  }
+};
+
+exports.updateCard = async (req, res) => {};
+
 exports.createCard = async (req, res) => {
   const { body } = req;
   let data = {
