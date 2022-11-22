@@ -6,7 +6,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useDispatch } from "react-redux";
 import { login } from "../reduxSlices/userSlice";
 
-const Login = ({ setPopupDisplay, setPopupVisibility }) => {
+const Login = ({ setShow }) => {
   const dispatch = useDispatch();
   const email_r = useRef();
   const password_r = useRef();
@@ -20,7 +20,7 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
 
     try {
       await dispatch(login(email, password));
-      setPopupVisibility(false);
+      setShow("inactive");
     } catch (err) {
       console.log(err);
       setError("Incorrect Email/Password");
@@ -59,7 +59,7 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
       <div
         className="text-shamrock-green underline cursor-pointer"
         onClick={() => {
-          setPopupDisplay("forgotPassword");
+          setShow("forgotPassword");
         }}
       >
         Forgot Password?
@@ -67,7 +67,7 @@ const Login = ({ setPopupDisplay, setPopupVisibility }) => {
       <div
         className="text-shamrock-green underline cursor-pointer"
         onClick={() => {
-          setPopupDisplay("register");
+          setShow("register");
         }}
       >
         Register

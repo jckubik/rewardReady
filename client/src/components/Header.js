@@ -13,7 +13,7 @@ const Header = (props) => {
   const user = useSelector((state) => state.user.user);
   const dispatch = useDispatch();
   const [showDropdown, setShowDropdown] = useState(false);
-  const [showLoginRegister, setShowLoginRegister] = useState(false);
+  const [showLoginRegister, setShowLoginRegister] = useState("inactive");
   const [storeName, setStoreName] = useState("");
   const navigate = useNavigate();
 
@@ -75,12 +75,23 @@ const Header = (props) => {
                 )}
               </div>
             ) : (
-              <span
+              <p
                 className="body pl-1 inline-block align-middle cursor-pointer"
-                onClick={() => setShowLoginRegister(true)}
               >
-                Sign in or Register
-              </span>
+                <span 
+                  className="text-shamrock-green underline" 
+                  onClick={() => setShowLoginRegister("login")}
+                >
+                  Sign-In
+                </span> 
+                &nbsp;or&nbsp;
+                <span 
+                  className="text-shamrock-green underline" 
+                  onClick={() => setShowLoginRegister("register")}
+                >
+                   Register
+                </span>
+              </p>
             )}
           </div>
           <div className="flex w-full">

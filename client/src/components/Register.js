@@ -6,7 +6,7 @@ import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import api from "../utils/api";
 import { useState } from "react";
 
-const Register = ({ setPopupDisplay, setPopupVisibility }) => {
+const Register = ({ setShow }) => {
   const firstName_r = useRef();
   const lastName_r = useRef();
   const email_r = useRef();
@@ -44,7 +44,7 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
       ) {
         throw new Error(registerResponse.response.data.message);
       }
-      setPopupVisibility(false);
+      setShow("inactive");
       alert("Account created successfully");
     } catch (err) {
       setError(err.message);
@@ -119,7 +119,7 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
         <div className="flex gap-4">
           <button
             className="cta-btn w-full"
-            onClick={() => setPopupVisibility(false)}
+            onClick={() => setShow("inactive")}
           >
             Cancel
           </button>
@@ -130,7 +130,7 @@ const Register = ({ setPopupDisplay, setPopupVisibility }) => {
       <div
         className="text-shamrock-green underline cursor-pointer"
         onClick={() => {
-          setPopupDisplay("login");
+          setShow("login");
         }}
       >
         Already Have an Account? Sign In
