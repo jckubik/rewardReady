@@ -90,7 +90,7 @@ async function getCreditCards() {
 }
 
 async function getCreditCardById(id) {
-  return await execute("GET", `/api/card/`);
+  return await execute("GET", `/api/card/${id}`);
 }
 
 const ccStackSecret = "bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf";

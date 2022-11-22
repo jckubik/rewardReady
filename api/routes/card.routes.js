@@ -6,7 +6,7 @@ const userMiddleware = require("../middleware/user.middleware");
 module.exports = (app) => {
   router.get("/", userMiddleware.verifyToken, cardController.getCreditCards);
   router.get(
-    "/id",
+    "/:id",
     userMiddleware.verifyToken,
     cardController.getCreditCardById
   );

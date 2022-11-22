@@ -16,15 +16,15 @@ exports.getCreditCards = async (req, res) => {
 
 exports.getCreditCardById = async (req, res) => {
   // check if credit card image url exists in
-  console.log(req);
+  console.log(req.params);
   try {
-    let card = Card.findOne({ where: { id: req.params.id } });
-    creditCardImageHandler(card);
+    let card = await Card.findOne({ where: { id: req.params.id } });
+    await creditCardImageHandler(card);
     res.status(200).send(card);
   } catch (err) {
     console.log(err);
     res.status(500).send({
-      message: "Unexpected error while retrieving credit card from database",
+      message: err,
     });
   }
 };
@@ -56,45 +56,43 @@ exports.createCard = async (req, res) => {
   }
 };
 
-function creditCardImageHandler(card) {
+async function creditCardImageHandler(card) {
   if (!card.image_url) {
     // retrieve image url using web search api
     // add field to card object
     try {
-      let images = fetchImages(card.title);
-      console.log(images);
-      // let image_url;
-      // Card.update({ image_url: image_url }, { where: { id: card.id } });
+      let image_url = await fetchImage(card.title);
+      let updatedCard = await Card.update(
+        { image_url: image_url },
+        { where: { id: card.id } }
+      );
+      console.log(updatedCard);
     } catch (err) {
       console.log(err);
+      throw new Error(err);
     }
   }
 }
 
-function fetchImages(query) {
+async function fetchImage(query) {
   const axios = require("axios");
+  console.log("QUERY: ", query);
 
   const options = {
     method: "GET",
-    url: "https://contextualwebsearch-websearch-v1.p.rapidapi.com/api/Search/WebSearchAPI",
+    url: "https://bing-image-search1.p.rapidapi.com/images/search",
     params: {
       q: query,
-      pageNumber: "1",
-      pageSize: "10",
-      autoCorrect: "true",
     },
     headers: {
       "X-RapidAPI-Key": apiConfig.webSearchAPIKey,
-      "X-RapidAPI-Host": "contextualwebsearch-websearch-v1.p.rapidapi.com",
+      "X-RapidAPI-Host": "bing-image-search1.p.rapidapi.com",
     },
   };
-
-  axios
-    .request(options)
-    .then(function (response) {
-      return response;
-    })
-    .catch(function (err) {
-      console.error(err);
-    });
+  try {
+    let response = await axios.request(options);
+    return response.data.value[0].contentUrl;
+  } catch (err) {
+    throw new Error(err);
+  }
 }
