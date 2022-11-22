@@ -8,7 +8,6 @@ import "../css/Header.css";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../reduxSlices/userSlice";
-import LocateMe from "./LocateMe";
 
 const Header = (props) => {
   const user = useSelector((state) => state.user.user);

@@ -77,6 +77,14 @@ async function sendResetRequest(data) {
   return await execute("POST", "/api/user/update/password/reset/request", data);
 }
 
+async function getRandomStore() {
+  return await execute("GET", "/api/store/get_random", "");
+}
+
+async function getRandomStores() {
+  return await execute("GET", "/api/store/get_multiple_random", "");
+}
+
 const ccStackSecret = "bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf";
 const discountSecret = "YxhRTxQe";
 
@@ -93,6 +101,8 @@ export default {
   updatePassword,
   resetPassword,
   sendResetRequest,
+  getRandomStore,
+  getRandomStores,
   ccStackSecret,
   discountSecret,
 };
