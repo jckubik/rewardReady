@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useSearchParams } from 'react-router-dom'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { resetPassword, getEmail, logout, sendResetRequest } from "../reduxSlices/userSlice";
+import { resetPassword, getEmail, logout, sendResetRequest, setResetEmail } from "../reduxSlices/userSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 
@@ -13,9 +13,9 @@ const ResetPassword = () => {
     const [confirmPasswordError, setConfirmPasswordError] = useState(false);
     const [passwordMatchError, setPasswordMatchError] = useState(false);
     const [expirationError, setExpirationError] = useState(false);
+    const [resetEmailError, setResetEmailError] = useState(false);
     const [resetComplete, setResetComplete] = useState(false);
     const [sentResetEmail, setSentResetEmail] = useState(false);
-    // const [userEmail, setUserEmail] = useState("");
     const [searchParams, setSearchParams] = useSearchParams();
 
     const dispatch = useDispatch();
@@ -24,23 +24,25 @@ const ResetPassword = () => {
     const currentDate = Date.now();
     const tokenRegex = /rewardready-session/;
     const cookies = document.cookie;
+    const tokenExists = tokenRegex.test(cookies);
 
     // Called when user hits "Reset Password" button
     const handleSubmit = async (event) => {
       event.preventDefault();
 
       // Do nothing if there are still errors
-      if (newPasswordError || confirmPasswordError || passwordMatchError) {
+      if (newPasswordError || confirmPasswordError || passwordMatchError || resetEmailError) {
         return;
-      } else if (currentDate <= expirationDate && tokenRegex.test(cookies)) {
+      } else if (currentDate <= expirationDate && tokenExists) {
         // Reset the password and clear the token
         await dispatch(resetPassword(newPassword));
         setResetComplete(true);
       } else {
         // Else, grab user email to send new request
-        await dispatch(getEmail());
-        // Set the email
-        // setUserEmail(resetEmail);
+        if (tokenExists) {
+          await dispatch(getEmail());
+        }
+
         setExpirationError(true);
       }
       // await api.logout();
@@ -66,6 +68,12 @@ const ResetPassword = () => {
       return !passwordRegex.test(password);
     };
 
+    // Checks that the current input is a valid email
+    const isValidEmail = (email) => {
+      const emailRegex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+      return !emailRegex.test(email);
+    }
+
   return (
       <div
       className="bg-[#e4e7ea] flex flex-col gap-5 text-center py-10 px-10 min-w-[500px] rounded-lg"
@@ -81,6 +89,22 @@ const ResetPassword = () => {
         expirationError ? 
           <div className="flex flex-col gap-5">
             <p>Your reset link has expired.</p>
+            { !tokenExists ? 
+                <input
+                placeholder="Email"
+                type="email"
+                className="w-full rounded-sm py-2 pl-10"
+                name="resetEmail"
+                icon={<FontAwesomeIcon icon={solid("envelope")} />}
+                onChange={(event) => {
+                  dispatch(setResetEmail(event.target.value));
+                  const valid = isValidEmail(event.target.value);
+                  setResetEmailError(valid);
+                  }
+                }
+                /> :
+                null
+          }
             <button className="cta-btn" onClick={handleSendReset}>
               Send New Reset Email
             </button>
