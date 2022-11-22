@@ -6,7 +6,7 @@ const API_HOSTNAME = "localhost:";
 const PORT = "9000";
 
 const client = axios.create({
-  baseURL: `${PROTOCOL}${API_HOSTNAME}${PORT}`,
+  baseURL: process.env.REACT_APP_API_BASE_URL || `${PROTOCOL}${API_HOSTNAME}${PORT}/api`,
   json: true,
   withCredentials: true,
 });
@@ -45,62 +45,62 @@ async function getDealsAndCouponsFromFavoriteStores() {
 
 async function getCardRecommendationsForUser(storeName) {
   // need to change method to lowercase poss, change resource to valid
-  return await execute("GET", "/api/wallet/recommend/card", {
-    name: storeName,
+  return await execute("GET", "/wallet/recommend/card", {
+    store: store,
   });
 }
 
 async function getRandomCoupon() {
-  return await execute("GET", "/api/coupon/random", "");
+  return await execute("GET", "/coupon/random", "");
 }
 
 // Get user's email from token
 async function getEmail() {
-  return await execute("POST", "/api/user/email", "");
+  return await execute("POST", "/user/email", "");
 }
 
 async function getRandomDeal() {
-  return await execute("GET", "/api/deal/random", "");
+  return await execute("GET", "/deal/random", "");
 }
 
 async function login(data) {
-  return await execute("POST", "/api/user/login", data);
+  return await execute("POST", "/user/login", data);
 }
 
 async function logout() {
-  return await execute("POST", "/api/user/logout");
+  return await execute("POST", "/user/logout");
 }
 
 async function register(data) {
-  return await execute("POST", "/api/user/register", data);
+  return await execute("POST", "/user/register", data);
 }
 
 async function deleteUser(data) {
-  return await execute("POST", "/api/user/delete", data);
+  return await execute("POST", "/user/delete", data);
 }
 
 async function updateInfo(data) {
-  return await execute("POST", "/api/user/update", data);
+  return await execute("POST", "/user/update", data);
 }
 
 async function updatePassword(data) {
-  return await execute("POST", "/api/user/update/password", data);
+  return await execute("POST", "/user/update/password", data);
 }
 
 async function resetPassword(data) {
-  return await execute("POST", "/api/user/update/password/reset", data);
+  return await execute("POST", "/user/update/password/reset", data);
 }
 
 async function sendResetRequest(data) {
-  return await execute("POST", "/api/user/update/password/reset/request", data);
+  return await execute("POST", "/user/update/password/reset/request", data);
 }
 
 async function getRandomStore() {
-  return await execute("GET", "/api/store/get_random", "");
+  return await execute("GET", "/store/get_random", "");
 }
 
 async function getRandomStores() {
-  return await execute("GET", "/api/store/get_multiple_random", "");
+  return await execute("GET", "/store/get_multiple_random", "");
 }
 
 async function getCreditCards() {

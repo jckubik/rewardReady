@@ -47,7 +47,7 @@ const AddCard = () => {
     if (cardCompany) {
       fetchCards();
     }
-  }, [cardCompany]);
+  }, [cardCompany, fetchCards]);
 
   return (
     <div className="container flex-1">
