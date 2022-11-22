@@ -16,14 +16,14 @@ const sequelize = new Sequelize(dbConfig.DB, dbConfig.USER, dbConfig.PASSWORD, {
 const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
-User = db.users = require('./user.model')(sequelize, Sequelize);
-Wallet = db.wallets = require('./wallet.model')(sequelize, Sequelize);
-Store = db.stores = require('./store.model')(sequelize, Sequelize);
-Category = db.categories = require('./category.model')(sequelize, Sequelize);
-Coupon = db.coupons = require('./coupon.model')(sequelize, Sequelize);
-Deal = db.deals = require('./deal.model')(sequelize, Sequelize);
+User = db.users = require("./user.model")(sequelize, Sequelize);
+Wallet = db.wallets = require("./wallet.model")(sequelize, Sequelize);
+Store = db.stores = require("./store.model")(sequelize, Sequelize);
+Category = db.categories = require("./category.model")(sequelize, Sequelize);
+Coupon = db.coupons = require("./coupon.model")(sequelize, Sequelize);
+Deal = db.deals = require("./deal.model")(sequelize, Sequelize);
 Card = db.cards = require("./card.model")(sequelize, Sequelize);
-History = db.history = require('./history.model')(sequelize, Sequelize);
+History = db.history = require("./history.model")(sequelize, Sequelize);
 
 User.hasOne(Wallet);
 Wallet.belongsTo(User);
@@ -35,6 +35,11 @@ Category.belongsToMany(Store, {
   through: "store_categories",
   as: "stores",
   foreignKey: "store_id",
+});
+
+Card.belongsTo(Category, {
+  foreignKey: "rewards_type",
+  as: "category",
 });
 
 Wallet.hasMany(Card);

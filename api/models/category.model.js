@@ -1,6 +1,6 @@
 module.exports = (sequelize, Sequelize) => {
-    return sequelize.define('category', {
-        // name: {type: Sequelize.STRING, allowNull: false},
-        categoryId: {type: Sequelize.INTEGER, allowNull: false, unique: true}
-    });
+  return sequelize.define("category", {
+    id: { type: Sequelize.INTEGER, primaryKey: true },
+    name: { type: Sequelize.STRING, allowNull: false },
+  });
 };

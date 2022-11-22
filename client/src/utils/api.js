@@ -85,11 +85,21 @@ async function getRandomStores() {
   return await execute("GET", "/api/store/get_multiple_random", "");
 }
 
+async function getCreditCards() {
+  return await execute("GET", "/api/card", "");
+}
+
+async function getCreditCardById(id) {
+  return await execute("GET", `/api/card/`);
+}
+
 const ccStackSecret = "bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf";
 const discountSecret = "YxhRTxQe";
 
 export default {
   getCardRecommendationsForUser,
+  getCreditCards,
+  getCreditCardById,
   getRandomCoupon,
   getRandomDeal,
   getEmail,
