@@ -1,0 +1,103 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  annotations:
+    kompose.cmd: kompose convert -f docker-compose.yml
+    kompose.version: 1.27.0 (b0ed6a2c9)
+  labels:
+    io.kompose.service: mysqldb
+  name: mysqldb
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      io.kompose.service: mysqldb
+  strategy:
+    type: Recreate
+  template:
+    metadata:
+      annotations:
+        kompose.cmd: kompose convert -f docker-compose.yml
+        kompose.version: 1.27.0 (b0ed6a2c9)
+      labels:
+        io.kompose.network/backend: "true"
+        io.kompose.service: mysqldb
+    spec:
+      containers:
+        - env:
+            - name: CLIENT_API_BASE_URL
+              valueFrom:
+                configMapKeyRef:
+                  key: CLIENT_API_BASE_URL
+                  name: env
+            - name: CLIENT_ORIGIN
+              valueFrom:
+                configMapKeyRef:
+                  key: CLIENT_ORIGIN
+                  name: env
+            - name: MYSQLDB_DATABASE
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQLDB_DATABASE
+                  name: env
+            - name: MYSQLDB_DOCKER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQLDB_DOCKER_PORT
+                  name: env
+            - name: MYSQLDB_LOCAL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQLDB_LOCAL_PORT
+                  name: env
+            - name: MYSQLDB_ROOT_PASSWORD
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQLDB_ROOT_PASSWORD
+                  name: env
+            - name: MYSQLDB_USER
+              valueFrom:
+                configMapKeyRef:
+                  key: MYSQLDB_USER
+                  name: env
+            - name: MYSQL_DATABASE
+              value: rewardready
+            - name: MYSQL_ROOT_PASSWORD
+              value: "123456"
+            - name: NODE_DOCKER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: NODE_DOCKER_PORT
+                  name: env
+            - name: NODE_LOCAL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: NODE_LOCAL_PORT
+                  name: env
+            - name: REACT_DOCKER_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: REACT_DOCKER_PORT
+                  name: env
+            - name: REACT_LOCAL_PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: REACT_LOCAL_PORT
+                  name: env
+          image: docker.cs.vt.edu/jackp96/rewardreadydocker/mysql:latest
+          name: mysqldb
+          stdin: true
+          tty: true
+          ports:
+            - containerPort: 3306
+          resources: {}
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: db
+              subPath: db
+      restartPolicy: Always
+      volumes:
+        - name: db
+          persistentVolumeClaim:
+            claimName: db3
+status: {}
