@@ -13,9 +13,9 @@ const SubHeader = ({ active }) => {
         Personal Info
       </Link>
       <Link
-        to={"/cards"}
+        to={"/wallet"}
         className={`py-4 w-40 text-center ${
-          active === "card" && "border-[1px] border-black bg-[#00000010]"
+          active === "wallet" && "border-[1px] border-black bg-[#00000010]"
         }`}
       >
         Card Information

@@ -93,6 +93,14 @@ async function getCreditCardById(id) {
   return await execute("GET", `/api/card/${id}`);
 }
 
+async function getUserCards() {
+  return await execute("GET", `/api/wallet/items/cards`);
+}
+
+async function insertCardToWallet(data) {
+  return await execute("POST", "/api/wallet/items/cards/insert", data);
+}
+
 const ccStackSecret = "bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf";
 const discountSecret = "YxhRTxQe";
 
@@ -113,6 +121,8 @@ export default {
   sendResetRequest,
   getRandomStore,
   getRandomStores,
+  getUserCards,
+  insertCardToWallet,
   ccStackSecret,
   discountSecret,
 };

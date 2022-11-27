@@ -3,7 +3,7 @@ import { Routes, Route } from "react-router-dom";
 import "./App.css";
 import Home from "./pages/Home";
 import Personal from "./pages/Personal";
-import Cards from "./pages/Cards";
+import Wallet from "./pages/Wallet";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import ResetPasswordModal from "./components/popups/ResetPasswordModal";
@@ -19,11 +19,10 @@ function App() {
         <Routes>
           <Route index element={<Home />} />
           <Route path="personal" element={<Personal />} />
-          <Route path="cards" element={<Cards />} />
+          <Route path="wallet" element={<Wallet />} />
           <Route path="/" element={<Home />}>
             <Route path="passwordReset" element={<ResetPasswordModal />} />
           </Route>
-
         </Routes>
         {/* <LocateMe data={store.data} changeState={changeState} /> */}
         {/* <RecommendDisplay store={store.data}/> */}

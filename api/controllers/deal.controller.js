@@ -1,43 +1,43 @@
-const db = require('../models');
+const db = require("../models");
 const Deal = db.deals;
 const Op = db.Sequelize.Op;
-const tempUtil = require('../utils/temp.util');
+const tempUtil = require("../utils/temp.util");
 const jsdom = require("jsdom");
-const dom = new jsdom.JSDOM('');
+const dom = new jsdom.JSDOM("");
 global.DOMParser = dom.window.DOMParser;
-const xml2js = require('xml2js');
-const { Sequelize } = require('../models');
+const xml2js = require("xml2js");
+const { Sequelize } = require("../models");
 
 exports.getDeals = async (req, res) => {
-    try {
-        // console.log();
-        const items = await tempUtil.getDeals();
-        items.forEach((item) => {
-            console.log(item);
-            Deal.findOne({where: { dealId: item.deal.id}})
-            .then((deal) => {if (!deal) {
-                Deal.create({
-                    dealId: item.deal.id,
-                    title: item.deal.title,
-                    description: item.deal.description,
-                    price: item.deal.price,
-                    value: item.deal.value,
-                    imageUrl: item.deal.image_url,
-                    clickUrl: item.deal.url,
-                    // createdAt: items.deal.created_at,
-                    merchantName: item.deal.merchant.name
-                })}
-            })
-        })
-        // Coupon.create(coupon)
-        res.status(200).send({ message: `Deals added successfully`});
-        // .then(() => res.end())
-        // .catch(() => res.status(500).send({message: 'Unexpected error'}));
-        // return items.deal.id;
-    } catch(err) {
-        console.log(err);
-        res.status(400).send({message: 'Unexpected error while grabbing deal'});
-    }
+  try {
+    // console.log();
+    const items = await tempUtil.getDeals();
+    items.forEach((item) => {
+      Deal.findOne({ where: { dealId: item.deal.id } }).then((deal) => {
+        if (!deal) {
+          Deal.create({
+            dealId: item.deal.id,
+            title: item.deal.title,
+            description: item.deal.description,
+            price: item.deal.price,
+            value: item.deal.value,
+            imageUrl: item.deal.image_url,
+            clickUrl: item.deal.url,
+            // createdAt: items.deal.created_at,
+            merchantName: item.deal.merchant.name,
+          });
+        }
+      });
+    });
+    // Coupon.create(coupon)
+    res.status(200).send({ message: `Deals added successfully` });
+    // .then(() => res.end())
+    // .catch(() => res.status(500).send({message: 'Unexpected error'}));
+    // return items.deal.id;
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({ message: "Unexpected error while grabbing deal" });
+  }
 };
 
 // exports.getCjDeals = async (req, res) => {
@@ -62,8 +62,8 @@ exports.getDeals = async (req, res) => {
 //                         // for (const item in value) {
 //                         //     // console.log(value[item]["link-id"][0]);
 //                         //     const deal = Deal.findOne({ where: { dealId: value[item]["link-id"][0]}});
-                            
-//                         //     if (deal === null) { 
+
+//                         //     if (deal === null) {
 //                         //         Deal.create({
 //                         //             dealId: value[item]["link-id"][0],
 //                         //             title: value[item]["link-name"][0],
@@ -85,67 +85,68 @@ exports.getDeals = async (req, res) => {
 // }
 
 exports.getRandomDeal = async (req, res) => {
-    var data;
-    Deal.findAll({ order: Sequelize.literal('rand()'), limit: 5 })
-        .then((deals) => {
-            const dealArray = [];
-            try {
-                deals.forEach((deal) => {
-                    dealArray.push(deal.dataValues);
-                    // console.log(coupon.dataValues)
-                })
-                // console.log(coupons)
-            } catch (err) {
-                console.log(err);
-            }
-            // data = coupons[0];
-            const json = JSON.stringify(dealArray);
-            // console.log(json);
-            // return json;
-            data = deals[0].get();
-            console.log(data);
-            // res.json(data);
-            return data;
-        })
-        .then(() => res.status(200).json(data))
-        .catch(() => res.status(500).send({ message: 'Unexpected error'}));
-}
+  var data;
+  Deal.findAll({ order: Sequelize.literal("rand()"), limit: 5 })
+    .then((deals) => {
+      const dealArray = [];
+      try {
+        deals.forEach((deal) => {
+          dealArray.push(deal.dataValues);
+          // console.log(coupon.dataValues)
+        });
+        // console.log(coupons)
+      } catch (err) {
+        console.log(err);
+      }
+      // data = coupons[0];
+      const json = JSON.stringify(dealArray);
+      // console.log(json);
+      // return json;
+      data = deals[0].get();
+      // res.json(data);
+      return data;
+    })
+    .then(() => res.status(200).json(data))
+    .catch(() => res.status(500).send({ message: "Unexpected error" }));
+};
 
 exports.searchDealsWeb = async (req, res) => {
-    try {
-        const items = await tempUtil.searchDealsWeb(req);
+  try {
+    const items = await tempUtil.searchDealsWeb(req);
 
-        Object.entries(items).forEach(([key, value]) => {
-            if (key === "data") {
-                Object.entries(value).forEach(([k2, deal]) => {
-                    let priceRange;
-                    if (deal.typical_price_range != null) {
-                        priceRange = deal.typical_price_range[1];
-                    }
-                    else {
-                        priceRange = null;
-                    }
-                    Deal.findOne({where: { dealId: deal.product_id_v2}})
-                    .then((item) => {if (!item) {
-                        Deal.create({
-                            dealId: deal.product_id_v2,
-                            hasProductId: true,
-                            productId: deal.product_id,
-                            title: deal.product_title,
-                            description: deal.product_description,
-                            price: deal.offer.price,
-                            value: priceRange,
-                            imageUrl: deal.product_photos[0],
-                            clickUrl: deal.offer.offer_page_url,
-                            merchantName: deal.offer.store_name
-                        })}
-                    })
-                })
+    Object.entries(items).forEach(([key, value]) => {
+      if (key === "data") {
+        Object.entries(value).forEach(([k2, deal]) => {
+          let priceRange;
+          if (deal.typical_price_range != null) {
+            priceRange = deal.typical_price_range[1];
+          } else {
+            priceRange = null;
+          }
+          Deal.findOne({ where: { dealId: deal.product_id_v2 } }).then(
+            (item) => {
+              if (!item) {
+                Deal.create({
+                  dealId: deal.product_id_v2,
+                  hasProductId: true,
+                  productId: deal.product_id,
+                  title: deal.product_title,
+                  description: deal.product_description,
+                  price: deal.offer.price,
+                  value: priceRange,
+                  imageUrl: deal.product_photos[0],
+                  clickUrl: deal.offer.offer_page_url,
+                  merchantName: deal.offer.store_name,
+                });
+              }
             }
-        })
-        res.status(200).send({ message: `Deals added successfully`});
-    } catch(err) {
-        console.log(err);
-        res.status(400).send({message: 'Unexpected error while grabbing deal'});
-    }
+          );
+        });
+      }
+    });
+    res.status(200).send({ message: `Deals added successfully` });
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({ message: "Unexpected error while grabbing deal" });
+  }
 };

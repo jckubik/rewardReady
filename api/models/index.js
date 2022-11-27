@@ -42,11 +42,9 @@ Card.belongsTo(Category, {
   as: "category",
 });
 
-Wallet.hasMany(Card);
+// Wallet.hasMany(Card);
 Card.belongsToMany(Wallet, {
   through: "wallet_cards",
-  as: "wallets",
-  foreignKey: "wallet_id",
 });
 
 // These lines below are temporary for testing
