@@ -1,4 +1,5 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import api from "../utils/api";
 import Input from "./utils/Input";
 
 const Store = ({ setSelectedStores, submit }) => {
@@ -61,6 +62,13 @@ const Store = ({ setSelectedStores, submit }) => {
         setSelectedStores(selectedStores);
         submit(false);
     };
+
+    useEffect(() => {
+        (async () => {
+            const stors = await api.getRandomStores();
+            console.log(stors);
+        })();
+    }, []);
 
     return (
         <div className="form-container bg-[#e4e7ea] flex flex-col gap-5 text-center py-10 px-10 w-[500px] rounded-lg">
