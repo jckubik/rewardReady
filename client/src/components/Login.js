@@ -19,7 +19,7 @@ const Login = ({ setShow }) => {
     const password = password_r.current.value;
 
     try {
-      await dispatch(login(email, password));
+      dispatch(login(email, password));
       setShow("inactive");
     } catch (err) {
       console.log(err);

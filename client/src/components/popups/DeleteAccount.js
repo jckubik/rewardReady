@@ -1,21 +1,17 @@
-import React, { useContext, useRef, useState } from "react";
-import api from "../../utils/api";
+import React, { useContext, useRef, usetate } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router";
+import { deleteUser } from "../../reduxSlices/userSlice";
 
 const DeleteAccount = ({ setVisible }) => {
-  const { user, setUser } = useContext(session);
+  const user = useSelector((state) => state.user.user);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
   const deleteHandler = async (e) => {
     e.preventDefault();
-    try {
-      let deleteResponse = await api.deleteUser({ email: user.user.email });
-      api.logout();
-      console.log(deleteResponse);
-      dispatch(setUser(null));
-      localStorage.clear();
-      logout();
-    } catch (e) {
-      console.error(e.message);
-      console.log(e);
-    }
+    dispatch(deleteUser(user.email));
+    setVisible(false);
+    navigate("/", { replace: true });
   };
 
   return (

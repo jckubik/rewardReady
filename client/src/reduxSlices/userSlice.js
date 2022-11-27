@@ -15,7 +15,7 @@ export const userSlice = createSlice({
     },
     setResetEmail: (state, action) => {
       state.resetEmail = action.payload;
-    }
+    },
   },
 });
 
@@ -55,6 +55,15 @@ export const getEmail = () => async (dispatch) => {
   }
   const email = emailResponse.email;
   dispatch(setResetEmail(email));
+};
+
+export const deleteUser = (email) => async (dispatch) => {
+  try {
+    await api.deleteUser({ email: email });
+    dispatch(logout());
+  } catch (err) {
+    console.log(err);
+  }
 };
 
 export default userSlice.reducer;
