@@ -7,6 +7,8 @@ const db = require("../models");
 
 const User = db.users;
 const Wallet = db.wallets;
+const History = db.history;
+const Favorite = db.favorite;
 const Op = db.Sequelize.Op;
 const tempUtil = require("../utils/temp.util");
 
@@ -35,6 +37,11 @@ exports.register = async (req, res) => {
       logs: [],
     }))
     .then((history) => History.create(history))
+    .then((data) => ({
+      userId: data.userId,
+      stores: [],
+    }))
+    .then((favorite) => Favorite.create(favorite))
     .then(() =>
       res.status(200).send({ message: "Successfully registered user" })
     )
@@ -107,35 +114,34 @@ exports.delete = async (req, res, next) => {
 exports.getEmail = async (req, res, next) => {
   const userId = req.userId;
 
-    // Throw error if user isn't verrified
-    if (userId == null) {
-      console.log("ID null");
-      res.status(400).send({ message: "User cannot be verified." });
-      return;
-    }
+  // Throw error if user isn't verrified
+  if (userId == null) {
+    console.log("ID null");
+    res.status(400).send({ message: "User cannot be verified." });
+    return;
+  }
 
-    try {
-      // find the proper user to get email
-      const user = await User.findOne({
-        where: {
-          id: userId,
-        },
-      });
+  try {
+    // find the proper user to get email
+    const user = await User.findOne({
+      where: {
+        id: userId,
+      },
+    });
 
-      if (user) {
-        res.status(200).send({ message: "User found. Returning email.", email: user.email });
-        next();
-      } else {
-        console.log("User not found");
-        res.status(404).send({ message: "User requested does not exist." });
-      }
-
-    } catch (error) {
-      console.log(error);
+    if (user) {
       res
-      .status(400)
-      .send({ message: `Unexpected error  - ${error}` });
+        .status(200)
+        .send({ message: "User found. Returning email.", email: user.email });
+      next();
+    } else {
+      console.log("User not found");
+      res.status(404).send({ message: "User requested does not exist." });
     }
+  } catch (error) {
+    console.log(error);
+    res.status(400).send({ message: `Unexpected error  - ${error}` });
+  }
 };
 
 // Update password should probably be serparate with the validation needed?

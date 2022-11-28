@@ -48,6 +48,7 @@ require("./routes/search.routes")(app);
 require("./routes/history.routes")(app);
 require("./routes/category.routes")(app);
 require("./routes/card.routes")(app);
+require("./routes/favorite.routes")(app);
 // TODO - ensure all error codes are right
 
 // // catch 404 and forward to error handler

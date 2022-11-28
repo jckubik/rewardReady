@@ -28,11 +28,14 @@ WalletCard = db.WalletCard = require("./walletCard.model")(
   sequelize,
   Sequelize
 );
+Favorite = db.favorite = require("./favorite.model")(sequelize, Sequelize);
 
 User.hasOne(Wallet);
 Wallet.belongsTo(User);
 User.hasOne(History);
 History.belongsTo(User);
+User.hasOne(Favorite);
+Favorite.belongsTo(User);
 // this was changed from what it was before
 Store.hasMany(Category);
 Category.belongsToMany(Store, {
