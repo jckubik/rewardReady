@@ -85,6 +85,7 @@ spec:
                   key: REACT_LOCAL_PORT
                   name: env
           image: docker.cs.vt.edu/jackp96/rewardreadydocker/mysql:latest
+          imagePullPolicy: Always
           name: mysqldb
           stdin: true
           tty: true
@@ -99,5 +100,5 @@ spec:
       volumes:
         - name: db
           persistentVolumeClaim:
-            claimName: db3
+            claimName: db
 status: {}

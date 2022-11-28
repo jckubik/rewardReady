@@ -17,7 +17,7 @@ services:
       - backend
   
   api:
-    image: docker.cs.vt.edu/jackp96/rewardreadydocker/api:latest
+    image: docker.cs.vt.edu/jackp96/rewardreadydocker/api:1.6
     depends_on:
       - mysqldb
     # build: ./api
@@ -32,13 +32,13 @@ services:
       - DB_PASSWORD=123456
       - DB_NAME=rewardready
       - DB_PORT=3306
-      - CLIENT_ORIGIN=http://localhost:8888
+      - CLIENT_ORIGIN=http://127.0.0.1:3000
     networks:
       - backend
       - frontend
 
   client:
-    image: docker.cs.vt.edu/jackp96/rewardreadydocker/client:latest
+    image: docker.cs.vt.edu/jackp96/rewardreadydocker/client:1.9
     depends_on:
       - api
     # build:
@@ -47,7 +47,7 @@ services:
     #     - REACT_APP_API_BASE_URL=http://127.0.0.1:6868/api
     ports:
       # - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
-      - 8888:80
+      - 3000:3000
     networks:
       - frontend  
 

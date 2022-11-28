@@ -24,9 +24,10 @@ spec:
     spec:
       containers:
         - image: docker.cs.vt.edu/jackp96/rewardreadydocker/client:latest
+          imagePullPolicy: Always
           name: client
           ports:
-            - containerPort: 80
+            - containerPort: 3000
           resources: {}
       restartPolicy: Always
 status: {}
