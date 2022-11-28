@@ -1,44 +1,57 @@
 const db = require("../models");
 const Wallet = db.wallets;
+const WalletCard = db.WalletCard;
+const apiConfig = require("../config/api.config");
+
 const Card = db.cards;
 const Op = db.Sequelize.Op;
-const tempUtil = require("../utils/temp.util");
 
 exports.fetchCards = async (req, res) => {
   Wallet.findOne({ where: { userId: { [Op.eq]: req.userId } } })
     .then((wallet) => {
-      console.log(wallet);
-      return Card.findAll({ where: { walletId: { [Op.eq]: wallet.id } } });
+      return WalletCard.findAll({
+        where: { walletId: { [Op.eq]: wallet.id } },
+      });
     })
-    .then((cards) => res.send(cards))
+    .then((cards) => {
+      const cardsInfo = cards.map((walletCard) => {
+        return Card.findOne({ where: { id: { [Op.eq]: walletCard.cardId } } });
+      });
+      return Promise.all(cardsInfo);
+    })
+    .then((cards) => res.status(200).send(cards))
     .catch(() => res.status(500).send({ message: "Unexpected error" }));
 };
 
 exports.insertCard = async (req, res) => {
-  console.log("INSERTING CARD");
   const userId = req.userId;
-  console.log(userId);
   Wallet.findOne({ where: { userId: { [Op.eq]: userId } } })
     .then((wallet) => {
       const cardId = req.body.cardId;
-      const content = Card.findOne({ where: { id: cardId } });
-      return Card.create({
+      return WalletCard.create({
         cardId: cardId,
         walletId: wallet.id,
-        content: content,
       });
     })
-    .then(() => res.end())
-    .catch((err) => res.status(500).send({ message: JSON.stringify(err) }));
+    .then((walletCard) =>
+      Card.findOne({ where: { id: { [Op.eq]: walletCard.cardId } } })
+    )
+    .then((insertedCard) => {
+      res.status(200).send(insertedCard);
+      return insertedCard;
+    })
+    .then((insertedCard) => creditCardImageHandler(insertedCard))
+    .catch(() => res.status(500).send({ message: "Unexpected error" }));
 };
 
 exports.removeCard = async (req, res) => {
   const userId = req.userId;
   Wallet.findOne({ where: { userId: { [Op.eq]: userId } } })
     .then((wallet) => {
-      return Card.destroy({
+      const cardId = req.body.cardId;
+      return WalletCard.destroy({
         where: {
-          cardId: { [Op.eq]: req.body.cardId },
+          cardId: { [Op.eq]: cardId },
           walletId: { [Op.eq]: wallet.id },
         },
       });
@@ -50,7 +63,7 @@ exports.removeCard = async (req, res) => {
 exports.recommendCard = async (req, res) => {
   Wallet.findOne({ where: { userId: { [Op.eq]: req.userId } } })
     .then((wallet) =>
-      Card.findAll({ where: { walletId: { [Op.eq]: wallet.id } } })
+      WalletCard.findAll({ where: { walletId: { [Op.eq]: wallet.id } } })
     )
     .then((cards) => cards.filter((card) => card !== null))
     .then((cards) => [
@@ -120,3 +133,35 @@ exports.insertHistory = async (req, res) => {
     .then(() => res.end())
     .catch(() => res.status(500).send({ message: "Unexpected error" }));
 };
+
+async function creditCardImageHandler(card) {
+  if (!card.image_url) {
+    try {
+      let image_url = await fetchImage(card.title);
+      await Card.update({ image_url: image_url }, { where: { id: card.id } });
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+}
+
+async function fetchImage(query) {
+  const axios = require("axios");
+  const options = {
+    method: "GET",
+    url: "https://bing-image-search1.p.rapidapi.com/images/search",
+    params: {
+      q: query,
+    },
+    headers: {
+      "X-RapidAPI-Key": apiConfig.webSearchAPIKey,
+      "X-RapidAPI-Host": "bing-image-search1.p.rapidapi.com",
+    },
+  };
+  try {
+    let response = await axios.request(options);
+    return response.data.value[0].contentUrl;
+  } catch (err) {
+    throw new Error(err);
+  }
+}

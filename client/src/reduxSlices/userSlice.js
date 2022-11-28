@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { isLoggedIn } from "../utils/auth";
 import api from "../utils/api";
 import { setExpToken, clearCookies } from "../utils/auth";
+import { setCards } from "./walletSlice";
 
 export const userSlice = createSlice({
   name: "user",
@@ -23,6 +24,7 @@ export const { setUser, setResetEmail } = userSlice.actions;
 
 export const login = (email, password) => async (dispatch) => {
   let loginResponse = await api.login({ email, password });
+  let cards = await api.getUserCards();
   if (!loginResponse.user || !loginResponse.token) {
     throw new Error(loginResponse.response.data.message);
   }
@@ -30,7 +32,9 @@ export const login = (email, password) => async (dispatch) => {
   let user = loginResponse.user;
   setExpToken(token);
   localStorage.setItem("user", JSON.stringify(user));
+  localStorage.setItem("cards", JSON.stringify(cards));
   dispatch(setUser(user));
+  dispatch(setCards(cards));
 };
 
 export const logout = () => async (dispatch) => {

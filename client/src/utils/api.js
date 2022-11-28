@@ -97,8 +97,16 @@ async function getUserCards() {
   return await execute("GET", `/api/wallet/items/cards`);
 }
 
-async function insertCardToWallet(data) {
-  return await execute("POST", "/api/wallet/items/cards/insert", data);
+async function insertCardToWallet(cardId) {
+  return await execute("POST", "/api/wallet/items/cards/insert", {
+    cardId: cardId,
+  });
+}
+
+async function removeCardFromWallet(cardId) {
+  return await execute("POST", "/api/wallet/items/cards/remove", {
+    cardId: cardId,
+  });
 }
 
 const ccStackSecret = "bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf";
@@ -123,6 +131,7 @@ export default {
   getRandomStores,
   getUserCards,
   insertCardToWallet,
+  removeCardFromWallet,
   ccStackSecret,
   discountSecret,
 };

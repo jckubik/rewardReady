@@ -1,6 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import userReducer from "./reduxSlices/userSlice";
+import walletReducer from "./reduxSlices/walletSlice";
 
 export const store = configureStore({
-  reducer: { user: userReducer },
+  reducer: combineReducers({
+    user: userReducer,
+    wallet: walletReducer,
+  }),
 });

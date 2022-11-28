@@ -5,6 +5,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 
 import { useDispatch } from "react-redux";
 import { login } from "../reduxSlices/userSlice";
+import { getWallet } from "../reduxSlices/walletSlice";
 
 const Login = ({ setShow }) => {
   const dispatch = useDispatch();

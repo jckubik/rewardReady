@@ -24,6 +24,10 @@ Coupon = db.coupons = require("./coupon.model")(sequelize, Sequelize);
 Deal = db.deals = require("./deal.model")(sequelize, Sequelize);
 Card = db.cards = require("./card.model")(sequelize, Sequelize);
 History = db.history = require("./history.model")(sequelize, Sequelize);
+WalletCard = db.WalletCard = require("./walletCard.model")(
+  sequelize,
+  Sequelize
+);
 
 User.hasOne(Wallet);
 Wallet.belongsTo(User);
@@ -44,7 +48,7 @@ Card.belongsTo(Category, {
 
 // Wallet.hasMany(Card);
 Card.belongsToMany(Wallet, {
-  through: "wallet_cards",
+  through: WalletCard,
 });
 
 // These lines below are temporary for testing
