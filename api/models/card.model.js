@@ -4,8 +4,8 @@ module.exports = (sequelize, Sequelize) => {
     title: { type: Sequelize.STRING, allowNull: false },
     rewards: { type: Sequelize.JSON, allowNull: true },
     earnings: { type: Sequelize.JSON, allowNull: true },
-    url: { type: Sequelize.STRING, allowNull: true },
+    url: { type: Sequelize.TEXT, allowNull: true },
     bank: { type: Sequelize.JSON, allowNull: true },
-    image_url: { type: Sequelize.STRING, allowNull: true },
+    image_url: { type: Sequelize.TEXT, allowNull: true },
   });
 };
