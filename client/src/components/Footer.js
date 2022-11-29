@@ -1,6 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { brands } from "@fortawesome/fontawesome-svg-core/import.macro";
 import React from "react";
+import { Link } from "react-router-dom";
 export default class Footer extends React.Component {
   render() {
     return (
@@ -13,9 +14,9 @@ export default class Footer extends React.Component {
             <a href="/" className="font-sm text-brunswick-green font-semibold">
               Help
             </a>
-            <a href="/" className="font-sm text-brunswick-green font-semibold">
+            <Link to="about" className="font-sm text-brunswick-green font-semibold">
               About
-            </a>
+            </Link>
           </div>
           <div className="flex-1 flex justify-end gap-x-3">
             <a href="/">

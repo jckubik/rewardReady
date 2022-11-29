@@ -6,6 +6,7 @@ import Personal from "./pages/Personal";
 import Wallet from "./pages/Wallet";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import About from "./pages/About";
 import ResetPasswordModal from "./components/popups/ResetPasswordModal";
 import { store } from "./store";
 import { Provider } from "react-redux";
@@ -23,6 +24,7 @@ function App() {
           <Route path="/" element={<Home />}>
             <Route path="passwordReset" element={<ResetPasswordModal />} />
           </Route>
+          <Route path="/about" element={<About />} />
         </Routes>
         {/* <LocateMe data={store.data} changeState={changeState} /> */}
         {/* <RecommendDisplay store={store.data}/> */}
