@@ -1,5 +1,6 @@
 const db = require("../models");
 const Card = db.cards;
+const apiConfig = require("../config/api.config");
 
 exports.getCreditCards = async (req, res) => {
   try {
@@ -52,3 +53,35 @@ exports.createCard = async (req, res) => {
       .send({ message: "Unexpected error while adding card to database" });
   }
 };
+
+async function creditCardImageHandler(card) {
+  if (!card.image_url) {
+    try {
+      let image_url = await fetchImage(card.title);
+      await Card.update({ image_url: image_url }, { where: { id: card.id } });
+    } catch (err) {
+      throw new Error(err);
+    }
+  }
+}
+
+async function fetchImage(query) {
+  const axios = require("axios");
+  const options = {
+    method: "GET",
+    url: "https://bing-image-search1.p.rapidapi.com/images/search",
+    params: {
+      q: query,
+    },
+    headers: {
+      "X-RapidAPI-Key": apiConfig.webSearchAPIKey,
+      "X-RapidAPI-Host": "bing-image-search1.p.rapidapi.com",
+    },
+  };
+  try {
+    let response = await axios.request(options);
+    return response.data.value[0].contentUrl;
+  } catch (err) {
+    throw new Error(err);
+  }
+}
