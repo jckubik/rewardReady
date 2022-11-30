@@ -5,29 +5,56 @@ metadata:
 spec:
   selector:
     matchLabels:
-      app: database
+      app: rewardready1
+      tier: database
   template:
     metadata:
       labels:
-        app: database
+        app: rewardready1
+        tier: database
     spec:
       containers:
       - name: database
-        image: mysql:5.7
+        image: docker.cs.vt.edu/jackp96/rewardreadydocker/mysql:latest
         resources: {}
         ports:
         - containerPort: 3306
         volumeMounts:
         - mountPath: /var/lib/mysql
-          name: db
-          subPath: db
+          name: db2
         env:
-          - name: MYSQLDB_USER
+          - name: MYSQL_DATABASE
+            value: rewardready
+          - name: MYSQL_USER
             value: "root"
-          - name: MYSQLDB_ROOT_PASSWORD
+          - name: MYSQL_ROOT_PASSWORD
             value: "123456"
-    volumes:
-      - name: sqlscript
-        configMap:
-          name: database-init-script
-          
+      volumes:
+        - name: db2
+          persistentVolumeClaim:
+            claimName: db2
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: database
+spec:
+  type: ClusterIP
+  selector:
+    app: rewardready1
+    tier: database
+  ports:
+  - port: 3307
+    targetPort: 3306
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: db2
+  namespace: rewardready
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 1Gi

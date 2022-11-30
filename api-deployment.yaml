@@ -90,7 +90,7 @@ spec:
                 configMapKeyRef:
                   key: REACT_LOCAL_PORT
                   name: env
-          image: docker.cs.vt.edu/jackp96/rewardreadydocker/api:1.6
+          image: docker.cs.vt.edu/jackp96/rewardreadydocker/api:1.9
           imagePullPolicy: Always
           name: api
           ports:

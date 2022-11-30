@@ -23,7 +23,7 @@ spec:
         io.kompose.service: client
     spec:
       containers:
-        - image: docker.cs.vt.edu/jackp96/rewardreadydocker/client:latest
+        - image: docker.cs.vt.edu/jackp96/rewardreadydocker/client:2.7
           imagePullPolicy: Always
           name: client
           ports:

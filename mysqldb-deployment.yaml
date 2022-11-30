@@ -84,7 +84,7 @@ spec:
                 configMapKeyRef:
                   key: REACT_LOCAL_PORT
                   name: env
-          image: docker.cs.vt.edu/jackp96/rewardreadydocker/mysql:latest
+          image: docker.cs.vt.edu/jackp96/rewardreadydocker/mysql:1.0
           imagePullPolicy: Always
           name: mysqldb
           stdin: true

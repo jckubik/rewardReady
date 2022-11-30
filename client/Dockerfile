@@ -26,10 +26,11 @@ RUN npm install
 COPY . .
 
 # ARG REACT_APP_API_BASE_URL
-ARG REACT_APP_API_BASE_URL=http://127.0.0.1:6868/api
+ARG REACT_APP_API_BASE_URL=http://rewardreadybackend.discovery.cs.vt.edu/api
 ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
 
 EXPOSE $REACT_DOCKER_PORT
+EXPOSE 3000
 
 CMD ["npm", "run", "start"]
 
