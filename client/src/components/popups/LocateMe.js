@@ -34,7 +34,10 @@ const LocateMe = (props) => {
       className="w-screen h-screen fixed bg-[#0000009d] top-0 z-50 grid place-items-center font-inter"
       onClick={() => props.setShow(false)}
     >
-      <div className="bg-[#e4e7ea] flex flex-col gap-5 text-center py-10 px-10 min-w-[500px] rounded-lg">
+      <div
+        className="bg-[#e4e7ea] flex flex-col gap-5 text-center py-10 px-10 min-w-[500px] rounded-lg"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="form-container flex items-center">
           <form id="user-location" className="w-full max-w-lg">
             <h2>Enter Location</h2>

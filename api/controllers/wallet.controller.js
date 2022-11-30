@@ -36,11 +36,11 @@ exports.insertCard = async (req, res) => {
     .then((walletCard) =>
       Card.findOne({ where: { id: { [Op.eq]: walletCard.cardId } } })
     )
+    .then((insertedCard) => creditCardImageHandler(insertedCard))
     .then((insertedCard) => {
       res.status(200).send(insertedCard);
       return insertedCard;
     })
-    .then((insertedCard) => creditCardImageHandler(insertedCard))
     .catch(() => res.status(500).send({ message: "Unexpected error" }));
 };
 
@@ -139,6 +139,7 @@ async function creditCardImageHandler(card) {
     try {
       let image_url = await fetchImage(card.title);
       await Card.update({ image_url: image_url }, { where: { id: card.id } });
+      return await Card.findOne({ where: { id: { [Op.eq]: card.id } } });
     } catch (err) {
       throw new Error(err);
     }

@@ -1,10 +1,13 @@
 const db = require("../models");
 const Card = db.cards;
 const apiConfig = require("../config/api.config");
+const Op = db.Sequelize.Op;
 
 exports.getCreditCards = async (req, res) => {
   try {
-    let cards = await Card.findAll();
+    let cards = await Card.findAll({ where: { earnings: { [Op.not]: "'" } } });
+    cards = cards.filter((c) => c.earnings != "");
+
     res.status(200).send(cards);
   } catch (err) {
     res.status(500).send({

@@ -16,6 +16,9 @@ module.exports = {
         inter: ["Inter"],
         "carter-one": ["Carter One"],
       },
+      listStyleType: {
+        square: "square",
+      },
     },
   },
   plugins: [require("tw-elements/dist/plugin")],

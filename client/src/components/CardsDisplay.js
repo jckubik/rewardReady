@@ -1,11 +1,12 @@
+import CardDescription from "./CardDescription";
+
 const CardsDisplay = (props) => {
-  console.log(props.cards);
   return (
-    <>
+    <div>
       {props.cards.map((card) => (
-        <img key={card.id} src={card.image_url} />
+        <CardDescription key={card.id} card={card} />
       ))}
-    </>
+    </div>
   );
 };
 

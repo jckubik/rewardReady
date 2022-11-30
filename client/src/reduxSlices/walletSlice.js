@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import api from "../utils/api";
 import { isLoggedIn } from "../utils/auth";
+import { useSelector } from "react-redux";
 export const walletSlice = createSlice({
   name: "wallet",
   initialState: {
@@ -24,17 +25,21 @@ export const walletSlice = createSlice({
 
 export const { setCards, addCard, removeCard } = walletSlice.actions;
 
-export const insertCardInToWallet = (cardId) => async (dispatch) => {
-  let insertedCard = await api.insertCardToWallet(cardId);
-  dispatch(addCard(insertedCard));
-  const cards = useSelector((state) => state.wallet.cards);
+export const insertCardInToWallet = (card) => (dispatch, getState) => {
+  dispatch(addCard(card));
+  let cards = getState().wallet.cards;
   localStorage.setItem("cards", JSON.stringify(cards));
 };
 
-export const removeCardFromWallet = (cardId) => async (dispatch) => {
-  await api.removeCardFromWallet(cardId);
+export const removeCardFromWallet = (cardId) => (dispatch, getState) => {
   dispatch(removeCard(cardId));
-  const cards = useSelector((state) => state.wallet.cards);
+  let cards = getState().wallet.cards;
+  localStorage.setItem("cards", JSON.stringify(cards));
+};
+
+export const setUserCreditCards = (creditCards) => (dispatch, getState) => {
+  dispatch(setCards(creditCards));
+  let cards = getState().wallet.cards;
   localStorage.setItem("cards", JSON.stringify(cards));
 };
 
