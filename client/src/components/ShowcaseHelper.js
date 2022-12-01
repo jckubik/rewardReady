@@ -21,6 +21,7 @@ const ShowcaseHelper = (props) => {
             <ShowcaseItem
               key={index}
               item={item}
+              type={props.type}
               showImage={props.type == "coupon" ? false : true}
             />
           ))}

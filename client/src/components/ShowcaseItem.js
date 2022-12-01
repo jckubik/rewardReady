@@ -1,6 +1,15 @@
+import { useState, useEffect } from 'react';
+import CouponDealDetail from "./popups/CouponDealDetail";
+
 const ShowcaseItem = (props) => {
+  const [showDetail, setShowDetail] = useState(false);
+
+  useEffect(() => {
+    console.log(showDetail);
+  }, [showDetail]);
+
   return (
-    <div>
+    <div onClick={() => setShowDetail(true)}>
       {props.showImage ? (
         <img
           className="object-cover w-60 h-36"
@@ -16,6 +25,15 @@ const ShowcaseItem = (props) => {
           {props.item.subtitle}
         </p>
       </div>
+      {
+        showDetail ? 
+          <CouponDealDetail 
+            setShow={setShowDetail} 
+            type={props.type}
+            item={props.item}
+          />
+          : null
+      }
     </div>
   );
 };
