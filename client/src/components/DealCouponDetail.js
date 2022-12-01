@@ -23,7 +23,7 @@ const DealCouponDetail = ({ setShow, item }) => {
   
   const cursor = clickUrl ? "" : 'cursor-default';
 
-  return(
+  return (
     <div
     className="bg-[#e4e7ea] flex flex-col gap-5 text-center py-10 px-10 min-w-[500px] rounded-lg"
     onClick={(e) => e.stopPropagation()}
