@@ -10,16 +10,16 @@ import "swiper/css/scrollbar";
 import "../css/ShowcaseHelper.css";
 
 const ShowcaseHelper = (props) => {
-    const elems = [];
+  const elems = [];
 
-    for (let i = 0; i < 4; i++) {
-        if (props.type === "deal") {
-            elems.push(FindDeal());
-        } else {
-            elems.push(FindCoupon());
-        }
+  for (let i = 0; i < 10; i++) {
+    if (props.type === "deal") {
+      elems.push(FindDeal());
+    } else {
+      elems.push(FindCoupon());
     }
-    
+  }
+
   return (
     <div className="w-full">
       <div
@@ -45,7 +45,7 @@ const ShowcaseHelper = (props) => {
         </div>
       </div>
     </div>
-    );
+  );
 };
 
 export default ShowcaseHelper;
