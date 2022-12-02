@@ -11,9 +11,9 @@ export default class Footer extends React.Component {
             <span className="body">ⓒ 2022 RewardReady</span>
           </div>
           <div className="flex-1 gap-x-3 flex justify-center">
-            <a href="/" className="font-sm text-brunswick-green hover:text-shamrock-green font-semibold">
-              Help
-            </a>
+            
+             <Link to="/faq" className="font-sm text-brunswick-green hover:text-shamrock-green font-semibold">Help</Link>
+            
             <Link to="about" className="font-sm text-brunswick-green hover:text-shamrock-green font-semibold">
               About
             </Link>
