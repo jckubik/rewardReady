@@ -6,16 +6,8 @@ const Home = () => {
   return (
     <div className="w-full">
       <Hero />
-      <Showcase
-        title="Popular Deals"
-        type={"deal"}
-        backgroundColor="honeydew"
-      />
-      <Showcase
-        title="Popular Coupons"
-        type={"coupon"}
-        backgroundColor="white"
-      />
+      <Showcase title="Popular Deals" type={"deal"} />
+      <Showcase title="Popular Coupons" type={"coupon"} />
       <Outlet />
     </div>
   );
