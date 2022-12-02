@@ -103,7 +103,8 @@ exports.createFromCouponsAndDeals = async (req, res) => {
       await Store.create({
         name: merchantName,
         webAddress: deal.clickUrl,
-        logoAddress: deal.imageUrl,
+        logoAddress:
+          "http://americanrecycling.info/TestimonialCompanyLogo/CompanyDefaultLogo.jpg",
       });
     }
     const coupons = await Coupon.findAll();
@@ -119,7 +120,8 @@ exports.createFromCouponsAndDeals = async (req, res) => {
       await Store.create({
         name: merchantName,
         webAddress: coupon.clickUrl,
-        logoAddress: "", // TODO - coupon doesn't have imageUrl
+        logoAddress:
+          "http://americanrecycling.info/TestimonialCompanyLogo/CompanyDefaultLogo.jpg",
       });
     }
 
