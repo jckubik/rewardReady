@@ -4,7 +4,9 @@ const ShowcaseItem = (props) => {
   const default_image = require("../assets/defaultCoupon.jpeg");
   const navigate = useNavigate();
 
+  // Called when user clicks on the deal/coupon
   const handleClick = () => {
+    // Navigate to the route for the detail view
     navigate('/homeDetailView', { state: {item: props.item} });
   }
 
@@ -15,7 +17,7 @@ const ShowcaseItem = (props) => {
           <img
             className="object-cover w-60 h-36"
             alt={props.item.title}
-            src={props.item.imgSrc}
+            src={props.item?.imgSrc ? props.item.imgSrc : default_image}
           />
         ) : null}
         <div className="pt-4">

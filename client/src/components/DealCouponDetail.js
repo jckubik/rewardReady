@@ -21,6 +21,7 @@ const DealCouponDetail = ({ setShow, item, handleClick }) => {
   const card = api.getCardRecommendationsForUser(subtitle)
     .then((result) => console.log(result));
   
+  // If there is no clickUrl, then the pointer should be normal - aka no links
   const cursor = clickUrl ? "" : 'cursor-default';
 
   return (

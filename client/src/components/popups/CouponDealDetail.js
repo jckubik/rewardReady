@@ -8,11 +8,15 @@ const CouponDealDetail = () => {
   const navigate = useNavigate();
   const { item } = location.state;
 
+  // Called when user clicks outside the modal
   const handleClick = () => {
     // Used to expand to the gallery view as well when implemented
     const navString = location.pathname === "/homeDetailView" ? "/" : "/";
 
+    // Set show to false to remove modal
     setShow(false);
+
+    // Navigate back to the original route
     navigate(navString);
   }
 
