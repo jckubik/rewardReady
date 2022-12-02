@@ -9,7 +9,7 @@ const ShowcaseItem = (props) => {
   }, [showDetail]);
 
   return (
-    <div onClick={() => setShowDetail(true)}>
+    <div className='cursor-pointer' onClick={() => setShowDetail(true)}>
       {props.showImage ? (
         <img
           className="object-cover w-60 h-36"

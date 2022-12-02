@@ -5,7 +5,7 @@ const CouponDealDetail = ({ setShow, type, item }) => {
 
   return (
     <div
-      className="w-screen h-screen fixed bg-[#0000009d] top-0 left-0 z-50 grid place-items-center font-inter"
+      className="w-screen h-screen fixed bg-[#0000009d] top-0 left-0 z-50 grid place-items-center font-inter cursor-default"
       onClick={() => {
         console.log("click");
         setShow(false);
