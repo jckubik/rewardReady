@@ -20,7 +20,6 @@ import Faq from "./pages/FAQ";
 import CouponDealDetail from "./components/popups/CouponDealDetail";
 import Favorites from "./pages/Favorites";
 
-import Faq from "./pages/FAQ";
 function App() {
   return (
     <Provider store={store}>
