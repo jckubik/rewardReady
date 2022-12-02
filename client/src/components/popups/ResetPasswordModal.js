@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import ResetPassword from "../ResetPassword";
 
 const ResetPasswordModal = () => {
@@ -10,7 +10,6 @@ const ResetPasswordModal = () => {
       className="w-screen h-screen fixed bg-[#0000009d] top-0 z-50 grid place-items-center font-inter"
       onClick={() => {
         setShow(false);
-        // setPopupDisplay("login");
       }}
     >
 

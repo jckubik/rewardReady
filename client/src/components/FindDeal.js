@@ -21,9 +21,10 @@ const FindDeal = () => {
   async function fetchDeals() {
     try {
       let deal = await api.getRandomDeal();
+      console.log(deal);
 
       setDeals({
-        dealId: deal["couponId"],
+        dealId: deal["dealId"],
         title: deal["title"],
         merchantName: deal["merchantName"],
         clickUrl: deal["clickUrl"],
@@ -31,9 +32,15 @@ const FindDeal = () => {
       });
 
       setDealReturn({
+        dealId: deal["dealId"],
         title: deal["title"],
         subtitle: deal["merchantName"],
         imgSrc: deal["imageUrl"],
+        clickUrl: deal["clickUrl"],
+        couponCode: deal["couponCode"],
+        description: deal["description"],
+        discountPrice: deal["price"],
+        originalPrice: deal["value"],
       });
 
       setBoolDeals(false);

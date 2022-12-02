@@ -11,6 +11,7 @@ import ResetPasswordModal from "./components/popups/ResetPasswordModal";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import AuthVerify from "./components/AuthVerify";
+import CouponDealDetail from "./components/popups/CouponDealDetail";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
           <Route path="wallet" element={<Wallet />} />
           <Route path="/" element={<Home />}>
             <Route path="passwordReset" element={<ResetPasswordModal />} />
+            <Route path="homeDetailView" element={<CouponDealDetail />} />
           </Route>
           <Route path="/about" element={<About />} />
         </Routes>
