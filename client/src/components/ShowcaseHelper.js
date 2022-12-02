@@ -19,28 +19,29 @@ const ShowcaseHelper = (props) => {
             elems.push(FindCoupon());
         }
     }
-    return (
-        <div className="w-full">
-            <div className={`w-full px-4 py-14 ${props.backgroundColor}`}>
-                <span className="heading-1 uppercase">{props.title}</span>
-                <div className="flex px-8 pt-10 justify-between gap-5 w-full">
-                    <Swiper
-                        slidesPerView={3}
-                        spaceBetween={50}
-                        modules={[Navigation]}
-                        navigation
-                    >
-                        {elems.map((item, index) => (
-                            <SwiperSlide key={index}>
-                                <ShowcaseItem
-                                    item={item}
-                                    showImage={ true }
-                                />
-                            </SwiperSlide>
-                        ))}
-                    </Swiper>
-                </div>
-            </div>
+  }
+  return (
+    <div className="w-full">
+      <div
+        className={`w-full px-4 py-14 ${
+          props.type === "deal" ? "bg-honeydew" : ""
+        }`}
+      >
+        <span className="heading-1 uppercase">{props.title}</span>
+        <div className="flex px-8 pt-10 justify-between gap-5 w-full">
+          <Swiper
+            className="swiper-container"
+            slidesPerView={4}
+            spaceBetween={50}
+            modules={[Navigation]}
+            navigation
+          >
+            {elems.map((item, index) => (
+              <SwiperSlide key={index}>
+                <ShowcaseItem item={item} showImage={true} />
+              </SwiperSlide>
+            ))}
+          </Swiper>
         </div>
     );
 };
