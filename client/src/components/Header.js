@@ -45,6 +45,16 @@ const Header = (props) => {
     setDisplayLocation(boolLoc);
   };
 
+  window.addEventListener("storage", () => {
+    setCityName(JSON.parse(localStorage.getItem("cityName")));
+    setStateName(JSON.parse(localStorage.getItem("stateName")));
+    if (cityName !== "" && stateName !== "") {
+        setDisplayLocation(true);
+    } else {
+        setDisplayLocation(false);
+    }
+});
+
   useEffect(() => {
     // const storeData = localStorage.getItem('storeName');
     const cityData = localStorage.getItem("cityName");
