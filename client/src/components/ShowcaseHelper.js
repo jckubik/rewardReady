@@ -33,9 +33,7 @@ const ShowcaseHelper = (props) => {
                             <SwiperSlide key={index}>
                                 <ShowcaseItem
                                     item={item}
-                                    showImage={
-                                        props.type == "coupon" ? false : true
-                                    }
+                                    showImage={ true }
                                 />
                             </SwiperSlide>
                         ))}
