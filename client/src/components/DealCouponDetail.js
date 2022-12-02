@@ -3,7 +3,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useState } from "react";
 import api from "../utils/api";
 
-const DealCouponDetail = ({ setShow, type, item }) => {
+const DealCouponDetail = ({ setShow, item }) => {
   const [cardRecommendation, setCardRecommendation] = useState();
     // useState(api.getCardRecommendationsForUser(subtitle));
   const { 
@@ -53,7 +53,7 @@ const DealCouponDetail = ({ setShow, type, item }) => {
           <h3>{ subtitle }</h3>
         </a>
         {
-          type === 'deal' ?
+          discountPrice && originalPrice ?
             <div className="price-container flex flex-row gap-2">
               <div className="text-right">
                 <p>Regular price:</p>

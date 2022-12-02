@@ -1,12 +1,15 @@
-import { useState, useEffect } from "react";
-import CouponDealDetail from "./popups/CouponDealDetail";
+import { useNavigate } from "react-router";
 
 const ShowcaseItem = (props) => {
-  const [showDetail, setShowDetail] = useState(false);
+  const navigate = useNavigate();
+
+  const handleClick = () => {
+    navigate('/homeDetailView', { state: {item: props.item} });
+  }
 
   return (
     <>
-      <div className="cursor-pointer" onClick={() => setShowDetail(true)}>
+      <div className="cursor-pointer" onClick={() => handleClick()}>
         {props.showImage ? (
           <img
             className="object-cover w-60 h-36"
@@ -23,12 +26,6 @@ const ShowcaseItem = (props) => {
           </p>
         </div>
       </div>
-      <CouponDealDetail
-        show={showDetail}
-        setShow={setShowDetail}
-        type={props.type}
-        item={props.item}
-      />
     </>
   );
 };
