@@ -1,11 +1,12 @@
 const ShowcaseItem = (props) => {
+    const default_image = require("../assets/defaultCoupon.jpeg");
     return (
         <div>
             {props.showImage ? (
                 <img
                     className="object-cover w-full aspect-video"
                     alt={props.item.title}
-                    src={props.item.imgSrc}
+                    src={props.item?.imgSrc ? props.item.imgSrc : default_image}
                 />
             ) : null}
             <div className="pt-4">
