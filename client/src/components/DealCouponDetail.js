@@ -3,7 +3,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useState } from "react";
 import api from "../utils/api";
 
-const DealCouponDetail = ({ setShow, item }) => {
+const DealCouponDetail = ({ setShow, item, handleClick }) => {
   const [cardRecommendation, setCardRecommendation] = useState();
     // useState(api.getCardRecommendationsForUser(subtitle));
   const { 
@@ -30,7 +30,7 @@ const DealCouponDetail = ({ setShow, item }) => {
     >
       <div className="grid place-items-end">
         <button className="text-right fit-content" 
-          onClick={() => setShow(false)}>
+          onClick={() => handleClick()}>
           <FontAwesomeIcon className="hover:text-red-500 font-bold text-xl" icon={solid("x")} />
         </button>
       </div>

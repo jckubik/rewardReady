@@ -19,7 +19,7 @@ const ShowcaseHelper = (props) => {
             elems.push(FindCoupon());
         }
     }
-  }
+    
   return (
     <div className="w-full">
       <div
@@ -43,6 +43,8 @@ const ShowcaseHelper = (props) => {
             ))}
           </Swiper>
         </div>
+      </div>
+    </div>
     );
 };
 

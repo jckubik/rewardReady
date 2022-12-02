@@ -23,7 +23,7 @@ const CouponDealDetail = () => {
         handleClick();
       }}
     >
-      <DealCouponDetail setShow={setShow} item={item} />
+      <DealCouponDetail setShow={setShow} item={item} handleClick={handleClick} />
     </div>
   ) : null;
 };
