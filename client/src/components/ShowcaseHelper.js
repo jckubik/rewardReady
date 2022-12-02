@@ -12,7 +12,7 @@ import "../css/ShowcaseHelper.css";
 const ShowcaseHelper = (props) => {
   const elems = [];
 
-  for (let i = 0; i < 4; i++) {
+  for (let i = 0; i < 10; i++) {
     if (props.type === "deal") {
       elems.push(FindDeal());
     } else {
@@ -26,7 +26,7 @@ const ShowcaseHelper = (props) => {
         <div className="flex px-8 pt-10 justify-between gap-5 w-full">
           <Swiper
             className="swiper-container"
-            slidesPerView={3}
+            slidesPerView={4}
             spaceBetween={50}
             modules={[Navigation]}
             navigation
