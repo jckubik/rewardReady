@@ -1,6 +1,7 @@
 import { useNavigate } from "react-router";
 
 const ShowcaseItem = (props) => {
+  const default_image = require("../assets/defaultCoupon.jpeg");
   const navigate = useNavigate();
 
   const handleClick = () => {
