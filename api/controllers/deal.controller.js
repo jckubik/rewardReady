@@ -110,6 +110,25 @@ exports.getRandomDeal = async (req, res) => {
     .catch(() => res.status(500).send({ message: "Unexpected error" }));
 };
 
+exports.getDealFromDB = async (req, res) => {
+  const { dealId } = req.body;
+
+  try {
+    const deal = Deal.findOne({
+      where: {
+        
+      }
+    })
+
+
+  } catch (event) {
+    res
+    .status(400)
+    .send({ message: "Unexpected error while trying to get deal from the DB." });
+  }
+
+};
+
 exports.searchDealsWeb = async (req, res) => {
   try {
     const items = await tempUtil.searchDealsWeb(req);
