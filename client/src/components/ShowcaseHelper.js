@@ -78,9 +78,9 @@ const ShowcaseHelper = (props) => {
             ))}
           </Swiper>
         </div>
-        </div>
-        </div>
-    );
+      </div>
+    </div>
+  );
 };
 
 export default ShowcaseHelper;
