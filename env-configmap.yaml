@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
-  CLIENT_API_BASE_URL: http://127.0.0.1:6868/api
-  CLIENT_ORIGIN: http://127.0.0.1:3000
+  CLIENT_API_BASE_URL: http://localhost:6868/api
+  CLIENT_ORIGIN: http://localhost:3000
   MYSQLDB_DATABASE: rewardready
   MYSQLDB_DOCKER_PORT: "3306"
   MYSQLDB_LOCAL_PORT: "3307"
@@ -9,7 +9,7 @@ data:
   MYSQLDB_USER: root
   NODE_DOCKER_PORT: "9000"
   NODE_LOCAL_PORT: "6868"
-  REACT_DOCKER_PORT: "3000"
+  REACT_DOCKER_PORT: "80"
   REACT_LOCAL_PORT: "3000"
 kind: ConfigMap
 metadata:

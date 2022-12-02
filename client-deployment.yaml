@@ -23,11 +23,11 @@ spec:
         io.kompose.service: client
     spec:
       containers:
-        - image: docker.cs.vt.edu/jackp96/rewardreadydocker/client:2.7
+        - image: docker.cs.vt.edu/jackp96/rewardreadydocker/nginx:1.6
           imagePullPolicy: Always
           name: client
           ports:
-            - containerPort: 3000
+            - containerPort: 80
           resources: {}
       restartPolicy: Always
 status: {}

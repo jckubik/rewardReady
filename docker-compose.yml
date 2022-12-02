@@ -38,7 +38,7 @@ services:
       - frontend
 
   client:
-    image: docker.cs.vt.edu/jackp96/rewardreadydocker/client:1.9
+    image: docker.cs.vt.edu/jackp96/rewardreadydocker/nginx:1.5
     depends_on:
       - api
     # build:
@@ -47,7 +47,7 @@ services:
     #     - REACT_APP_API_BASE_URL=http://127.0.0.1:6868/api
     ports:
       # - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
-      - 3000:3000
+      - 8888:80
     networks:
       - frontend  
 
