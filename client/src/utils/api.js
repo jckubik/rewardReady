@@ -97,6 +97,14 @@ async function getUserCards() {
   return await execute("GET", `/api/wallet/items/cards`);
 }
 
+async function insertHistoryLog(data) {
+  return await execute("POST", "/api/history/insertHistoryLog", data);
+}
+
+async function getHistory() {
+  return await execute("GET", "/api/history/getHistory");
+}
+
 async function insertCardToWallet(cardId) {
   return await execute("POST", "/api/wallet/items/cards/insert", {
     cardId: cardId,
@@ -131,6 +139,8 @@ export default {
   getRandomStores,
   getUserCards,
   insertCardToWallet,
+  insertHistoryLog,
+  getHistory,
   removeCardFromWallet,
   ccStackSecret,
   discountSecret,

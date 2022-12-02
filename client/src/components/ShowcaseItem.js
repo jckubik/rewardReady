@@ -1,13 +1,23 @@
 import { useNavigate } from "react-router";
+import { useSelector, useDispatch } from "react-redux";
+import { addHistoryLog } from "../reduxSlices/userSlice";
 
 const ShowcaseItem = (props) => {
   const default_image = require("../assets/defaultCoupon.jpeg");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   // Called when user clicks on the deal/coupon
-  const handleClick = () => {
+  const handleClick = async () => {
     // Navigate to the route for the detail view
     navigate('/homeDetailView', { state: {item: props.item} });
+
+    // Add the item to the user's history
+    await dispatch(addHistoryLog({
+      content: props.item,
+      type: props.type,
+      id: props.item.id,
+    }));
   }
 
   return (

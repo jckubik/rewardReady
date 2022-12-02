@@ -38,7 +38,7 @@ const ShowcaseHelper = (props) => {
           >
             {elems.map((item, index) => (
               <SwiperSlide key={index}>
-                <ShowcaseItem item={item} showImage={true} />
+                <ShowcaseItem item={item} showImage={true} type={props.type} />
               </SwiperSlide>
             ))}
           </Swiper>

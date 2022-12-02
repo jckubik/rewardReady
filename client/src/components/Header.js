@@ -141,6 +141,12 @@ const Header = (props) => {
                         >
                           Card Info
                         </Link>
+                        <Link
+                          to="/history"
+                          className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                        >
+                          History
+                        </Link>
                         <div
                           to="/"
                           className="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"

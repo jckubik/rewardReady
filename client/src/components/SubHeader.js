@@ -20,6 +20,14 @@ const SubHeader = ({ active }) => {
       >
         Card Information
       </Link>
+      <Link
+        to={"/history"}
+        className={`py-4 w-40 text-center ${
+          active === "history" && "border-[1px] border-black bg-[#00000010]"
+        }`}
+      >
+        Shopping History
+      </Link>
     </div>
   );
 };

@@ -9,6 +9,7 @@ export const userSlice = createSlice({
   initialState: {
     user: isLoggedIn() ? JSON.parse(localStorage.getItem("user")) : null,
     resetEmail: "",
+    history: isLoggedIn() ? JSON.parse(localStorage.getItem("history")) : null,
   },
   reducers: {
     setUser: (state, action) => {
@@ -17,14 +18,18 @@ export const userSlice = createSlice({
     setResetEmail: (state, action) => {
       state.resetEmail = action.payload;
     },
+    setHistory: (state, action) => {
+      state.history = action.payload;
+    },
   },
 });
 
-export const { setUser, setResetEmail } = userSlice.actions;
+export const { setUser, setResetEmail, setHistory } = userSlice.actions;
 
 export const login = (email, password) => async (dispatch) => {
   let loginResponse = await api.login({ email, password });
   let cards = await api.getUserCards();
+  let history = await api.getHistory();
   if (!loginResponse.user || !loginResponse.token) {
     throw new Error(loginResponse.response.data.message);
   }
@@ -33,6 +38,7 @@ export const login = (email, password) => async (dispatch) => {
   setExpToken(token);
   localStorage.setItem("user", JSON.stringify(user));
   localStorage.setItem("cards", JSON.stringify(cards));
+  localStorage.setItem("history", JSON.stringify(history));
   dispatch(setUser(user));
   dispatch(setCards(cards));
 };
@@ -59,6 +65,13 @@ export const getEmail = () => async (dispatch) => {
   }
   const email = emailResponse.email;
   dispatch(setResetEmail(email));
+};
+
+export const addHistoryLog = (log) => async (dispatch) => {
+  await api.insertHistoryLog(log);
+  const history = await api.getHistory();
+  dispatch(setHistory(history));
+  localStorage.setItem("history", JSON.stringify(history));
 };
 
 export const deleteUser = (email) => async (dispatch) => {
