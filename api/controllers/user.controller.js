@@ -34,6 +34,7 @@ exports.register = async (req, res) => {
       userId: data.userId,
       logs: [],
     }))
+    .then((history) => History.create(history))
     .then(() =>
       res.status(200).send({ message: "Successfully registered user" })
     )
