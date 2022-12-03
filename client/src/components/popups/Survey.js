@@ -4,7 +4,7 @@ import Location from "../Location";
 import Store from "../Stores";
 import LocateMe from "./LocateMe";
 
-const Survey = ({ visible = true, setVisible }) => {
+const Survey = ({ visible = true, setVisible, setShowModal }) => {
     const [surveyStep, setSurveyStep] = useState(1);
     const [cityName, setCityName] = useState("");
     const [stateName, setStateName] = useState("");
@@ -52,6 +52,7 @@ const Survey = ({ visible = true, setVisible }) => {
                 <Store
                     setSelectedStores={storeSetupHandler}
                     submit={setVisible}
+                    setShowModal={setShowModal}
                 />
             )}
         </div>

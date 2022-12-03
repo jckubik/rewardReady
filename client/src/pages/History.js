@@ -4,7 +4,7 @@ import { State } from "country-state-city";
 
 const History = () => {
   const { history } = useSelector(state => state.user)
-  const logs = [...history.logs];
+  const logs = history.logs ? [...history.logs] : [];
   const default_image = require("../assets/defaultCoupon.jpeg");
   console.log(logs);
 
@@ -13,7 +13,8 @@ const History = () => {
     <SubHeader active="history" />
     <div className="flex flex-col gap-2 m-8">
       {
-        logs
+        logs.length > 0 ?
+          logs
           .reverse()
           .map((log, index) => (
             <div className="flex items-center gap-4">
@@ -48,6 +49,10 @@ const History = () => {
               </div>
             </div>
           ))
+          : 
+          <div>
+            <h3>You have no history data.</h3>
+          </div>
       }
     </div>
   </div>

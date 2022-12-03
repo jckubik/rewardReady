@@ -5,19 +5,19 @@
 
 @layer components {
   .cta-btn {
-    @apply bg-steel-blue py-4 px-5 rounded-md font-inter font-bold text-white text-base;
+    @apply bg-steel-blue hover:bg-steel-blue-700 py-4 px-5 rounded-md font-inter font-bold text-white text-base;
   }
 
   .primary-btn {
-    @apply bg-steel-blue p-2.5 rounded-lg font-inter font-medium text-white text-base;
+    @apply bg-steel-blue hover:bg-steel-blue-700 p-2.5 rounded-lg font-inter font-medium text-white text-base;
   }
 
   .secondary-btn {
-    @apply bg-white p-2 rounded-lg font-inter font-medium text-steel-blue text-base border-2 border-steel-blue;
+    @apply bg-white hover:bg-gray-100 p-2 rounded-lg font-inter font-medium text-steel-blue text-base border-2 border-steel-blue;
   }
 
   .tertiary-btn {
-    @apply bg-steel-blue p-2 rounded-lg font-inter font-bold uppercase text-sm text-white;
+    @apply bg-steel-blue hover:bg-steel-blue-700 p-2 rounded-lg font-inter font-bold uppercase text-sm text-white;
   }
 
   .body {

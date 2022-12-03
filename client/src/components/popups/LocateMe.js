@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Country, State, City } from "country-state-city";
 import "../../css/LocateMe.css";
 
@@ -98,6 +98,7 @@ const LocateMe = (props) => {
                                 onChange={(e) => changeCities(e.target.value)}
                                 required
                             >
+                                <option value="">Select</option>
                                 {states.map((state, index) => (
                                     <option
                                         value={state.isoCode}

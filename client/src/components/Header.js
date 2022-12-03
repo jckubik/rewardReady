@@ -97,7 +97,7 @@ const Header = (props) => {
                 className="pl-3 cursor-pointer"
               >
                 <FontAwesomeIcon icon={solid("map-location")} />
-                <span className="pl-2 font-sm text-amazon font-semibold">
+                <span className="pl-2 font-sm text-amazon hover:text-green-500 font-semibold">
                   {cityName == "" ||
                   cityName == undefined ||
                   cityName == null ||
@@ -114,7 +114,7 @@ const Header = (props) => {
               {user ? (
                 <div className="flex">
                   <span
-                    className="body pl-1 inline-block align-middle cursor-pointer"
+                    className="body pl-1 inline-block align-middle cursor-pointer font-bold hover:text-brunswick-green"
                     onClick={() => setShowDropdown(!showDropdown)}
                   >
                     {user.firstName}

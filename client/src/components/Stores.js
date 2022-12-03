@@ -2,7 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import api from "../utils/api";
 import Input from "./utils/Input";
 
-const Store = ({ setSelectedStores, submit }) => {
+const Store = ({ setSelectedStores, submit, setShowModal }) => {
     // State may need to be lifted up to whereever location is being used
     // const [storeName, setStoreName] = useState();
 
@@ -61,6 +61,7 @@ const Store = ({ setSelectedStores, submit }) => {
         const selectedStores = stores.filter((item) => item.selected);
         setSelectedStores(selectedStores);
         submit(false);
+        setShowModal("inactive");
     };
 
     useEffect(() => {
@@ -78,7 +79,7 @@ const Store = ({ setSelectedStores, submit }) => {
                 {stores.map((store) => (
                     <div
                         key={store.id}
-                        className={`w-full aspect-square bg-white rounded-lg grid place-items-center cursor-pointer hover:ring-2 overflow-hidden ${
+                        className={`m-1 aspect-square bg-white rounded-lg grid place-items-center cursor-pointer hover:ring-2 overflow-hidden ${
                             store.selected && "ring-2 ring-green-500"
                         }`}
                         onClick={() => toggleStore(store.id)}

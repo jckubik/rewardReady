@@ -159,7 +159,7 @@ const Register = ({ setShow }) => {
                     </a>
                 </div>
             )}
-            <Survey visible={showSurvey} setVisible={setShowSurvey} />
+            <Survey visible={showSurvey} setVisible={setShowSurvey} setShowModal={setShow} />
         </>
     );
 };

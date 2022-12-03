@@ -6,7 +6,7 @@ const SubHeader = ({ active }) => {
     <div className="w-full border-2 flex items-center">
       <Link
         to={"/personal"}
-        className={`py-4 w-40 text-center ${
+        className={`py-4 w-40 text-center hover:bg-gray-200 ${
           active === "personal" && "border-[1px] border-black bg-[#00000010]"
         }`}
       >
@@ -14,7 +14,7 @@ const SubHeader = ({ active }) => {
       </Link>
       <Link
         to={"/wallet"}
-        className={`py-4 w-40 text-center ${
+        className={`py-4 w-40 text-center hover:bg-gray-200 ${
           active === "wallet" && "border-[1px] border-black bg-[#00000010]"
         }`}
       >
@@ -22,7 +22,7 @@ const SubHeader = ({ active }) => {
       </Link>
       <Link
         to={"/history"}
-        className={`py-4 w-40 text-center ${
+        className={`py-4 w-40 text-center hover:bg-gray-200 ${
           active === "history" && "border-[1px] border-black bg-[#00000010]"
         }`}
       >
