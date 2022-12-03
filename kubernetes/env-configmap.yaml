@@ -1,7 +1,7 @@
 apiVersion: v1
 data:
-  CLIENT_API_BASE_URL: http://localhost:6868/api
-  CLIENT_ORIGIN: http://localhost:3000
+  CLIENT_API_BASE_URL: https://rewardready.discovery.cs.vt.edu/api
+  CLIENT_ORIGIN: https://rewardready.discovery.cs.vt.edu
   MYSQLDB_DATABASE: rewardready
   MYSQLDB_DOCKER_PORT: "3306"
   MYSQLDB_LOCAL_PORT: "3307"
@@ -10,7 +10,7 @@ data:
   NODE_DOCKER_PORT: "9000"
   NODE_LOCAL_PORT: "6868"
   REACT_DOCKER_PORT: "80"
-  REACT_LOCAL_PORT: "3000"
+  REACT_LOCAL_PORT: "8888"
 kind: ConfigMap
 metadata:
   labels:

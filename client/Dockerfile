@@ -1,21 +1,3 @@
-# Was working in main, switched to another for setting up docker compose
-
-# FROM node:latest
-
-# WORKDIR /app
-
-# COPY package.json ./
-# COPY package-lock.json ./
-
-# RUN npm install
-
-# COPY ./ ./
-
-# CMD ["npm", "start"]
-
-# FROM nginx:alpine
-# COPY build/ /usr/share/nginx/html
-
 # Stage 1
 FROM node:14 as build-stage
 
@@ -26,7 +8,8 @@ RUN npm install
 COPY . .
 
 # ARG REACT_APP_API_BASE_URL
-ARG REACT_APP_API_BASE_URL=http://localhost:6868/api
+ARG REACT_APP_API_BASE_URL=https://rewardready.discovery.cs.vt.edu/api
+# ARG REACT_APP_API_BASE_URL=http://localhost:6868/api
 ENV REACT_APP_API_BASE_URL=$REACT_APP_API_BASE_URL
 
 # EXPOSE $REACT_DOCKER_PORT
@@ -40,7 +23,7 @@ RUN npm run build
 FROM nginx:1.17.0-alpine
 
 COPY --from=build-stage /client/build/ /usr/share/nginx/html
-# COPY default.conf /etc/nginx/conf.d/default.conf
+COPY default.conf /etc/nginx/conf.d/default.conf
 EXPOSE $REACT_DOCKER_PORT
 
 CMD nginx -g 'daemon off;'

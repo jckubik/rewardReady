@@ -16,7 +16,7 @@ const db = require("./models");
 // app.set('view engine', 'jade');
 
 app.use(cors({
-  origin: process.env.CLIENT_ORIGIN || "http://127.0.0.1:3000",
+  origin: process.env.CLIENT_ORIGIN || "https://rewardready.discovery.cs.vt.edu",
   methods: ["POST", "PUT", "GET", "OPTIONS", "HEAD"],
   credentials: true,}));
 app.use(logger("dev"));

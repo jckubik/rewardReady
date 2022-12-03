@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: backend
+  name: rr-backend
 spec:
   selector:
     matchLabels:
@@ -14,17 +14,17 @@ spec:
         tier: backend
     spec:
       containers:
-      - name: rewardready-backend
-        image: docker.cs.vt.edu/jackp96/rewardreadydocker/api:2.0
-        imagePullPolicy: Always
-        ports:
-        - containerPort: 9000
-        resources: {}
+        - name: rewardready-backend
+          image: docker.cs.vt.edu/jackp96/rewardreadydocker/api:2.5
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 9000
+          resources: {}
 ---
 apiVersion: v1
 kind: Service
 metadata:
-  name: backend
+  name: rr-backend
 spec:
   type: ClusterIP
   selector:

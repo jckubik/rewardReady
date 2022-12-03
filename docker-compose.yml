@@ -2,7 +2,7 @@ version: '3.8'
 
 services:
   mysqldb:
-    image: docker.cs.vt.edu/jackp96/rewardreadydocker/mysql:latest
+    image: docker.cs.vt.edu/jackp96/rewardreadydocker/mysql:1.1
     restart: always
     env_file: ./.env
     environment:
@@ -10,14 +10,14 @@ services:
       - MYSQL_DATABASE=rewardready
     ports:
       # - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
-      - 3307:3306
+      - 3306:3306
     volumes:
       - db:/var/lib/mysql
     networks:
       - backend
   
   api:
-    image: docker.cs.vt.edu/jackp96/rewardreadydocker/api:1.6
+    image: docker.cs.vt.edu/jackp96/rewardreadydocker/api:2.6
     depends_on:
       - mysqldb
     # build: ./api
@@ -32,13 +32,13 @@ services:
       - DB_PASSWORD=123456
       - DB_NAME=rewardready
       - DB_PORT=3306
-      - CLIENT_ORIGIN=http://127.0.0.1:3000
+      - CLIENT_ORIGIN=http://127.0.0.1:8888
     networks:
       - backend
       - frontend
 
   client:
-    image: docker.cs.vt.edu/jackp96/rewardreadydocker/nginx:1.5
+    image: docker.cs.vt.edu/jackp96/rewardreadydocker/nginx:3.4
     depends_on:
       - api
     # build:
