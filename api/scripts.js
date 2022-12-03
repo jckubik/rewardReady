@@ -42,26 +42,38 @@ async function downloadCreditCards() {
   }
 }
 
+function cleanString(input) {
+  var output = "";
+  for (var i = 0; i < input.length; i++) {
+    if (input.charCodeAt(i) <= 127) {
+      output += input.charAt(i);
+    }
+  }
+  return output;
+}
+
 async function addCreditCardsToDB() {
   try {
-    let totalPages = 145;
-    for (let i = 1; i <= totalPages; i++) {
-      let data = JSON.parse(
-        fs.readFileSync(`./creditCardsDB/creditCards${i}.json`)
-      );
-      data.results.forEach((cc) => {
-        let data = {
-          id: cc._id,
-          title: cc.title,
-          rewards: cc.rewards,
-          earnings: cc.earnings,
-          url: cc.url,
-          bank: cc.bank,
-        };
-        Card.create(data);
-      });
-    }
-    fs.rmSync("./creditCardsDB", { recursive: true, force: true });
+  let totalPages = 145;
+  for (let i = 1; i <= totalPages; i++) {
+    let data = JSON.parse(
+      fs.readFileSync(`./creditCardsDB/creditCards${i}.json`)
+    );
+    data.results.forEach((cc) => {
+      const titleCleaned = cleanString(cc.title);
+      let data = {
+        id: cc._id,
+        title: titleCleaned,
+        rewards_type: cc.rewards_type,
+        rewards: cc.rewards,
+        earnings: cc.earnings,
+        url: cc.url,
+        bank: cc.bank,
+      };
+      Card.create(data);
+    });
+  }
+  fs.rmSync("./creditCardsDB", { recursive: true, force: true });
   } catch (err) {
     console.log(err);
   }

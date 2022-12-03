@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: rewardready-backend
-          image: docker.cs.vt.edu/jackp96/rewardreadydocker/api:2.5
+          image: docker.cs.vt.edu/jackp96/rewardreadydocker/api:3.7
           imagePullPolicy: Always
           ports:
           - containerPort: 9000

@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: database
-        image: docker.cs.vt.edu/jackp96/rewardreadydocker/mysql:1.1
+        image: docker.cs.vt.edu/jackp96/rewardreadydocker/mysql:1.2
         imagePullPolicy: Always
         stdin: true
         tty: true

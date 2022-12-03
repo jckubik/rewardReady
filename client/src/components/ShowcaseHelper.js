@@ -54,7 +54,6 @@ const ShowcaseHelper = (props) => {
             elems.push(FindCoupon());
         }
     }
-  }
 
   return (
     <div className="w-full">
