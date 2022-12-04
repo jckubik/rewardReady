@@ -115,18 +115,13 @@ exports.getDealFromDB = async (req, res) => {
 
   try {
     const deal = Deal.findOne({
-      where: {
-        
-      }
-    })
-
-
+      where: {},
+    });
   } catch (event) {
-    res
-    .status(400)
-    .send({ message: "Unexpected error while trying to get deal from the DB." });
+    res.status(400).send({
+      message: "Unexpected error while trying to get deal from the DB.",
+    });
   }
-
 };
 
 exports.searchDealsWeb = async (req, res) => {
@@ -167,5 +162,22 @@ exports.searchDealsWeb = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(400).send({ message: "Unexpected error while grabbing deal" });
+  }
+};
+
+exports.getDealsByMerchant = async (req, res) => {
+  try {
+    const merchantName = req.body.merchantName;
+    let deals = await Deal.findAll({
+      where: { merchantName: { [Op.eq]: merchantName } },
+    });
+
+    console.log(deals);
+    res.status(200).send(deals);
+  } catch (err) {
+    console.log(err);
+    res
+      .status(400)
+      .send({ message: "Unexpected error while fetch deals by merchant name" });
   }
 };

@@ -162,3 +162,18 @@ exports.getCjCouponsQuery = async (req, res) => {
     res.status(400).send({ message: "Unexpected error while grabbing coupon" });
   }
 };
+
+exports.getCouponsByMerchant = async (req, res) => {
+  try {
+    const merchantName = req.body.merchantName;
+    let coupons = await Coupon.findAll({
+      where: { merchantName: { [Op.eq]: merchantName } },
+    });
+    res.status(200).send(coupons);
+  } catch (err) {
+    console.log(err);
+    res.status(400).send({
+      message: "Unexpected error while fetch coupons by merchant name",
+    });
+  }
+};

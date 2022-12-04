@@ -200,10 +200,14 @@ function addCouponsToDB() {
   // TODO
 }
 
-function assignCategoryToStores() {
+async function assignCategoryToStores() {
   try {
+    await StoreCategories.destroy({ where: {} });
     let storeCategories = JSON.parse(fs.readFileSync("./storeCategories.json"));
-    storeCategories.forEach(async ({ storeId, storeName, categoryIds }) => {
+    for (let i = 0; i < storeCategories.length; i++) {
+      const storeName = storeCategories[i].storeName;
+      const categoryIds = storeCategories[i].categoryIds;
+      const storeId = storeCategories[i].storeId;
       console.log(`${storeName} ${categoryIds} ${storeId}`);
       if (storeId == undefined || storeId == null) {
         if (!storeName) {
@@ -212,28 +216,42 @@ function assignCategoryToStores() {
           let store = await Store.findOne({
             where: { name: { [Op.eq]: storeName } },
           });
+          if (store) {
+            await StoreCategories.destroy({
+              where: { storeId: { [Op.eq]: store.id } },
+            });
+            categoryIds.forEach(async (id) => {
+              await StoreCategories.create({
+                categoryId: id,
+                storeId: store.id,
+              });
+            });
+          }
+        }
+      } else {
+        let store = await Store.findOne({
+          where: { id: { [Op.eq]: storeId } },
+        });
+        if (store) {
           await StoreCategories.destroy({
-            where: { storeId: { [Op.eq]: store.id } },
+            where: { storeId: { [Op.eq]: storeId } },
           });
           categoryIds.forEach(async (id) => {
             await StoreCategories.create({
               categoryId: id,
-              storeId: store.id,
+              storeId: storeId,
             });
           });
-
-          // }
         }
-      } else {
-        await StoreCategories.destroy({
-          where: { storeId: { [Op.eq]: storeId } },
-        });
-        categoryIds.forEach(async (id) => {
-          await StoreCategories.create({
-            categoryId: id,
-            storeId: storeId,
-          });
-        });
+      }
+    }
+    let stores = await Store.findAll();
+    stores.forEach(async (store) => {
+      let defaultStoreCategory = await StoreCategories.findOne({
+        where: { storeId: { [Op.eq]: store.id }, categoryId: { [Op.eq]: 7 } },
+      });
+      if (!defaultStoreCategory) {
+        await StoreCategories.create({ categoryId: 7, storeId: store.id });
       }
     });
   } catch (err) {
