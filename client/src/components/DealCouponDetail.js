@@ -1,11 +1,13 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import api from "../utils/api";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const DealCouponDetail = ({ setShow, item, handleClick }) => {
   const [cardRecommendation, setCardRecommendation] = useState();
-    // useState(api.getCardRecommendationsForUser(subtitle));
+  const { cards } = useSelector(state => state.wallet);
   const { 
     dealId, 
     title, 
@@ -18,8 +20,13 @@ const DealCouponDetail = ({ setShow, item, handleClick }) => {
     originalPrice 
   } = item;
 
-  const card = api.getCardRecommendationsForUser(subtitle)
-    .then((result) => console.log(result));
+  
+  useEffect(() => {
+    if (cards.length > 0) {
+      api.getCardRecommendationsForUser(subtitle)
+        .then((card) => setCardRecommendation(card.title));
+    }
+  }, []);
   
   // If there is no clickUrl, then the pointer should be normal - aka no links
   const cursor = clickUrl ? "" : 'cursor-default';
@@ -75,7 +82,10 @@ const DealCouponDetail = ({ setShow, item, handleClick }) => {
         {
           cardRecommendation ? 
           <div>
-            {cardRecommendation}
+            <p className="font-bold">Recommended Card For This Item</p>
+            <Link to="/wallet">
+              <p className="text-shamrock-green font-bold hover:text-green-500 cursor-pointer">{cardRecommendation}</p>
+            </Link>
           </div>
           : null
         }

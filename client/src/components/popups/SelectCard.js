@@ -33,7 +33,7 @@ const SelectCard = ({ visible, setVisible }) => {
   return visible ? (
     <div
       className="w-screen h-screen fixed bg-[#0000009d] top-0 z-50 grid place-items-center font-inter"
-      onClick={() => setVisible(false)}
+      onClick={() => setVisible(loading ? true : false)}
     >
       {
         loading ?
