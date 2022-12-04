@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { solid, regular } from "@fortawesome/fontawesome-svg-core/import.macro";
 import LoginRegister from "./popups/LoginRegister";
@@ -19,6 +19,7 @@ const Header = (props) => {
   const [cityName, setCityName] = useState("");
   const [stateName, setStateName] = useState("");
   const [displayLocation, setDisplayLocation] = useState(false);
+  const search_r = useRef(null);
   const navigate = useNavigate();
 
   const logoutHandler = () => {
@@ -49,11 +50,11 @@ const Header = (props) => {
     setCityName(JSON.parse(localStorage.getItem("cityName")));
     setStateName(JSON.parse(localStorage.getItem("stateName")));
     if (cityName !== "" && stateName !== "") {
-        setDisplayLocation(true);
+      setDisplayLocation(true);
     } else {
-        setDisplayLocation(false);
+      setDisplayLocation(false);
     }
-});
+  });
 
   useEffect(() => {
     // const storeData = localStorage.getItem('storeName');
@@ -63,6 +64,13 @@ const Header = (props) => {
     setCityName(JSON.parse(cityData));
     setStateName(JSON.parse(stateData));
   }, []);
+
+  const searchHandler = (e) => {
+    e.preventDefault();
+    if (search_r.current.value !== "") {
+      location.href = `/search?q=${search_r.current.value}`;
+    }
+  };
 
   return (
     <>
@@ -85,8 +93,12 @@ const Header = (props) => {
                   type="search"
                   className="h-9 rounded-xl body pl-2 pr-10 w-72"
                   placeholder="Search for deals, coupons, and merchants"
+                  ref={search_r}
                 />
-                <button className="absolute right-3 bottom-2">
+                <button
+                  className="absolute right-3 bottom-2"
+                  onClick={searchHandler}
+                >
                   <FontAwesomeIcon icon={solid("magnifying-glass")} />
                 </button>
               </div>
@@ -109,7 +121,10 @@ const Header = (props) => {
             </div>
             <div className="relative flex flex-1 text-center items-center justify-end">
               <span className="flex align-middle">
-                <FontAwesomeIcon icon={regular("circle-user")} className="h-6" />
+                <FontAwesomeIcon
+                  icon={regular("circle-user")}
+                  className="h-6"
+                />
               </span>
               {user ? (
                 <div className="flex">

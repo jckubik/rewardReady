@@ -129,11 +129,20 @@ async function insertCardToWallet(cardId) {
   });
 }
 
-
 async function removeCardFromWallet(cardId) {
   return await execute("POST", "/api/wallet/items/cards/remove", {
     cardId: cardId,
   });
+}
+
+async function search(data) {
+  return await execute("POST", "/api/search/findDealsAndCoupons", {
+    query: data,
+  });
+}
+
+async function getStores() {
+  return await execute("GET", "/api/store", "");
 }
 
 const ccStackSecret = "bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf";
@@ -165,6 +174,8 @@ export default {
   insertHistoryLog,
   getHistory,
   removeCardFromWallet,
+  search,
+  getStores,
   ccStackSecret,
   discountSecret,
 };

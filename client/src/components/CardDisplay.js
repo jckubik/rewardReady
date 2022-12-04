@@ -6,6 +6,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const CardDisplay = ({ title }) => {
+  if (!title) return;
   return (
     <div className="relative" style={{ width: "20rem" }}>
       <span

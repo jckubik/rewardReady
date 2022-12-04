@@ -8,6 +8,12 @@ const Coupon = db.coupons;
 const Op = db.Sequelize.Op;
 const { Sequelize } = require("../models");
 
+exports.fetchStores = async (req, res) => {
+  Store.findAll()
+    .then((result) => res.json(result))
+    .catch(() => res.status(500).send({ message: "Unexpected error" }));
+};
+
 exports.fetchCategory = async (req, res) => {
   Store.findOne({ where: { name: { [Op.eq]: req.body.name } } })
     .then((store) => (store ? store.get({ plain: true }) : null))

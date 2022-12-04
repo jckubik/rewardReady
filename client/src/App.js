@@ -15,6 +15,8 @@ import Faq from "./pages/FAQ";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import AuthVerify from "./components/AuthVerify";
+import Search from "./pages/Search";
+import CouponDealDetail from "./components/popups/CouponDealDetail";
 
 function App() {
   return (
@@ -26,6 +28,7 @@ function App() {
           <Route path="personal" element={<Personal />} />
           <Route path="wallet" element={<Wallet />} />
           <Route path="history" element={<History />} />
+          <Route path="search" element={<Search />} />
           <Route path="favorites" element={<Favorites />} />
           <Route path="/" element={<Home />}>
             <Route path="passwordReset" element={<ResetPasswordModal />} />

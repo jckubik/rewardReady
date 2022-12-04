@@ -1,98 +1,78 @@
 import { useEffect, useRef, useState } from "react";
 import api from "../utils/api";
+import FavoriteStore from "./popups/FavoriteStore";
 import Input from "./utils/Input";
 
 const Store = ({ setSelectedStores, submit, setShowModal }) => {
-    // State may need to be lifted up to whereever location is being used
-    // const [storeName, setStoreName] = useState();
+  // State may need to be lifted up to whereever location is being used
+  // const [storeName, setStoreName] = useState();
 
-    const [stores, setStores] = useState([
-        {
-            id: 1,
-            img: require("../assets/stores/amazon.png"),
-            selected: false,
-        },
-        {
-            id: 2,
-            img: require("../assets/stores/atom.png"),
-            selected: false,
-        },
-        {
-            id: 3,
-            img: require("../assets/stores/best-buy.png"),
-            selected: false,
-        },
-        {
-            id: 4,
-            img: require("../assets/stores/macys.png"),
-            selected: false,
-        },
-        {
-            id: 5,
-            img: require("../assets/stores/target.png"),
-            selected: false,
-        },
-        {
-            id: 6,
-            img: require("../assets/stores/walgreens.png"),
-            selected: false,
-        },
-        {
-            id: 7,
-            img: require("../assets/stores/walmart.png"),
-            selected: false,
-        },
-    ]);
+  const [stores, setStores] = useState([
+    {
+      id: 1,
+      img: require("../assets/stores/amazon.png"),
+      selected: false,
+    },
+    {
+      id: 2,
+      img: require("../assets/stores/atom.png"),
+      selected: false,
+    },
+    {
+      id: 3,
+      img: require("../assets/stores/best-buy.png"),
+      selected: false,
+    },
+    {
+      id: 4,
+      img: require("../assets/stores/macys.png"),
+      selected: false,
+    },
+    {
+      id: 5,
+      img: require("../assets/stores/target.png"),
+      selected: false,
+    },
+    {
+      id: 6,
+      img: require("../assets/stores/walgreens.png"),
+      selected: false,
+    },
+    {
+      id: 7,
+      img: require("../assets/stores/walmart.png"),
+      selected: false,
+    },
+  ]);
 
-    const toggleStore = (id) => {
-        const newStores = stores.map((item) => {
-            if (item.id === id) {
-                return {
-                    ...item,
-                    selected: !item.selected,
-                };
-            } else return item;
-        });
-        setStores(newStores);
-    };
+  const toggleStore = (id) => {
+    const newStores = stores.map((item) => {
+      if (item.id === id) {
+        return {
+          ...item,
+          selected: !item.selected,
+        };
+      } else return item;
+    });
+    setStores(newStores);
+  };
 
-    const submitHandler = (e) => {
-        e.preventDefault();
-        const selectedStores = stores.filter((item) => item.selected);
-        setSelectedStores(selectedStores);
-        submit(false);
-        setShowModal("inactive");
-    };
+  const submitHandler = (e) => {
+    e.preventDefault();
+    submit(false);
+    setShowModal("inactive");
+  };
 
-    useEffect(() => {
-        (async () => {
-            const stors = await api.getRandomStores();
-            console.log(stors);
-        })();
-    }, []);
-
-    return (
-        <div className="form-container bg-[#e4e7ea] flex flex-col gap-5 text-center py-10 px-10 w-[500px] rounded-lg">
-            <h2 className="text-3xl font-bold">Help us serve you better</h2>
-            <h3 className="-mt-2">Please select your favorite stores</h3>
-            <div className="grid grid-cols-3 gap-3 max-h-[270px] overflow-y-scroll">
-                {stores.map((store) => (
-                    <div
-                        key={store.id}
-                        className={`m-1 aspect-square bg-white rounded-lg grid place-items-center cursor-pointer hover:ring-2 overflow-hidden ${
-                            store.selected && "ring-2 ring-green-500"
-                        }`}
-                        onClick={() => toggleStore(store.id)}
-                    >
-                        <img src={store.img} />
-                    </div>
-                ))}
-            </div>
-            <button className="cta-btn" onClick={submitHandler}>
-                Submit
-            </button>
-        </div>
-    );
+  return (
+    <div className="form-container bg-[#e4e7ea] flex flex-col gap-5 text-center py-10 px-10      rounded-lg">
+      <div className="w-full">
+        <FavoriteStore />
+      </div>
+      <button className="cta-btn" onClick={submitHandler}>
+        Submit
+      </button>
+    </div>
+  );
 };
 
 export default Store;

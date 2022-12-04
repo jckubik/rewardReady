@@ -3,11 +3,13 @@ import { useSelector } from "react-redux";
 import Location from "../Location";
 import Store from "../Stores";
 import LocateMe from "./LocateMe";
+import SelectCard from "./SelectCard";
 
 const Survey = ({ visible = true, setVisible, setShowModal }) => {
     const [surveyStep, setSurveyStep] = useState(1);
     const [cityName, setCityName] = useState("");
     const [stateName, setStateName] = useState("");
+    const [selectCard, setSelectCard] = useState(false);
 
     const locationSetupHandler = (val) => {
         console.log(val);
@@ -45,14 +47,27 @@ const Survey = ({ visible = true, setVisible, setShowModal }) => {
                     setShow={() => {}}
                     changeDisplayLoc={() => {
                         setSurveyStep(2);
+                        setSelectCard(true);
                     }}
                 />
             )}
             {surveyStep === 2 && (
+                <SelectCard
+                    visible={selectCard}
+                    setVisible={(val) => {
+                        setSelectCard(val);
+                        setSurveyStep(3);
+                    }}
+                    isSurvey={true}
+                />
+            )}
+            {surveyStep === 3 && (
                 <Store
                     setSelectedStores={storeSetupHandler}
-                    submit={setVisible}
-                    setShowModal={setShowModal}
+                    submit={(val) => {
+                        setVisible(val);
+                        setShowModal("inactive");
+                    }}
                 />
             )}
         </div>

@@ -21,7 +21,7 @@ const CardDescription = ({ card }) => {
         <div>
           <span className="heading-1 text-brunswick-green">Rewards</span>
           <ul className="list-square pl-5 pt-2">
-            {card.earnings.map((reward, index) => (
+            {card.earnings && card.earnings.map((reward, index) => (
               <li key={index} className="subheading-1 text-oxford-blue">
                 {reward.description}
               </li>
