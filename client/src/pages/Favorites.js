@@ -1,28 +1,91 @@
+import SubHeader from "../components/SubHeader";
+import api from "../utils/api";
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 
 const Favorites = () => {
-  const { favorites } = useSelector(state => state.user);
+  const { favoriteStores } = useSelector(state => state.user);
+  const default_image = require("../assets/defaultCoupon.jpeg");
+  const favoritesPlusLogos = favoriteStores.stores.map((storeName) => {
+    const logoName = storeName
+      .trim()
+      .replace(/['.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+      .replaceAll(" ", "-")
+      .toLowerCase();
+    const logoImportUri = require(`../assets/stores/${logoName}.png`);
+    return [storeName, logoImportUri];
+  });
+  const [selected, setSelected] = useState(favoritesPlusLogos[0][0]);
+  const [dealsCoupons, setDealsCoupons] = useState();
 
+  const getDealsCoupons = async () => {
+    const response = api.getDealsAndCouponsFromFavoriteStores()
+      .then((result) => console.log(result));
+  };
+
+  const handleClick = (store) => {
+    setSelected(store);
+    getDealsCoupons();
+  };
+  
   return (
     <div className="w-full">
-    <SubHeader active="favorites" />
-    <div className="flex flex-col gap-2 m-8">
-      <div>
-        {
-          favorites.map(store => (
-            <div
-              key={store.id}
-              className={`m-1 aspect-square bg-white rounded-lg grid place-items-center cursor-pointer hover:ring-2 overflow-hidden ${
-                  store.selected && "ring-2 ring-green-500"
-              }`}
-              onClick={() => toggleStore(store.id)}
-            >
-              <img src={store.img} />
+      <SubHeader active="favorites" />
+      <div className="flex flex-col gap-2 m-8">
+        <div id="logo-container" className="flex flex-wrap">
+          {
+            favoritesPlusLogos.length > 0 ?
+            favoritesPlusLogos.map(([ storeName, logo ]) => (
+              <div
+                key={storeName}
+                className={`m-2 w-32 aspect-square bg-white rounded-lg grid place-items-center cursor-pointer hover:ring-2 overflow-hidden
+                ${selected === storeName ? "ring-2 ring-green-500" : ""}`}
+                onClick={() => handleClick(storeName)}
+              >
+                <img src={logo} />
+              </div>
+            ))
+            :
+            <div>
+              <h3>You don't have any favorite stores.</h3>
+            </div>
+          }
         </div>
-          ))
-        }
+        <div id="deals-container" className="flex flex-col gap-2 m-8">
+          {
+            dealsCoupons.map(deal => (
+              <div className="flex items-center gap-4">
+              <a 
+                href={deal.clickUrl ? deal.clickUrl : "#"} 
+                className="pointer-cursor"
+              >
+                <img
+                  className="object-cover w-32 h-16 flex-1"
+                  alt={deal.title}
+                  src={deal.imgSrc ? deal.imgSrc : default_image}
+                />
+              </a>
+              <div className="max-w-xs flex-1">
+                <a 
+                  href={deal.clickUrl ? deal.clickUrl : "#"} 
+                  className="pointer-cursor"
+                >
+                  <p className="truncate">{ deal.title }</p>
+                </a>
+              </div>
+              <div className="text-center w-48">
+                <a 
+                  href={deal.clickUrl ? deal.clickUrl : "#"} 
+                  className="pointer-cursor"
+                >
+                  <p className="truncate">{ deal.subtitle }</p>
+                </a>
+              </div>
+            </div>
+            ))
+          }
+        </div>
       </div>
-    </div>
   </div>
   );
 };
