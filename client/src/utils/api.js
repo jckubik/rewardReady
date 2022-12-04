@@ -25,6 +25,24 @@ async function execute(method, resource, data) {
   }
 }
 
+// Input - storeName
+async function addFavoriteStore(data) {
+  return await execute("POST", "/api/favorite/store/add", data);
+}
+
+async function getFavorites() {
+  return await execute("GET", "/api/favorite/all");
+}
+
+// Input - storeName
+async function removeFavoriteStore(data) {
+  return await execute("POST", "/api/favorite/store/remove", data);
+}
+
+async function getDealsAndCouponsFromFavoriteStores() {
+  return await execute("GET", "/api/favorite/store/content");
+}
+
 async function getCardRecommendationsForUser(storeName) {
   // need to change method to lowercase poss, change resource to valid
   return await execute("GET", "/api/wallet/recommend/card", {
@@ -111,6 +129,7 @@ async function insertCardToWallet(cardId) {
   });
 }
 
+
 async function removeCardFromWallet(cardId) {
   return await execute("POST", "/api/wallet/items/cards/remove", {
     cardId: cardId,
@@ -121,6 +140,10 @@ const ccStackSecret = "bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf";
 const discountSecret = "YxhRTxQe";
 
 export default {
+  addFavoriteStore,
+  getFavorites,
+  removeFavoriteStore,
+  getDealsAndCouponsFromFavoriteStores,
   getCardRecommendationsForUser,
   getCreditCards,
   getCreditCardById,
