@@ -28,6 +28,14 @@ const SubHeader = ({ active }) => {
       >
         Shopping History
       </Link>
+      <Link
+        to={"/favorites"}
+        className={`py-4 w-40 text-center hover:bg-gray-200 ${
+          active === "favorites" && "border-[1px] border-black bg-[#00000010]"
+        }`}
+      >
+        Favorite Stores
+      </Link>
     </div>
   );
 };
