@@ -11,22 +11,17 @@ exports.getFavorites = async (req, res) => {
 };
 
 exports.addFavoriteStore = async (req, res) => {
-  const userId = req.userId;
-  const storeName = req.body.storeName;
-  Favorite.findOne({ where: { userId: { [Op.eq]: userId } } })
-    .then((favorite) => {
-      const updatedStores = favorite.stores;
-      if (updatedStores.includes(storeName)) return null;
-      updatedStores.push(storeName);
-      return Favorite.update(
-        { stores: updatedStores },
-        { where: { userId: { [Op.eq]: userId } } }
-      );
-    })
-    .then(() => res.end())
-    .catch((error) =>
-      res.status(500).send({ message: `Unexpected error - ${error}` })
-    );
+    const userId = req.userId;
+    const storeName = req.body.storeName;
+    Favorite.findOne({where: {userId: {[Op.eq]: userId}}})
+        .then(favorite => {
+            const updatedStores = favorite.stores;
+            if (updatedStores.includes(storeName)) return null;
+            updatedStores.push(storeName);
+            return Favorite.update({stores: updatedStores}, {where: {userId: {[Op.eq]: userId}}});
+        })
+        .then(() => res.end())
+        .catch((error) => res.status(500).send({message: `Unexpected error - ${error}`}));
 };
 
 exports.removeFavoriteStore = async (req, res) => {
