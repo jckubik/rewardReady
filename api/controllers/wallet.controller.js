@@ -2,6 +2,7 @@ const db = require("../models");
 const Wallet = db.wallets;
 const WalletCard = db.WalletCard;
 const apiConfig = require("../config/api.config");
+const { StoreCategories } = require("../models");
 
 const Card = db.cards;
 const Op = db.Sequelize.Op;
@@ -66,6 +67,12 @@ exports.recommendCard = async (req, res) => {
       WalletCard.findAll({ where: { walletId: { [Op.eq]: wallet.id } } })
     )
     .then((cards) => cards.filter((card) => card !== null))
+    .then((cards) => {
+      const cardsInfo = cards.map((walletCard) => {
+        return Card.findOne({ where: { id: { [Op.eq]: walletCard.cardId } } });
+      });
+      return Promise.all(cardsInfo);
+    })
     .then((cards) => [
       cards,
       Store.findOne({ where: { name: { [Op.eq]: req.body.name } } }),
@@ -73,14 +80,21 @@ exports.recommendCard = async (req, res) => {
     .then((info) => {
       const cards = info[0];
       const store = info[1];
-      const topCards = cards.sort((cardA, cardB) => {
-        const recommendCategory = store.category;
+      console.log(cards);
+      const topCards = cards.sort(async (cardA, cardB) => {
+        let storeCategories = await StoreCategories.findAll({
+          where: { storeId: { [Op.eq]: store.id } },
+        });
+        storeCategories = storeCategories.map(
+          (storeCategory) => storeCategory.categoryId
+        );
+        // const recommendCategory = store.category;
         const earningsA = cardA.earnings
-          .filter((earning) => earning.category === recommendCategory)
+          .filter((earning) => storeCategories.includes(earning.category))
           .sort((earningA, earningB) => earningB.points - earningA.points);
         cardA.earnings = earningsA;
         const earningsB = cardB.earnings
-          .filter((earning) => earning.category === recommendCategory)
+          .filter((earning) => storeCategories.includes(earning.category))
           .sort((earningA, earningB) => earningB.points - earningA.points);
         cardB.earnings = earningsB;
         let topA = null;
@@ -104,10 +118,16 @@ exports.recommendCard = async (req, res) => {
       });
 
       if (cards.length > 0) {
-        res.json(topCards[0]);
+        return topCards[0];
       } else {
         res.end();
       }
+    })
+    .then((walletCard) =>
+      Card.findOne({ where: { id: { [Op.eq]: walletCard.id } } })
+    )
+    .then((card) => {
+      res.json(card);
     })
     .catch(() => res.status(500).send({ message: "Unexpected error" }));
 };

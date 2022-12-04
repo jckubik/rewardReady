@@ -25,10 +25,10 @@ async function execute(method, resource, data) {
   }
 }
 
-async function getCardRecommendationsForUser(store) {
+async function getCardRecommendationsForUser(storeName) {
   // need to change method to lowercase poss, change resource to valid
   return await execute("GET", "/api/wallet/recommend/card", {
-    store: store,
+    name: storeName,
   });
 }
 

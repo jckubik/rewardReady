@@ -1,0 +1,8 @@
+[
+  { "storeName": "Groupon Goods", "categoryIds": [7] },
+  { "storeName": "Alloy Apparel", "categoryIds": [7] },
+  { "storeName": "Muck Boot US", "categoryIds": [7] },
+  { "storeName": "United Sports Brands", "categoryIds": [7] },
+  { "storeName": "Peet's Coffee", "categoryIds": [7] },
+  { "storeId": 6, "categoryIds": [5, 3] }
+]

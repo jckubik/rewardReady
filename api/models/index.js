@@ -29,25 +29,30 @@ WalletCard = db.WalletCard = require("./walletCard.model")(
   Sequelize
 );
 Favorite = db.favorite = require("./favorite.model")(sequelize, Sequelize);
+StoreCategories = db.StoreCategories = require("./storeCategories.model")(
+  sequelize,
+  Sequelize
+);
 
+// Relationships
 User.hasOne(Wallet);
 Wallet.belongsTo(User);
 User.hasOne(History);
 History.belongsTo(User);
 User.hasOne(Favorite);
 Favorite.belongsTo(User);
+// Store.belongsTo(Category);
+
 // this was changed from what it was before
-Store.hasMany(Category);
+// Store.hasMany(Category);
 Category.belongsToMany(Store, {
-  through: "store_categories",
-  as: "stores",
-  foreignKey: "store_id",
+  through: StoreCategories,
 });
 
-Card.belongsTo(Category, {
-  foreignKey: "rewards_type",
-  as: "category",
-});
+// Card.belongsTo(Category, {
+//   foreignKey: "rewards_type",
+//   as: "category",
+// });
 
 // Wallet.hasMany(Card);
 Card.belongsToMany(Wallet, {

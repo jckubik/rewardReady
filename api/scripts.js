@@ -4,6 +4,11 @@ const Category = db.categories;
 const axios = require("axios");
 const apiConfig = require("./config/api.config");
 const fs = require("fs");
+const Store = db.stores;
+const Deal = db.deals;
+const Coupon = db.coupons;
+const Op = db.Sequelize.Op;
+const StoreCategories = db.StoreCategories;
 
 const prompt = require("prompt-sync")();
 
@@ -38,25 +43,28 @@ async function downloadCreditCards() {
 }
 
 async function addCreditCardsToDB() {
-  let totalPages = 145;
-  for (let i = 1; i <= totalPages; i++) {
-    let data = JSON.parse(
-      fs.readFileSync(`./creditCardsDB/creditCards${i}.json`)
-    );
-    data.results.forEach((cc) => {
-      let data = {
-        id: cc._id,
-        title: cc.title,
-        rewards_type: cc.rewards_type,
-        rewards: cc.rewards,
-        earnings: cc.earnings,
-        url: cc.url,
-        bank: cc.bank,
-      };
-      Card.create(data);
-    });
+  try {
+    let totalPages = 145;
+    for (let i = 1; i <= totalPages; i++) {
+      let data = JSON.parse(
+        fs.readFileSync(`./creditCardsDB/creditCards${i}.json`)
+      );
+      data.results.forEach((cc) => {
+        let data = {
+          id: cc._id,
+          title: cc.title,
+          rewards: cc.rewards,
+          earnings: cc.earnings,
+          url: cc.url,
+          bank: cc.bank,
+        };
+        Card.create(data);
+      });
+    }
+    fs.rmSync("./creditCardsDB", { recursive: true, force: true });
+  } catch (err) {
+    console.log(err);
   }
-  fs.rmSync("./creditCardsDB", { recursive: true, force: true });
 }
 
 function addCategoriesToDB() {
@@ -130,13 +138,107 @@ function addCategoriesToDB() {
       id: 17,
     },
   ];
-
-  categories.forEach((category) => {
-    Category.create({
-      id: category.id,
-      name: category.name,
+  try {
+    categories.forEach((category) => {
+      Category.create({
+        id: category.id,
+        name: category.name,
+      });
     });
-  });
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+async function populateStoresToDB() {
+  try {
+    const deals = await Deal.findAll();
+    for (const deal of deals) {
+      const merchantName = deal.merchantName;
+      console.log(merchantName);
+      const store = await Store.findOne({
+        where: { name: { [Op.eq]: merchantName } },
+      });
+      if (store) {
+        continue;
+      }
+
+      await Store.create({
+        name: merchantName,
+        webAddress: deal.clickUrl,
+        logoAddress:
+          "http://americanrecycling.info/TestimonialCompanyLogo/CompanyDefaultLogo.jpg",
+      });
+    }
+    const coupons = await Coupon.findAll();
+    for (const coupon of coupons) {
+      const merchantName = coupon.merchantName;
+      const store = await Store.findOne({
+        where: { name: { [Op.eq]: merchantName } },
+      });
+      if (store) {
+        continue;
+      }
+
+      await Store.create({
+        name: merchantName,
+        webAddress: coupon.clickUrl,
+        logoAddress:
+          "http://americanrecycling.info/TestimonialCompanyLogo/CompanyDefaultLogo.jpg",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+function addDealsToDB() {
+  // TODO
+}
+
+function addCouponsToDB() {
+  // TODO
+}
+
+function assignCategoryToStores() {
+  try {
+    let storeCategories = JSON.parse(fs.readFileSync("./storeCategories.json"));
+    storeCategories.forEach(async ({ storeId, storeName, categoryIds }) => {
+      console.log(`${storeName} ${categoryIds} ${storeId}`);
+      if (storeId == undefined || storeId == null) {
+        if (!storeName) {
+          throw new Error("Record does not contain storeId or storeName");
+        } else {
+          let store = await Store.findOne({
+            where: { name: { [Op.eq]: storeName } },
+          });
+          await StoreCategories.destroy({
+            where: { storeId: { [Op.eq]: store.id } },
+          });
+          categoryIds.forEach(async (id) => {
+            await StoreCategories.create({
+              categoryId: id,
+              storeId: store.id,
+            });
+          });
+
+          // }
+        }
+      } else {
+        await StoreCategories.destroy({
+          where: { storeId: { [Op.eq]: storeId } },
+        });
+        categoryIds.forEach(async (id) => {
+          await StoreCategories.create({
+            categoryId: id,
+            storeId: storeId,
+          });
+        });
+      }
+    });
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 let scriptOptions = [
@@ -148,6 +250,22 @@ let scriptOptions = [
   {
     name: "Add categories to DB",
     function: addCategoriesToDB,
+  },
+  {
+    name: "Populate stores table from coupons and deals data",
+    function: populateStoresToDB,
+  },
+  // {
+  //   name: "Populate deals table with deals from external API",
+  //   function: addDealsToDB,
+  // },
+  // {
+  //   name: "Populate coupons table with coupons from external API",
+  //   function: addCouponsToDB,
+  // },
+  {
+    name: "Assign categories to stores",
+    function: assignCategoryToStores,
   },
 ];
 

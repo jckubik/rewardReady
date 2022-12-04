@@ -1,7 +1,6 @@
 import { regular, solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState, useEffect } from "react";
-import { useSelector } from "react-redux";
 import { isLoggedIn } from "../utils/auth";
 import { useNavigate } from "react-router";
 import { useSelector, useDispatch } from "react-redux";
