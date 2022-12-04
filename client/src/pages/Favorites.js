@@ -1,7 +1,7 @@
 import SubHeader from "../components/SubHeader";
 import api from "../utils/api";
 import { useSelector, useDispatch } from "react-redux";
-import { useCallback, useEffect, useState } from "react";
+import { useState } from "react";
 
 const Favorites = () => {
   const { favoriteStores } = useSelector(state => state.user);
