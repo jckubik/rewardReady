@@ -10,6 +10,7 @@ const Coupon = db.coupons;
 const Op = db.Sequelize.Op;
 const StoreCategories = db.StoreCategories;
 
+
 const prompt = require("prompt-sync")();
 
 async function downloadCreditCards() {
@@ -53,7 +54,6 @@ function cleanString(input) {
 }
 
 async function addCreditCardsToDB() {
-  try {
   let totalPages = 145;
   for (let i = 1; i <= totalPages; i++) {
     let data = JSON.parse(
@@ -74,9 +74,6 @@ async function addCreditCardsToDB() {
     });
   }
   fs.rmSync("./creditCardsDB", { recursive: true, force: true });
-  } catch (err) {
-    console.log(err);
-  }
 }
 
 function addCategoriesToDB() {
@@ -204,13 +201,60 @@ async function populateStoresToDB() {
   }
 }
 
-function addDealsToDB() {
-  // TODO
+async function addDealsToDB() {
+  const options = {
+      method: "GET",
+      url:"https://rewardready.discovery.cs.vt.edu/api/deal/grab_deals"
+  };
+  axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data)
+      });
+}
+
+async function addDealsToDBQuery(query) {
+  const options = {
+      method: "GET",
+      url:"https://rewardready.discovery.cs.vt.edu/api/deal/search_deals_web",
+      data: {
+        "query": query
+      }
+  };
+  axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data)
+      });
 }
 
 function addCouponsToDB() {
-  // TODO
+  const options = {
+      method: "GET",
+      url:"https://rewardready.discovery.cs.vt.edu/api/coupon/grab_cj_coupons"
+  };
+  axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data)
+      });
 }
+
+async function addCouponsToDBQuery(query) {
+  const options = {
+      method: "GET",
+      url:"https://rewardready.discovery.cs.vt.edu/api/coupon/cj_query",
+      data: {
+        "query": query
+      }
+  };
+  axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data)
+      });
+}
+
 
 async function assignCategoryToStores() {
   try {
@@ -271,6 +315,13 @@ async function assignCategoryToStores() {
   }
 }
 
+async function populateDealsAndCoupons() {
+  addDealsToDB();
+  addCouponsToDB();
+  addCouponsToDBQuery("TV");
+  addDealsToDBQuery("iPhone");
+}
+
 let scriptOptions = [
   {
     name: "Download credit cards from ccstack",
@@ -296,6 +347,10 @@ let scriptOptions = [
   {
     name: "Assign categories to stores",
     function: assignCategoryToStores,
+  },
+  {
+    name: "Adds deals and coupons to DB",
+    function: populateDealsAndCoupons,
   },
 ];
 

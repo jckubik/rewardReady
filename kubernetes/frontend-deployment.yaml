@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: rewardready-react
-        image: docker.cs.vt.edu/jackp96/rewardreadydocker/nginx:3.7
+        image: docker.cs.vt.edu/jackp96/rewardreadydocker/nginx:4.0
         imagePullPolicy: Always
         resources: {}
         ports:

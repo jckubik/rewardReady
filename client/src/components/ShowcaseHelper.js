@@ -47,7 +47,7 @@ const ShowcaseHelper = (props) => {
     }
   })
 
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < 10; i++) {
         if (props.type === "deal") {
             elems.push(FindDeal());
         } else {

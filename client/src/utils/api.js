@@ -46,7 +46,7 @@ async function getDealsAndCouponsFromFavoriteStores() {
 async function getCardRecommendationsForUser(storeName) {
   // need to change method to lowercase poss, change resource to valid
   return await execute("GET", "/wallet/recommend/card", {
-    store: store,
+    store: storeName,
   });
 }
 
