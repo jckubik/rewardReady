@@ -9,7 +9,7 @@ const Favorites = () => {
   console.log(default_image);
   const [selected, setSelected] = useState("Amazon");
   //   const [favoritesPlusLogos, setFavoritesPlusLogos] = useState([]);
-  let favoritesPlusLogos = null;
+  let favoritesPlusLogos = [];
   if (favoriteStores.stores.length > 0) {
     favoritesPlusLogos = favoriteStores.stores.map((storeName) => {
       const logoName = storeName
