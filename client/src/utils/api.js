@@ -27,20 +27,20 @@ async function execute(method, resource, data) {
 
 // Input - storeName
 async function addFavoriteStore(data) {
-  return await execute("POST", "/api/favorite/store/add", data);
+  return await execute("POST", "/favorite/store/add", data);
 }
 
 async function getFavorites() {
-  return await execute("GET", "/api/favorite/all");
+  return await execute("GET", "/favorite/all");
 }
 
 // Input - storeName
 async function removeFavoriteStore(data) {
-  return await execute("POST", "/api/favorite/store/remove", data);
+  return await execute("POST", "/favorite/store/remove", data);
 }
 
 async function getDealsAndCouponsFromFavoriteStores() {
-  return await execute("GET", "/api/favorite/store/content");
+  return await execute("GET", "/favorite/store/content");
 }
 
 async function getCardRecommendationsForUser(storeName) {
@@ -104,45 +104,45 @@ async function getRandomStores() {
 }
 
 async function getCreditCards() {
-  return await execute("GET", "/api/card", "");
+  return await execute("GET", "/card", "");
 }
 
 async function getCreditCardById(id) {
-  return await execute("GET", `/api/card/${id}`);
+  return await execute("GET", `/card/${id}`);
 }
 
 async function getUserCards() {
-  return await execute("GET", `/api/wallet/items/cards`);
+  return await execute("GET", `/wallet/items/cards`);
 }
 
 async function insertHistoryLog(data) {
-  return await execute("POST", "/api/history/insertHistoryLog", data);
+  return await execute("POST", "/history/insertHistoryLog", data);
 }
 
 async function getHistory() {
-  return await execute("GET", "/api/history/getHistory");
+  return await execute("GET", "/history/getHistory");
 }
 
 async function insertCardToWallet(cardId) {
-  return await execute("POST", "/api/wallet/items/cards/insert", {
+  return await execute("POST", "/wallet/items/cards/insert", {
     cardId: cardId,
   });
 }
 
 async function removeCardFromWallet(cardId) {
-  return await execute("POST", "/api/wallet/items/cards/remove", {
+  return await execute("POST", "/wallet/items/cards/remove", {
     cardId: cardId,
   });
 }
 
 async function search(data) {
-  return await execute("POST", "/api/search/findDealsAndCoupons", {
+  return await execute("POST", "/search/findDealsAndCoupons", {
     query: data,
   });
 }
 
 async function getStores() {
-  return await execute("GET", "/api/store", "");
+  return await execute("GET", "/store", "");
 }
 
 const ccStackSecret = "bd7018de35mshc04835b79363b6ep17d276jsn603bdc0aceaf";
