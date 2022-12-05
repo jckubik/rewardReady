@@ -6,6 +6,7 @@ import { solid } from "@fortawesome/fontawesome-svg-core/import.macro";
 import { useDispatch } from "react-redux";
 import { login } from "../reduxSlices/userSlice";
 import { getWallet } from "../reduxSlices/walletSlice";
+import { Link } from "react-router-dom";
 
 const Login = ({ setShow }) => {
   const dispatch = useDispatch();
@@ -73,9 +74,11 @@ const Login = ({ setShow }) => {
       >
         Register
       </div>
-      <a href="/" className="text-shamrock-green underline">
+      <div onClick={() => {setShow("inactive");}}>
+      <Link to="/faq" className="text-shamrock-green underline">
         Help
-      </a>
+      </Link>
+      </div>
     </div>
   );
 };
