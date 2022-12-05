@@ -1,7 +1,7 @@
 import SubHeader from "../components/SubHeader";
 import api from "../utils/api";
 import { useSelector, useDispatch } from "react-redux";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 const Favorites = () => {
   const { favoriteStores } = useSelector(state => state.user);
@@ -16,22 +16,22 @@ const Favorites = () => {
     return [storeName, logoImportUri];
   });
   const [selected, setSelected] = useState(favoritesPlusLogos[0][0]);
-  const [dealsCoupons, setDealsCoupons] = useState();
+  const [dealsCoupons, setDealsCoupons] = useState(null);
+  const [,updateState] = useState();
 
-  const getDealsCoupons = async () => {
-    const response = api.getDealsAndCouponsFromFavoriteStores()
-      .then((result) => console.log(result));
-  };
-
-  const handleClick = (store) => {
+  const handleClick = async (store) => {
     setSelected(store);
-    getDealsCoupons();
+    let deals = [];
+    await api.getDealsAndCouponsFromFavoriteStores()
+    .then((response) => response[store])
+    .then((storeData) => deals = [...storeData.coupons, ...storeData.deals]);
+    setDealsCoupons(deals);
   };
   
   return (
     <div className="w-full">
       <SubHeader active="favorites" />
-      <div className="flex flex-col gap-2 m-8">
+      <div className="flex flex-col gap-2 m-8 items-center">
         <div id="logo-container" className="flex flex-wrap">
           {
             favoritesPlusLogos.length > 0 ?
@@ -53,6 +53,9 @@ const Favorites = () => {
         </div>
         <div id="deals-container" className="flex flex-col gap-2 m-8">
           {
+            dealsCoupons === null ?
+            null
+            :
             dealsCoupons.map(deal => (
               <div className="flex items-center gap-4">
               <a 
@@ -78,7 +81,7 @@ const Favorites = () => {
                   href={deal.clickUrl ? deal.clickUrl : "#"} 
                   className="pointer-cursor"
                 >
-                  <p className="truncate">{ deal.subtitle }</p>
+                  <p className="truncate">{ deal.merchantName }</p>
                 </a>
               </div>
             </div>
