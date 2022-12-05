@@ -6,16 +6,24 @@ import { useState } from "react";
 const Favorites = () => {
   const { favoriteStores } = useSelector(state => state.user);
   const default_image = require("../assets/defaultCoupon.jpeg");
-  const favoritesPlusLogos = favoriteStores.stores.map((storeName) => {
-    const logoName = storeName
-      .trim()
-      .replace(/['.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
-      .replaceAll(" ", "-")
-      .toLowerCase();
-    const logoImportUri = require(`../assets/stores/${logoName}.png`);
-    return [storeName, logoImportUri];
-  });
-  const [selected, setSelected] = useState(favoritesPlusLogos[0][0]);
+  const [selected, setSelected] = useState("Amazon");
+  const [favoritesPlusLogos, setFavoritesPlusLogos] = useState([]);
+
+  if (favoriteStores.stores.length > 0) {
+    const logos = favoriteStores.stores.map((storeName) => {
+      const logoName = storeName
+        .trim()
+        .replace(/['.,\/#!$%\^&\*;:{}=\-_`~()]/g,"")
+        .replaceAll(" ", "-")
+        .toLowerCase();
+      const logoImportUri = require(`../assets/stores/${logoName}.png`);
+      return [storeName, logoImportUri];
+    });
+    setFavoritesPlusLogos(logos);
+
+    setSelected(favoritesPlusLogos[0][0]);
+  }
+
   const [dealsCoupons, setDealsCoupons] = useState(null);
   const [,updateState] = useState();
 
