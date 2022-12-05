@@ -13,6 +13,7 @@ import { store } from "./store";
 import { Provider } from "react-redux";
 import AuthVerify from "./components/AuthVerify";
 import Faq from "./pages/FAQ";
+import CouponDealDetail from "./components/popups/CouponDealDetail";
 function App() {
   return (
     <Provider store={store}>
