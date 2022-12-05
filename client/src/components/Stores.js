@@ -60,7 +60,6 @@ const Store = ({ setSelectedStores, submit, setShowModal }) => {
   const submitHandler = (e) => {
     e.preventDefault();
     submit(false);
-    setShowModal("inactive");
   };
 
   return (

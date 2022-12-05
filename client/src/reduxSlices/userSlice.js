@@ -10,7 +10,9 @@ export const userSlice = createSlice({
     user: isLoggedIn() ? JSON.parse(localStorage.getItem("user")) : null,
     resetEmail: "",
     history: isLoggedIn() ? JSON.parse(localStorage.getItem("history")) : null,
-    favoriteStores: isLoggedIn() ? JSON.parse(localStorage.getItem("favoriteStores")) : null,
+    favoriteStores: isLoggedIn()
+      ? JSON.parse(localStorage.getItem("favoriteStores"))
+      : null,
   },
   reducers: {
     setUser: (state, action) => {
@@ -28,10 +30,11 @@ export const userSlice = createSlice({
   },
 });
 
-export const { setUser, setResetEmail, setHistory, setFavoriteStores } = userSlice.actions;
+export const { setUser, setResetEmail, setHistory, setFavoriteStores } =
+  userSlice.actions;
 
-const updateFavorites = async () => {
-  const favoriteStores = await api.getfavorites();
+const updateFavorites = () => async (dispatch) => {
+  const favoriteStores = await api.getFavorites();
   dispatch(setFavoriteStores(favoriteStores));
   localStorage.setItem("favoriteStores", JSON.stringify(favoriteStores));
 };
