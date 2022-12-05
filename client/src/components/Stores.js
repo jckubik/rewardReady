@@ -9,7 +9,7 @@ const Store = ({ setSelectedStores, submit, setShowModal }) => {
     const [stores, setStores] = useState([
         {
             id: 1,
-            img: require("../assets/stores/amazon.jpeg"),
+            img: require("../assets/stores/amazon.png"),
             selected: false,
         },
         {
@@ -19,7 +19,7 @@ const Store = ({ setSelectedStores, submit, setShowModal }) => {
         },
         {
             id: 3,
-            img: require("../assets/stores/Best-Buy.jpeg"),
+            img: require("../assets/stores/best-buy.png"),
             selected: false,
         },
         {
@@ -29,12 +29,12 @@ const Store = ({ setSelectedStores, submit, setShowModal }) => {
         },
         {
             id: 5,
-            img: require("../assets/stores/Target.jpeg"),
+            img: require("../assets/stores/target.png"),
             selected: false,
         },
         {
             id: 6,
-            img: require("../assets/stores/Walgreens.png"),
+            img: require("../assets/stores/walgreens.png"),
             selected: false,
         },
         {

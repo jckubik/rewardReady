@@ -10,6 +10,7 @@ export const userSlice = createSlice({
     user: isLoggedIn() ? JSON.parse(localStorage.getItem("user")) : null,
     resetEmail: "",
     history: isLoggedIn() ? JSON.parse(localStorage.getItem("history")) : null,
+    favoriteStores: isLoggedIn() ? JSON.parse(localStorage.getItem("favoriteStores")) : null,
   },
   reducers: {
     setUser: (state, action) => {
@@ -21,15 +22,35 @@ export const userSlice = createSlice({
     setHistory: (state, action) => {
       state.history = action.payload;
     },
+    setFavoriteStores: (state, action) => {
+      state.favoriteStores = action.payload;
+    },
   },
 });
 
-export const { setUser, setResetEmail, setHistory } = userSlice.actions;
+export const { setUser, setResetEmail, setHistory, setFavoriteStores } = userSlice.actions;
+
+const updateFavorites = async () => {
+  const favoriteStores = await api.getfavorites();
+  dispatch(setFavoriteStores(favoriteStores));
+  localStorage.setItem("favoriteStores", JSON.stringify(favoriteStores));
+};
+
+export const addFavoriteStore = (merchantName) => async (dispatch) => {
+  await api.addFavoriteStore(merchantName);
+  updateFavorites();
+};
+
+export const removeFavoriteStore = (merchantName) => async (dispatch) => {
+  await api.removeFavoriteStore(merchantName);
+  updateFavorites();
+};
 
 export const login = (email, password) => async (dispatch) => {
   let loginResponse = await api.login({ email, password });
   let cards = await api.getUserCards();
   let history = await api.getHistory();
+  let favoriteStores = await api.getFavorites();
   if (!loginResponse.user || !loginResponse.token) {
     throw new Error(loginResponse.response.data.message);
   }
@@ -39,8 +60,11 @@ export const login = (email, password) => async (dispatch) => {
   localStorage.setItem("user", JSON.stringify(user));
   localStorage.setItem("cards", JSON.stringify(cards));
   localStorage.setItem("history", JSON.stringify(history));
+  localStorage.setItem("favoriteStores", JSON.stringify(favoriteStores));
   dispatch(setUser(user));
   dispatch(setCards(cards));
+  dispatch(setHistory(history));
+  dispatch(setFavoriteStores(favoriteStores));
 };
 
 export const logout = () => async (dispatch) => {

@@ -147,6 +147,12 @@ const Header = (props) => {
                         >
                           History
                         </Link>
+                        <Link
+                          to="/favorites"
+                          className="text-gray-700 block px-4 py-2 text-sm hover:bg-gray-100"
+                        >
+                          Favorite Stores
+                        </Link>
                         <div
                           to="/"
                           className="text-gray-700 block px-4 py-2 text-sm cursor-pointer hover:bg-gray-100"
