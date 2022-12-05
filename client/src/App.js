@@ -15,9 +15,6 @@ import Faq from "./pages/FAQ";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import AuthVerify from "./components/AuthVerify";
-import Faq from "./pages/FAQ";
-import CouponDealDetail from "./components/popups/CouponDealDetail";
-import Favorites from "./pages/Favorites";
 
 function App() {
   return (
