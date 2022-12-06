@@ -42,11 +42,14 @@ const FavoriteStore = () => {
                     <option value="">Select Store</option>
                     {stores &&
                         stores.map((item, idx) => {
-                            return (
-                                <option key={idx} value={item.name}>
-                                    {item.name}
-                                </option>
-                            );
+                            if (!favoriteStoreData.stores.includes(item.name)) {
+                                return (
+                                    <option key={idx} value={item.name}>
+                                        {item.name}
+                                    </option>
+                                );
+                            }
+
                         })}
                 </select>
                 <button className="primary-btn" onClick={AddStoreHandler}>
