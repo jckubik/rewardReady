@@ -42,13 +42,19 @@ const FavoriteStore = () => {
                     <option value="">Select Store</option>
                     {stores &&
                         stores.map((item, idx) => {
-                            if (!favoriteStoreData.stores.includes(item.name)) {
+                            // if (favoriteStoreData && !favoriteStoreData.stores.includes(item.name)) {
                                 return (
                                     <option key={idx} value={item.name}>
                                         {item.name}
                                     </option>
                                 );
-                            }
+                            // } else {
+                            //     return (
+                            //         <option key={idx} value={item.name}>
+                            //             {item.name}
+                            //         </option>
+                            //     );
+                            // }
 
                         })}
                 </select>

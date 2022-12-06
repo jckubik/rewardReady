@@ -228,7 +228,7 @@ async function addDealsToDBQuery(query) {
       });
 }
 
-function addCouponsToDB() {
+async function addCouponsToDB() {
   const options = {
       method: "GET",
       url:"https://rewardready.discovery.cs.vt.edu/api/coupon/grab_cj_coupons"
@@ -320,6 +320,9 @@ async function populateDealsAndCoupons() {
   addCouponsToDB();
   addCouponsToDBQuery("TV");
   addDealsToDBQuery("iPhone");
+  // addDealsToDBQuery("tv");
+  // addDealsToDBQuery("clothes");
+  // addDealsToDBQuery("movie");
 }
 
 let scriptOptions = [

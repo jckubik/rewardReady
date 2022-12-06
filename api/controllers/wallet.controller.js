@@ -16,6 +16,7 @@ exports.fetchCards = async (req, res) => {
     })
     .then((cards) => {
       const cardsInfo = cards.map((walletCard) => {
+        console.log(walletCard);
         return Card.findOne({ where: { id: { [Op.eq]: walletCard.cardId } } });
       });
       return Promise.all(cardsInfo);
@@ -37,7 +38,7 @@ exports.insertCard = async (req, res) => {
     .then((walletCard) =>
       Card.findOne({ where: { id: { [Op.eq]: walletCard.cardId } } })
     )
-    .then((insertedCard) => creditCardImageHandler(insertedCard))
+    // .then((insertedCard) => creditCardImageHandler(insertedCard))
     .then((insertedCard) => {
       res.status(200).send(insertedCard);
       return insertedCard;
@@ -154,35 +155,35 @@ exports.insertHistory = async (req, res) => {
     .catch(() => res.status(500).send({ message: "Unexpected error" }));
 };
 
-async function creditCardImageHandler(card) {
-  if (!card.image_url) {
-    try {
-      let image_url = await fetchImage(card.title);
-      await Card.update({ image_url: image_url }, { where: { id: card.id } });
-      return await Card.findOne({ where: { id: { [Op.eq]: card.id } } });
-    } catch (err) {
-      throw new Error(err);
-    }
-  }
-}
+// async function creditCardImageHandler(card) {
+//   if (!card.image_url) {
+//     try {
+//       let image_url = await fetchImage(card.title);
+//       await Card.update({ image_url: image_url }, { where: { id: card.id } });
+//       return await Card.findOne({ where: { id: { [Op.eq]: card.id } } });
+//     } catch (err) {
+//       throw new Error(err);
+//     }
+//   }
+// }
 
-async function fetchImage(query) {
-  const axios = require("axios");
-  const options = {
-    method: "GET",
-    url: "https://bing-image-search1.p.rapidapi.com/images/search",
-    params: {
-      q: query,
-    },
-    headers: {
-      "X-RapidAPI-Key": apiConfig.webSearchAPIKey,
-      "X-RapidAPI-Host": "bing-image-search1.p.rapidapi.com",
-    },
-  };
-  try {
-    let response = await axios.request(options);
-    return response.data.value[0].contentUrl;
-  } catch (err) {
-    throw new Error(err);
-  }
-}
+// async function fetchImage(query) {
+//   const axios = require("axios");
+//   const options = {
+//     method: "GET",
+//     url: "https://bing-image-search1.p.rapidapi.com/images/search",
+//     params: {
+//       q: query,
+//     },
+//     headers: {
+//       "X-RapidAPI-Key": apiConfig.webSearchAPIKey,
+//       "X-RapidAPI-Host": "bing-image-search1.p.rapidapi.com",
+//     },
+//   };
+//   try {
+//     let response = await axios.request(options);
+//     return response.data.value[0].contentUrl;
+//   } catch (err) {
+//     throw new Error(err);
+//   }
+// }
