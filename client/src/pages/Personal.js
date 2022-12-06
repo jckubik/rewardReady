@@ -13,12 +13,12 @@ const Personal = () => {
   const deleteAccount = () => {
     api.deleteUser();
   };
-  let creditCards;
-  api.getCreditCards().then((response) => {
-    creditCards = response;
-  });
-  console.log(creditCards);
-  api.getCreditCardById();
+  // let creditCards;
+  // api.getCreditCards().then((response) => {
+  //   creditCards = response;
+  // });
+  // console.log(creditCards);
+  // api.getCreditCardById();
 
   const [showChangePassword, setShowChangePassword] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);

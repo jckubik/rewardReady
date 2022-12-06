@@ -15,10 +15,11 @@ exports.getDeals = async (req, res) => {
     items.forEach((item) => {
       Deal.findOne({ where: { dealId: item.deal.id } }).then((deal) => {
         if (!deal) {
+          const descriptionCleaned = cleanString(item.deal.description);
           Deal.create({
             dealId: item.deal.id,
             title: item.deal.title,
-            description: item.deal.description,
+            description: descriptionCleaned,
             price: item.deal.price,
             value: item.deal.value,
             imageUrl: item.deal.image_url,
@@ -124,6 +125,16 @@ exports.getDealFromDB = async (req, res) => {
   }
 };
 
+function cleanString(input) {
+  var output = "";
+  for (var i = 0; i < input.length; i++) {
+    if (input.charCodeAt(i) <= 127) {
+      output += input.charAt(i);
+    }
+  }
+  return output;
+}
+
 exports.searchDealsWeb = async (req, res) => {
   try {
     const items = await tempUtil.searchDealsWeb(req);
@@ -140,12 +151,13 @@ exports.searchDealsWeb = async (req, res) => {
           Deal.findOne({ where: { dealId: deal.product_id_v2 } }).then(
             (item) => {
               if (!item) {
+                const descriptionCleaned = cleanString(deal.product_description);
                 Deal.create({
                   dealId: deal.product_id_v2,
                   hasProductId: true,
                   productId: deal.product_id,
                   title: deal.product_title,
-                  description: deal.product_description,
+                  description: descriptionCleaned,
                   price: deal.offer.price,
                   value: priceRange,
                   imageUrl: deal.product_photos[0],
@@ -172,7 +184,7 @@ exports.getDealsByMerchant = async (req, res) => {
       where: { merchantName: { [Op.eq]: merchantName } },
     });
 
-    console.log(deals);
+    // console.log(deals);
     res.status(200).send(deals);
   } catch (err) {
     console.log(err);
