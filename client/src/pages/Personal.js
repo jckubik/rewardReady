@@ -13,11 +13,11 @@ const Personal = () => {
   const deleteAccount = () => {
     api.deleteUser();
   };
-  // let creditCards;
-  // api.getCreditCards().then((response) => {
-  //   creditCards = response;
-  // });
-  // console.log(creditCards);
+  let creditCards;
+  api.getCreditCards().then((response) => {
+    creditCards = response;
+  });
+  console.log(creditCards);
   // api.getCreditCardById();
 
   const [showChangePassword, setShowChangePassword] = useState(false);
@@ -41,7 +41,7 @@ const Personal = () => {
   const updateInfo = (e) => {
     e.preventDefault();
     try {
-      fetch(`http://localhost:${PORT}/api/user/update`, {
+      fetch(`http://rewardready.discovery.cs.vt.edu/api/user/update`, {
         body: JSON.stringify({
           firstName: firstName_r.current.value,
           lastName: lastName_r.current.value,
