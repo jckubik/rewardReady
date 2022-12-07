@@ -16,7 +16,8 @@ Back End: Express.js
 Database: MySQL
 
 ## Demonstration Video
-[](https://youtu.be/Pb-7GqapvgQ)
+
+[![RewardReady Demonstration](https://youtu.be/Pb-7GqapvgQ)](https://youtu.be/Pb-7GqapvgQ "RewardReady Demonstration Video on Youtube")
 
 ## Authors and acknowledgment
 Anurag Saroha: sanurag@vt.edu
