@@ -3,6 +3,7 @@ import { isLoggedIn } from "../utils/auth";
 import api from "../utils/api";
 import { setExpToken, clearCookies } from "../utils/auth";
 import { setCards } from "./walletSlice";
+import { useDispatch } from "react-redux";
 
 export const userSlice = createSlice({
   name: "user",
@@ -33,20 +34,20 @@ export const userSlice = createSlice({
 export const { setUser, setResetEmail, setHistory, setFavoriteStores } =
   userSlice.actions;
 
-const updateFavorites = () => async (dispatch) => {
+export const addFavoriteStore = (merchantName) => async (dispatch) => {
+  await api.addFavoriteStore(merchantName);
+  console.log("UPDATING USERSLICE FAVORITES");
   const favoriteStores = await api.getFavorites();
   dispatch(setFavoriteStores(favoriteStores));
   localStorage.setItem("favoriteStores", JSON.stringify(favoriteStores));
 };
 
-export const addFavoriteStore = (merchantName) => async (dispatch) => {
-  await api.addFavoriteStore(merchantName);
-  updateFavorites();
-};
-
 export const removeFavoriteStore = (merchantName) => async (dispatch) => {
   await api.removeFavoriteStore(merchantName);
-  updateFavorites();
+  console.log("UPDATING USERSLICE FAVORITES");
+  const favoriteStores = await api.getFavorites();
+  dispatch(setFavoriteStores(favoriteStores));
+  localStorage.setItem("favoriteStores", JSON.stringify(favoriteStores));
 };
 
 export const login = (email, password) => async (dispatch) => {

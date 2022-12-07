@@ -9,14 +9,13 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import About from "./pages/About";
 import Favorites from "./pages/Favorites";
-import CouponDealDetail from "./components/popups/CouponDealDetail";
 import ResetPasswordModal from "./components/popups/ResetPasswordModal";
-import Faq from "./pages/FAQ";
 import { store } from "./store";
 import { Provider } from "react-redux";
 import AuthVerify from "./components/AuthVerify";
 import Search from "./pages/Search";
-
+import Faq from "./pages/FAQ";
+import CouponDealDetail from "./components/popups/CouponDealDetail";
 function App() {
   return (
     <Provider store={store}>

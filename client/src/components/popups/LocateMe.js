@@ -99,14 +99,20 @@ const LocateMe = (props) => {
                                 required
                             >
                                 <option value="">Select</option>
-                                {states.map((state, index) => (
-                                    <option
-                                        value={state.isoCode}
-                                        key={state.isoCode}
-                                    >
-                                        {state.isoCode}
-                                    </option>
-                                ))}
+                                {states.map((state, index) => {
+                                    const notIncluded = ["AS", "GU", "MP", "VI"];
+                                    if (!notIncluded.includes(state.isoCode) && !state.isoCode.includes("UM")) {
+                                        return (
+                                            <option
+                                                value={state.isoCode}
+                                                key={state.isoCode}
+                                            >
+                                                {state.isoCode}
+                                            </option>
+                                        );
+                                    }
+
+                                })}
                             </select>
                         </div>
                         <button

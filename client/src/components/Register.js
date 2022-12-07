@@ -7,6 +7,7 @@ import api from "../utils/api";
 import Survey from "./popups/Survey";
 import { useDispatch } from "react-redux";
 import { login } from "../reduxSlices/userSlice";
+import { Link } from "react-router-dom";
 
 const Register = ({ setShow }) => {
     const firstName_r = useRef();
@@ -154,9 +155,11 @@ const Register = ({ setShow }) => {
                     >
                         Already Have an Account? Sign In
                     </div>
-                    <a href="/" className="text-shamrock-green underline">
+                    <div onClick={() => {setShow("inactive");}}>
+                    <Link to="/faq" className="text-shamrock-green underline">
                         Help
-                    </a>
+                    </Link>
+                    </div>
                 </div>
             )}
             <Survey visible={showSurvey} setVisible={setShowSurvey} setShowModal={setShow} />

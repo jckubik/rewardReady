@@ -10,6 +10,7 @@ const Coupon = db.coupons;
 const Op = db.Sequelize.Op;
 const StoreCategories = db.StoreCategories;
 
+
 const prompt = require("prompt-sync")();
 
 async function downloadCreditCards() {
@@ -42,29 +43,37 @@ async function downloadCreditCards() {
   }
 }
 
-async function addCreditCardsToDB() {
-  try {
-    let totalPages = 145;
-    for (let i = 1; i <= totalPages; i++) {
-      let data = JSON.parse(
-        fs.readFileSync(`./creditCardsDB/creditCards${i}.json`)
-      );
-      data.results.forEach((cc) => {
-        let data = {
-          id: cc._id,
-          title: cc.title,
-          rewards: cc.rewards,
-          earnings: cc.earnings,
-          url: cc.url,
-          bank: cc.bank,
-        };
-        Card.create(data);
-      });
+function cleanString(input) {
+  var output = "";
+  for (var i = 0; i < input.length; i++) {
+    if (input.charCodeAt(i) <= 127) {
+      output += input.charAt(i);
     }
-    fs.rmSync("./creditCardsDB", { recursive: true, force: true });
-  } catch (err) {
-    console.log(err);
   }
+  return output;
+}
+
+async function addCreditCardsToDB() {
+  let totalPages = 145;
+  for (let i = 1; i <= totalPages; i++) {
+    let data = JSON.parse(
+      fs.readFileSync(`./creditCardsDB/creditCards${i}.json`)
+    );
+    data.results.forEach((cc) => {
+      const titleCleaned = cleanString(cc.title);
+      let data = {
+        id: cc._id,
+        title: titleCleaned,
+        rewards_type: cc.rewards_type,
+        rewards: cc.rewards,
+        earnings: cc.earnings,
+        url: cc.url,
+        bank: cc.bank,
+      };
+      Card.create(data);
+    });
+  }
+  fs.rmSync("./creditCardsDB", { recursive: true, force: true });
 }
 
 function addCategoriesToDB() {
@@ -192,13 +201,60 @@ async function populateStoresToDB() {
   }
 }
 
-function addDealsToDB() {
-  // TODO
+async function addDealsToDB() {
+  const options = {
+      method: "GET",
+      url:"https://rewardready.discovery.cs.vt.edu/api/deal/grab_deals"
+  };
+  axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data)
+      });
 }
 
-function addCouponsToDB() {
-  // TODO
+async function addDealsToDBQuery(query) {
+  const options = {
+      method: "GET",
+      url:"https://rewardready.discovery.cs.vt.edu/api/deal/search_deals_web",
+      data: {
+        "query": query
+      }
+  };
+  axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data)
+      });
 }
+
+async function addCouponsToDB() {
+  const options = {
+      method: "GET",
+      url:"https://rewardready.discovery.cs.vt.edu/api/coupon/grab_cj_coupons"
+  };
+  axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data)
+      });
+}
+
+async function addCouponsToDBQuery(query) {
+  const options = {
+      method: "GET",
+      url:"https://rewardready.discovery.cs.vt.edu/api/coupon/cj_query",
+      data: {
+        "query": query
+      }
+  };
+  axios
+      .request(options)
+      .then(function (response) {
+        console.log(response.data)
+      });
+}
+
 
 async function assignCategoryToStores() {
   try {
@@ -259,6 +315,16 @@ async function assignCategoryToStores() {
   }
 }
 
+async function populateDealsAndCoupons() {
+  addDealsToDB();
+  addCouponsToDB();
+  addCouponsToDBQuery("TV");
+  addDealsToDBQuery("iPhone");
+  // addDealsToDBQuery("tv");
+  // addDealsToDBQuery("clothes");
+  // addDealsToDBQuery("movie");
+}
+
 let scriptOptions = [
   {
     name: "Download credit cards from ccstack",
@@ -284,6 +350,10 @@ let scriptOptions = [
   {
     name: "Assign categories to stores",
     function: assignCategoryToStores,
+  },
+  {
+    name: "Adds deals and coupons to DB",
+    function: populateDealsAndCoupons,
   },
 ];
 

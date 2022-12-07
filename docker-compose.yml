@@ -1,0 +1,59 @@
+version: '3.8'
+
+services:
+  mysqldb:
+    image: docker.cs.vt.edu/jackp96/rewardreadydocker/mysql:1.1
+    restart: always
+    env_file: ./.env
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=rewardready
+    ports:
+      # - $MYSQLDB_LOCAL_PORT:$MYSQLDB_DOCKER_PORT
+      - 3306:3306
+    volumes:
+      - db:/var/lib/mysql
+    networks:
+      - backend
+  
+  api:
+    image: docker.cs.vt.edu/jackp96/rewardreadydocker/api:2.6
+    depends_on:
+      - mysqldb
+    # build: ./api
+    restart: always
+    env_file: ./.env
+    ports:
+      # - $NODE_LOCAL_PORT:$NODE_DOCKER_PORT
+      - 6868:9000
+    environment:
+      - DB_HOST=mysqldb
+      - DB_USER=root
+      - DB_PASSWORD=123456
+      - DB_NAME=rewardready
+      - DB_PORT=3306
+      - CLIENT_ORIGIN=http://127.0.0.1:8888
+    networks:
+      - backend
+      - frontend
+
+  client:
+    image: docker.cs.vt.edu/jackp96/rewardreadydocker/nginx:3.4
+    depends_on:
+      - api
+    # build:
+    #   context: ./client
+    #   args:
+    #     - REACT_APP_API_BASE_URL=http://127.0.0.1:6868/api
+    ports:
+      # - $REACT_LOCAL_PORT:$REACT_DOCKER_PORT
+      - 8888:80
+    networks:
+      - frontend  
+
+volumes: 
+  db:
+
+networks:
+  backend:
+  frontend:

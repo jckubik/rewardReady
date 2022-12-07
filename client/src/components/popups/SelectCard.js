@@ -69,11 +69,15 @@ const SelectCard = ({ visible, setVisible, isSurvey = false }) => {
                                 className="h-9 rounded-xl body w-80"
                             >
                                 <option value="">Select credit card</option>
-                                {creditCards.map((cc) => (
-                                    <option key={cc.id} value={cc.id}>
-                                        {cc.title}
-                                    </option>
-                                ))}
+                                {creditCards.map((cc) => {
+                                    const addedCards = wallet.map(card => card.title);
+                                    if (!addedCards.includes(cc.title)) {
+                                        return (
+                                        <option key={cc.id} value={cc.id}>
+                                            {cc.title}
+                                        </option>);
+                                    }
+                                })}
                             </select>
                             <button onClick={onSubmit} className="primary-btn">
                                 Add Card

@@ -47,13 +47,13 @@ const ShowcaseHelper = (props) => {
     }
   })
 
-  for (let i = 0; i < 10; i++) {
-    if (props.type === "deal") {
-      elems.push(FindDeal());
-    } else {
-      elems.push(FindCoupon());
+    for (let i = 0; i < 10; i++) {
+        if (props.type === "deal") {
+            elems.push(FindDeal());
+        } else {
+            elems.push(FindCoupon());
+        }
     }
-  }
 
   return (
     <div className="w-full">
@@ -78,9 +78,9 @@ const ShowcaseHelper = (props) => {
             ))}
           </Swiper>
         </div>
-      </div>
-    </div>
-  );
+        </div>
+        </div>
+    );
 };
 
 export default ShowcaseHelper;
