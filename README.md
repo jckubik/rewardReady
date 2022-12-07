@@ -15,19 +15,8 @@ Back End: Express.js
 
 Database: MySQL
 
-## Usage
-
-For a new user, the uasge of RewardReady is straightforward:
-
-1) Create an account
-
-2) Login to the app
-
-3) Provide the details of different credit/loyalty cards held
-
-From this point onward, the app is ready to provide user with personalized recommendations. User can deals/coupons from popular stores on his homepage. He/She can search for coupons or card recommendations by entering a store name manually or enabling the geolocation. In the latter case, the app itself finds the store name if there is actually an store at the geolocation of user.
-
-An unregistered user can simply use the app to find deals and rewards by providing a store name or his/her current geolocation, without going through the logging in step. But as the app doesn't have information related to cards held by user in this case, the recommendations will be generic in nature (best card overall, disregard to whether user holds it or not).                                              
+## Demonstration Video
+[](https://youtu.be/Pb-7GqapvgQ)
 
 ## Authors and acknowledgment
 Anurag Saroha: sanurag@vt.edu
